@@ -8,4 +8,4 @@ services:
     volumes:
       - '.:/usr/src/app'
     ports:
-      - '4500:4500'
+      - '8080:8080'
