@@ -5,8 +5,7 @@ services:
     container_name: margatsni-service-container
     build: .
     volumes:
-      - '.:/usr/src/app'
+      - ".:/usr/src/app"
     ports:
-      - '8080:8080'
-    command: bash -c "npm i && npm start:docker"
-
+      - "8080:8080"
+    command: bash -c "npm i && npm run start:docker"
