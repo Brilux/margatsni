@@ -1,0 +1,11 @@
+<div>
+  <form class="registration" [formGroup]="registrationForm">
+    <p>Enter username:</p>
+    <input formControlName="username" type="text">
+    <p>Enter email:</p>
+    <input formControlName="email" type="text">
+    <p>Password:</p>
+    <input formControlName="password" type="text">
+    <button class="registration-button" (click)="registration()">Sign up</button>
+  </form>
+</div>
