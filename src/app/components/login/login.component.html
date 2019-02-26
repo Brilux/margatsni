@@ -1,0 +1,10 @@
+<div>
+  <form class="login" [formGroup]="loginForm">
+    <p>Enter username or email:</p>
+    <input formControlName="email" type="text">
+    <p>Password:</p>
+    <input formControlName="password" type="text">
+    <button class="login-button" (click)="login()">Log in</button>
+  </form>
+  <button class="login-button" [routerLink]="[ '/registration' ]">Sign in</button>
+</div>
