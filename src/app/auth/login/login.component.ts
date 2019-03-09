@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../rest/auth/login/login.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import { LoginService } from '../../rest/auth/login/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService,
+              private authService: AuthService) { }
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, Validators.required),
@@ -19,7 +21,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.loginService.sendRegistration(this.loginForm.value.email,
       this.loginForm.value.password).subscribe(response => {
-      console.log(response);
+        this.authService.LocalStorageSaveToken(response);
     });
   }
 
