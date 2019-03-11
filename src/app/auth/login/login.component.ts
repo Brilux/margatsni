@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router) {}
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, Validators.required),

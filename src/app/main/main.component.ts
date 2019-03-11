@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class MainComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router) {}
 
   logout() {
     this.authService.logout();
@@ -19,5 +19,4 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
