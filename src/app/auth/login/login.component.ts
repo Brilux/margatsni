@@ -11,22 +11,23 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  public loginError: string;
+
   constructor(private loginService: LoginService,
               private authService: AuthService,
               private router: Router) {}
 
   public loginForm: FormGroup = new FormGroup({
-    email: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
   });
 
   public login(): void {
-    this.loginService.sendRegistration(this.loginForm.value.email,
+    this.loginService.sendAuthorization(this.loginForm.value.email,
       this.loginForm.value.password).subscribe(response => {
         this.authService.LocalStorageSaveToken(response);
-        this.authService.login();
         this.router.navigate(['']);
-    });
+    }, err => this.loginError = err.error);
   }
 
   ngOnInit() {

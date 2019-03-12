@@ -1,10 +1,17 @@
 <div>
-  <form class="login" [formGroup]="loginForm">
+  <form class="form-container" [formGroup]="loginForm">
     <p>Enter username or email:</p>
-    <input formControlName="email" type="text">
+    <label>
+      <input formControlName="email" type="text">
+    </label>
     <p>Password:</p>
-    <input formControlName="password" type="text">
-    <button class="login-button" (click)="login()">Log in</button>
+    <label>
+      <input formControlName="password" type="text">
+    </label>
+    <p *ngIf="loginError">{{loginError.error}}</p>
   </form>
-  <button class="login-button" [routerLink]="[ '/registration' ]">Sign in</button>
+  <div class="buttons-container">
+    <button class="login-button" (click)="login()">Log in</button>
+    <button class="login-button" [routerLink]="[ '/registration' ]">Sign in</button>
+  </div>
 </div>

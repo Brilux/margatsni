@@ -16,9 +16,9 @@ export class MainGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.loggedIn()) {
       return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
     }
+
+    this.router.navigate(['/login']);
+    return false;
   }
 }

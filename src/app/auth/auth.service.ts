@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  constructor() { }
+  constructor() {}
 
   private authorization = false;
 
@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   loggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return localStorage.getItem('token') ? true : false;
   }
 
   public LocalStorageSaveToken(response) {

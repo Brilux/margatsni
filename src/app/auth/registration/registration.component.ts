@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationService } from '../../rest/auth/registration/registration.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -9,12 +11,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistrationComponent implements OnInit {
 
-  constructor(private registrationService: RegistrationService) {
-  }
+  public registrationError: string;
+
+  constructor(private registrationService: RegistrationService,
+              private authService: AuthService,
+              private router: Router) {}
 
   public registrationForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
-    email: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.required),
   });
 
@@ -22,8 +27,9 @@ export class RegistrationComponent implements OnInit {
     this.registrationService.sendRegistration(this.registrationForm.value.username,
     this.registrationForm.value.email,
     this.registrationForm.value.password).subscribe(response => {
-      console.log(response);
-    });
+      this.authService.LocalStorageSaveToken(response);
+      this.router.navigate(['']);
+    }, err => this.registrationError = err.error);
   }
 
   ngOnInit() {

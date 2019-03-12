@@ -9,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class RegistrationService {
 
-  public url: string;
+  private url: string;
 
   constructor(private http: HttpClient) {
     this.url = environment.API_REGISTRATION_URL;
@@ -19,10 +19,7 @@ export class RegistrationService {
     const body = { username: username, email: email, password: password };
     return this.http.post(this.url, body).pipe(
       map(response => response),
-      catchError(err => {
-        console.error(err.error);
-        return throwError(err);
-      }));
+      catchError(err => throwError(err)));
   }
 }
 
