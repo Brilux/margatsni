@@ -1,0 +1,19 @@
+.form-container {
+  min-width: 200px;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+}
+
+.login-button {
+  margin: 20px;
+  height: 30px;
+  width: 100px;
+}
