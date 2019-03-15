@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   API_REGISTRATION_URL: 'https://margatsnimoc.herokuapp.com/api/v1/users',
-  API_LOGIN_URL: 'https://margatsnimoc.herokuapp.com/api/v1/users/login'
+  API_LOGIN_URL: 'https://margatsnimoc.herokuapp.com/api/v1/users/login',
+  API_FEED_URL: 'https://margatsnimoc.herokuapp.com/api/v1/posts/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
