@@ -15,7 +15,7 @@ export class AuthService {
 
   logout() {
     this.authorization = false;
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 
   loggedIn(): boolean {
