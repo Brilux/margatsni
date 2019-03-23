@@ -19,7 +19,7 @@ export class RegistrationService {
   public sendRegistration(username: string, email: string, password: string): Observable<TokenModel> {
     const body = { username: username, email: email, password: password };
     return this.http.post<TokenModel>(this.url, body).pipe(
-      map(response => new TokenModel(response)),
+      map(response => response),
       catchError(err => throwError(err)));
   }
 }
