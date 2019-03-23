@@ -16,9 +16,9 @@ export class RegistrationService {
     this.url = environment.API_REGISTRATION_URL;
   }
 
-  public sendRegistration(username: string, email: string, password: string): Observable<any> {
+  public sendRegistration(username: string, email: string, password: string): Observable<TokenModel> {
     const body = { username: username, email: email, password: password };
-    return this.http.post(this.url, body).pipe(
+    return this.http.post<TokenModel>(this.url, body).pipe(
       map(response => new TokenModel(response)),
       catchError(err => throwError(err)));
   }

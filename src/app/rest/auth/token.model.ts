@@ -4,7 +4,7 @@ export class TokenModel {
   token: string;
   user: UserModel;
 
-  constructor(response: any) {
+  constructor(response: TokenModel) {
     if (response) {
       this.token = response.token;
       this.user = response.user;

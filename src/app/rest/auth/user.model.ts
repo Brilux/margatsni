@@ -3,7 +3,7 @@ export class UserModel {
   id: number;
   username: string;
 
-  constructor(response: any) {
+  constructor(response: UserModel) {
     if (response) {
       this.email = response.email;
       this.id = response.id;
