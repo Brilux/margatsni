@@ -3,6 +3,7 @@ import { RegistrationService } from '../../rest/auth/registration/registration.s
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { TokenModel } from '../../rest/auth/token.model';
 
 @Component({
   selector: 'app-registration',
@@ -27,7 +28,7 @@ export class RegistrationComponent implements OnInit {
     this.registrationService.sendRegistration(this.registrationForm.value.username,
     this.registrationForm.value.email,
     this.registrationForm.value.password).subscribe(response => {
-      this.authService.LocalStorageSaveToken(response);
+      this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
     }, err => this.registrationError = err.error);
   }

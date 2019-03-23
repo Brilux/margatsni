@@ -8,10 +8,21 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 
 const mainRoutes: Routes = [
   {
-    path: '', component: MainComponent, children: [
-      { path: '', component: FeedComponent },
-      { path: 'post-create', component: CreatePostComponent },
-      { path: 'profile', component: ProfileComponent },
+    path: '',
+    component: MainComponent,
+    children: [
+      {
+        path: '',
+        component: FeedComponent
+      },
+      {
+        path: 'post-create',
+        component: CreatePostComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
     ]
   },
 ];
