@@ -1,6 +1,8 @@
+import { UserModel } from './user.model';
+
 export class TokenModel {
   token: string;
-  user: object;
+  user: UserModel;
 
   constructor(response: any) {
     if (response) {
