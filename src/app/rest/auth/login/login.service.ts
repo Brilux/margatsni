@@ -19,7 +19,7 @@ export class LoginService {
   public sendAuthorization(email: string, password: string): Observable<TokenModel> {
     const body = { email: email, password: password };
     return this.http.post<TokenModel>(this.url, body).pipe(
-      map(response => response),
+      map(response => new TokenModel(response)),
       catchError(err => throwError(err)));
   }
 }
