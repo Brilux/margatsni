@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -15,9 +15,16 @@ export class PostService {
     this.url = environment.API_CREATE_POST;
   }
 
-  public sendPost(description: string): Observable<any> {
-    const body = { body: description };
-    return this.http.post(this.url, body).pipe(
+  public sendPost(description: string, imagePost: File): Observable<any> {
+    const formData = new FormData();
+    formData.set('body', description);
+    formData.append('image_attributes[file_data]', imagePost, imagePost.name);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.http.post(this.url, formData, { headers }).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }

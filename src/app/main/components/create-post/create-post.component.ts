@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 
 @Component({
@@ -9,17 +9,25 @@ import { PostService } from '../../services/post.service';
 })
 export class CreatePostComponent implements OnInit {
 
-  public createPostInput = new FormControl();
+  postImage: File = null;
+
+  public postForm: FormGroup = new FormGroup({
+    createPostDescription: new FormControl(),
+    createPostImage: new FormControl()
+  });
 
   constructor(private postService: PostService) { }
 
   ngOnInit() {
   }
 
+  public onImageSelected(event) {
+    this.postImage = <File>event.target.files[0];
+  }
+
   public createPost() {
-    this.postService.sendPost(this.createPostInput.value).subscribe(
+    this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
       response => response,
       err => err);
   }
-
 }
