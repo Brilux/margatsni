@@ -20,7 +20,7 @@ const mainRoutes: Routes = [
         component: CreatePostComponent
       },
       {
-        path: 'profile',
+        path: 'profile/:id',
         component: ProfileComponent
       },
     ]

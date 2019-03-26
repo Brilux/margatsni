@@ -9,10 +9,14 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
 
+  public userUrl: string;
+
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
+    const userInfo = JSON.parse(localStorage.getItem('token'));
+    this.userUrl = userInfo.user.username;
   }
 
   logout() {
