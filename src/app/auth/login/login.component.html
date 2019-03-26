@@ -1,17 +1,19 @@
 <div>
   <form class="form-container" [formGroup]="loginForm">
-    <p>Enter username or email:</p>
-    <label>
-      <input formControlName="email" type="text">
-    </label>
-    <p>Password:</p>
-    <label>
-      <input formControlName="password" type="text">
-    </label>
+    <mat-form-field class="input">
+      <label>
+        <input matInput formControlName="email" placeholder="Enter the email">
+      </label>
+    </mat-form-field>
+    <mat-form-field class="input">
+      <label>
+        <input matInput formControlName="password" placeholder="Enter password">
+      </label>
+    </mat-form-field>
     <p *ngIf="loginError">{{loginError.error}}</p>
   </form>
   <div class="buttons-container">
-    <button class="login-button" (click)="login()">Log in</button>
-    <button class="login-button" [routerLink]="[ '/registration' ]">Sign in</button>
+    <button class="login-button" mat-raised-button color="primary" (click)="login()">Log in</button>
+    <button class="login-button" mat-raised-button color="primary" [routerLink]="[ '/registration' ]">Sign in</button>
   </div>
 </div>
