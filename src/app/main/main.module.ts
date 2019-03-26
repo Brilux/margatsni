@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MainRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   bootstrap: [MainComponent]
 })

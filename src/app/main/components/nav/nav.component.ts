@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,10 +13,11 @@ export class NavComponent implements OnInit {
   public userUrl: string;
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
-    const userInfo = JSON.parse(localStorage.getItem('token'));
+    const userInfo = this.localStorageService.getUserInfo();
     this.userUrl = userInfo.user.username;
   }
 
