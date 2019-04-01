@@ -8,7 +8,7 @@ import { ProfileService } from '../../../rest/profile/profile.service';
 })
 export class ProfileComponent implements OnInit {
 
-  userInfo: object = {};
+  userInfo: any = {};
 
   constructor(private profileService: ProfileService) { }
 
