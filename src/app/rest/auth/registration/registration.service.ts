@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment.prod';
 import { TokenModel } from '../token.model';
 
 @Injectable({
