@@ -1,24 +1,40 @@
-<div>
-  <form class="form-container" [formGroup]="registrationForm">
-    <mat-form-field class="input">
-      <label>
-        <input matInput formControlName="username" placeholder="Enter username:">
-      </label>
-    </mat-form-field>
-    <mat-form-field class="input">
-      <label>
-        <input matInput formControlName="email" placeholder="Enter email">
-      </label>
-    </mat-form-field>
-    <mat-form-field class="input">
-      <label>
-        <input matInput formControlName="password" placeholder="Enter password">
-      </label>
-    </mat-form-field>
-    <p *ngIf="registrationError">{{registrationError.error}}</p>
-  </form>
+<div class="registration-container">
+  <div class="welcome-message">
+    <h1>Margatsni</h1>
+    <p>Sign up to see photos and videos from your friends.</p>
+  </div>
+  <div>
+    <form class="form-container" [formGroup]="registrationForm">
+      <mat-form-field class="input">
+        <label>
+          <input matInput formControlName="username" placeholder="Enter username:">
+        </label>
+        <mat-error *ngIf="registrationForm.invalid && registrationForm.touched">Username can't be empty!</mat-error>
+      </mat-form-field>
+      <mat-form-field class="input">
+        <label>
+          <input matInput formControlName="email" placeholder="Enter email">
+        </label>
+        <mat-error *ngIf="registrationForm.invalid && registrationForm.touched">Enter please correct email!</mat-error>
+      </mat-form-field>
+      <mat-form-field class="input">
+        <label>
+          <input matInput formControlName="password" placeholder="Enter password">
+        </label>
+        <mat-error *ngIf="registrationForm.invalid && registrationForm.touched">Password can't be empty!</mat-error>
+      </mat-form-field>
+      <p *ngIf="registrationError">{{registrationError.error}}</p>
+    </form>
+    <div class="buttons-container">
+      <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid">Sign up</button>
+    </div>
+  </div>
+</div>
+
+<div class="question-container">
+  <p class="question-message">Have an account?</p>
   <div class="buttons-container">
-    <button class="registration-button" mat-raised-button color="primary" (click)="registration()">Sign up</button>
     <button class="registration-button" mat-raised-button color="primary" [routerLink]="[ '/login' ]">Log in</button>
   </div>
 </div>
+

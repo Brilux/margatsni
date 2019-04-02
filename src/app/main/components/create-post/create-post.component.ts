@@ -29,5 +29,6 @@ export class CreatePostComponent implements OnInit {
     this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
       response => response,
       err => err);
+    this.postForm.reset();
   }
 }
