@@ -7,7 +7,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +16,16 @@ import { MatCardModule } from '@angular/material';
     NavComponent,
     ProfileComponent,
     FeedComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    ProfileEditComponent
   ],
   imports: [
     CommonModule,
     MainRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   bootstrap: [MainComponent]
 })

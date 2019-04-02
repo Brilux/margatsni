@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.spinner {
+  margin: 0 auto;
+}
+
 .post {
   margin: 10px auto;
   border: 1px solid #C0C0C0;

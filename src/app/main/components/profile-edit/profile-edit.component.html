@@ -1,0 +1,18 @@
+<div class="profile-edit-container">
+  <p class="profile-edit-username">{{userInfo.username}}</p>
+  <form class="profile-edit-form-container" [formGroup]="profileEditForm">
+    <p>email:</p>
+    <label>
+      <input formControlName="email" value="{{userInfo.email}}">
+    </label>
+    <p>username:</p>
+    <label>
+      <input formControlName="username" value="{{userInfo.username}}">
+    </label>
+    <p>bio:</p>
+    <label>
+      <input formControlName="bio" value="{{userInfo.bio}}">
+    </label>
+    <button (click)="updateProfileInfo()">Submit</button>
+  </form>
+</div>
