@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PostService } from '../../services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -16,7 +17,8 @@ export class CreatePostComponent implements OnInit {
     createPostImage: new FormControl()
   });
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,9 +28,14 @@ export class CreatePostComponent implements OnInit {
   }
 
   public createPost() {
-    this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
+    const sendRequest = this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
       response => response,
       err => err);
-    this.postForm.reset();
+
+    const promise = (func) => new Promise((resolve => {
+      resolve(func);
+    }));
+
+    promise(sendRequest).then(() => this.router.navigate(['']));
   }
 }

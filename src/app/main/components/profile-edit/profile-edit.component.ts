@@ -30,9 +30,10 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateProfileInfo() {
-    this.profileService.updateUserInfo(this.profileEditForm.value.email,
-      this.profileEditForm.value.username,
-      this.profileEditForm.value.bio).subscribe(response => console.log(response),
+    this.profileService.updateUserInfo(
+      this.profileEditForm.value.email || this.email,
+      this.profileEditForm.value.username || this.username,
+      this.profileEditForm.value.bio || this.bio).subscribe(response => console.log(response),
       err => console.log(err));
   }
 
