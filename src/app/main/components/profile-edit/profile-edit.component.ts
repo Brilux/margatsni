@@ -9,7 +9,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ProfileEditComponent implements OnInit {
 
-  userInfo = {};
+  username: string;
+  email: string;
+  bio: string;
 
   public profileEditForm: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -20,7 +22,11 @@ export class ProfileEditComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.profileService.userInfo().subscribe(info => this.userInfo = info.user);
+    this.profileService.userInfo().subscribe(info => {
+      this.username = info.user.username;
+      this.email = info.user.email;
+      this.bio = info.user.bio;
+    });
   }
 
   updateProfileInfo() {
