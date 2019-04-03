@@ -9,11 +9,15 @@ import { FeedService } from '../../../rest/feed/feed.service';
 export class FeedComponent implements OnInit {
 
   public posts: [] = [];
+  spinner = true;
 
   constructor(private feedService: FeedService) { }
 
   ngOnInit() {
-    this.feedService.posts().subscribe(post => this.posts = post.posts);
+    this.feedService.posts().subscribe(post => {
+      this.posts = post.posts;
+      this.spinner = false;
+    });
   }
 
 }
