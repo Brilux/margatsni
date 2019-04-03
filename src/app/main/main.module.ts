@@ -9,6 +9,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,8 @@ import { ProfileEditComponent } from './components/profile-edit/profile-edit.com
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatProgressSpinnerModule
-  ],
-  bootstrap: [MainComponent]
+    MatProgressSpinnerModule,
+    InfiniteScrollModule,
+  ]
 })
 export class MainModule { }

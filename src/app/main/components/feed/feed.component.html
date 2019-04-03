@@ -1,6 +1,10 @@
 <div class="post-container">
   <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
   <div class="post" *ngFor="let post of posts">
+<!--       infiniteScroll-->
+<!--       [infiniteScrollDistance]="2"-->
+<!--       [infiniteScrollThrottle]="50"-->
+<!--       (scrolled)="onScroll()"-->
     <img class="post-image" src="{{post.image}}" alt="postImage">
     <div class="post-info-container">
       <p class="post-owner">{{post.user.username}}</p>

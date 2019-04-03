@@ -20,4 +20,7 @@ export class FeedComponent implements OnInit {
     });
   }
 
+  onScroll() {
+    console.log('scrolled!!');
+  }
 }
