@@ -28,14 +28,8 @@ export class CreatePostComponent implements OnInit {
   }
 
   public createPost() {
-    const sendRequest = this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
-      response => response,
+    this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
+      () => this.router.navigate(['']),
       err => err);
-
-    const promise = (func) => new Promise((resolve => {
-      resolve(func);
-    }));
-
-    promise(sendRequest).then(() => this.router.navigate(['']));
   }
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../environments/environment';
 import { TokenModel } from '../token.model';
 
 @Injectable({
@@ -10,15 +9,11 @@ import { TokenModel } from '../token.model';
 })
 export class LoginService {
 
-  private url: string;
-
-  constructor(private http: HttpClient) {
-    this.url = environment.API_LOGIN_URL;
-  }
+  constructor(private http: HttpClient) { }
 
   public sendAuthorization(email: string, password: string): Observable<TokenModel> {
     const body = { email: email, password: password };
-    return this.http.post<TokenModel>(this.url, body).pipe(
+    return this.http.post<TokenModel>('/users/login', body).pipe(
       map(response => new TokenModel(response)),
       catchError(err => throwError(err)));
   }

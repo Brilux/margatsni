@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   loggedIn(): boolean {
-    return localStorage.getItem('token') ? true : false;
+    return Boolean(localStorage.getItem('token'));
   }
 
   public LocalStorageSaveToken(response) {
