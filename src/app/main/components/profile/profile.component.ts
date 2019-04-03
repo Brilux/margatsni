@@ -10,14 +10,18 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  userInfo = {};
+  username: string;
+  bio: string;
 
   constructor(private profileService: ProfileService,
               private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
-    this.profileService.userInfo().subscribe(info => this.userInfo = info.user);
+    this.profileService.userInfo().subscribe(info => {
+      this.username = info.user.username;
+      this.bio = info.user.bio;
+    });
   }
 
   logout() {
