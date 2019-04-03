@@ -17,7 +17,7 @@
         </label>
         <mat-error *ngIf="loginForm.invalid && loginForm.touched">Password can't be empty!</mat-error>
       </mat-form-field>
-      <p *ngIf="loginError">{{loginError.error}}</p>
+      <mat-error *ngIf="loginError">{{loginError.error}}</mat-error>
     </form>
     <div class="buttons-container">
       <button class="login-button" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Log in</button>

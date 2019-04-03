@@ -1,0 +1,27 @@
+.profile-edit-container {
+  background-color: #ffff;
+  margin: 20px auto;
+  border: 1px #C0C0C0 solid;
+}
+
+.profile-edit-username {
+  text-align: center;
+}
+
+.profile-edit-form-container {
+}
+
+@media screen and (min-width: 576px) {
+  .profile-edit-container {
+    width: 550px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+
+}
+
+@media screen and (min-width: 992px) {
+
+}
+

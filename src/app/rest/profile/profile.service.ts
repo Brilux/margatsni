@@ -20,4 +20,11 @@ export class ProfileService {
       map(response => response),
       catchError(err => throwError(err)));
   }
+
+  public updateUserInfo(email: string, username: string, bio: string ) {
+    const body = { email: email, username: username, bio: bio };
+    return this.http.put(this.url, body).pipe(
+      map(response => console.log(response)),
+      catchError(err => throwError(err)));
+  }
 }
