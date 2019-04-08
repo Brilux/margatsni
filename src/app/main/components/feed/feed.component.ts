@@ -8,19 +8,26 @@ import { FeedService } from '../../../rest/feed/feed.service';
 })
 export class FeedComponent implements OnInit {
 
-  public posts: [] = [];
+  public posts: object[] = [];
   spinner = true;
+  startPage = 1;
 
   constructor(private feedService: FeedService) { }
 
   ngOnInit() {
-    this.feedService.posts().subscribe(post => {
+    this.feedService.posts(this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.spinner = false;
     });
   }
 
   onScroll() {
-    console.log('scrolled!!');
+    this.startPage++;
+    this.feedService.posts(this.startPage).subscribe(post => {
+      const posts = post.posts;
+      posts.forEach(item => {
+        this.posts.push(item);
+      });
+    });
   }
 }
