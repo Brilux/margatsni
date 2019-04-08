@@ -15,11 +15,11 @@ export class AuthService {
 
   logout() {
     this.authorization = false;
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 
   loggedIn(): boolean {
-    return localStorage.getItem('token') ? true : false;
+    return Boolean(localStorage.getItem('token'));
   }
 
   public LocalStorageSaveToken(response) {
