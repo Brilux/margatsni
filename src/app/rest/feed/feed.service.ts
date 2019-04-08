@@ -11,8 +11,8 @@ export class FeedService {
   constructor(private http: HttpClient) {
   }
 
-  public posts(): Observable<any> {
-    return this.http.get('/posts').pipe(
+  public posts(page): Observable<any> {
+    return this.http.get(`/posts?page=${page}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }
