@@ -23,4 +23,10 @@ export class ProfileService {
       map(response => console.log(response)),
       catchError(err => throwError(err)));
   }
+
+  public getUserPosts(page): Observable<any> {
+    return this.http.get(`/posts/me?page=${page}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
 }
