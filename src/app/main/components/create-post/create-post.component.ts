@@ -13,7 +13,7 @@ export class CreatePostComponent implements OnInit {
   postImage: File = null;
 
   public postForm: FormGroup = new FormGroup({
-    createPostDescription: new FormControl(),
+    createPostDescription: new FormControl(''),
     createPostImage: new FormControl()
   });
 

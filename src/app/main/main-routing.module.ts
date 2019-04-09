@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const mainRoutes: Routes = [
@@ -21,12 +22,16 @@ const mainRoutes: Routes = [
         component: CreatePostComponent
       },
       {
-        path: 'profile/:id',
-        component: ProfileComponent
+        path: 'user-profile/:id',
+        component: UserProfileComponent
       },
       {
         path: 'edit-profile',
         component: ProfileEditComponent
+      },
+      {
+        path: 'profile/:id',
+        component: ProfileComponent
       },
     ]
   },
