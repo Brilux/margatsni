@@ -6,10 +6,9 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class UserProfileService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   public userInfo(): Observable<any> {
     return this.http.get('/users/me').pipe(

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../../../rest/profile/profile.service';
+import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -19,7 +19,7 @@ export class ProfileEditComponent implements OnInit {
     bio: new FormControl()
   });
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: UserProfileService) { }
 
   ngOnInit() {
     this.profileService.userInfo().subscribe(info => {
