@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  startPage = 1;
-  public searchForm = new FormControl();
+  public searchForm = new FormControl('');
 
   constructor(private searchService: SearchService,
               private router: Router) { }
@@ -20,7 +19,6 @@ export class SearchComponent implements OnInit {
   }
 
   public searchUser() {
-    this.searchService.getUserPosts(this.searchForm.value, this.startPage).subscribe(response => response);
     this.router.navigate(['profile', this.searchForm.value]);
   }
 }
