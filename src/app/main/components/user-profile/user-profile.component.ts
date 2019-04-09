@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
+import { ProfileService } from '../../../rest/user-profile/profile.service';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -16,16 +16,22 @@ export class UserProfileComponent implements OnInit {
   public posts: object[] = [];
   startPage = 1;
 
-  constructor(private profileService: UserProfileService,
+  constructor(private profileService: ProfileService,
               private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.profileService.userInfo().subscribe(info => {
-      this.username = info.user.username;
-      this.bio = info.user.bio;
+      const {
+        username,
+        bio
+      } = info.user;
+
+      this.username = username;
+      this.bio = bio;
     });
-    this.profileService.getUserPosts(this.startPage).subscribe(post => {
+
+    this.profileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.spinner = false;
     });
@@ -33,7 +39,7 @@ export class UserProfileComponent implements OnInit {
 
   onScroll() {
     this.startPage++;
-    this.profileService.getUserPosts(this.startPage).subscribe(post => {
+    this.profileService.getUserProfilePosts(this.startPage).subscribe(post => {
       const posts = post.posts;
       posts.forEach(item => {
         this.posts.push(item);

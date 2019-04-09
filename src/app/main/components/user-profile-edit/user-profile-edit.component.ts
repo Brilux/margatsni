@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
+import { ProfileService } from '../../../rest/user-profile/profile.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  templateUrl: './user-profile-edit.component.html',
+  styleUrls: ['./user-profile-edit.component.css']
 })
-export class ProfileEditComponent implements OnInit {
+export class UserProfileEditComponent implements OnInit {
 
   username: string;
   email: string;
@@ -19,7 +19,7 @@ export class ProfileEditComponent implements OnInit {
     bio: new FormControl()
   });
 
-  constructor(private profileService: UserProfileService) { }
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
     this.profileService.userInfo().subscribe(info => {
@@ -30,7 +30,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   updateProfileInfo() {
-    this.profileService.updateUserInfo(
+    this.profileService.updateUserProfileInfo(
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.username || this.username,
       this.profileEditForm.value.bio || this.bio).subscribe(response => console.log(response),
