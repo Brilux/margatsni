@@ -2,3 +2,9 @@
   <img class="post-image" src="{{post.image}}" alt="postImage">
 </div>
 <p *ngIf="errorMessage">{{errorMessage.error}}</p>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="1000"
+  (scrolled)="onScroll()">
+</div>

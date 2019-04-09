@@ -4,7 +4,7 @@ import { MainComponent } from './main.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
-import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 
@@ -27,7 +27,7 @@ const mainRoutes: Routes = [
       },
       {
         path: 'edit-profile',
-        component: ProfileEditComponent
+        component: UserProfileEditComponent
       },
       {
         path: 'profile/:id',

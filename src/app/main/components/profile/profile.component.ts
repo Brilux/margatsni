@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from '../../../rest/search/search.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProfileService } from '../../../rest/user-profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,12 +13,29 @@ export class ProfileComponent implements OnInit {
   public posts: object[] = [];
   errorMessage: string;
 
-  constructor(private searchService: SearchService,
-              private router: Router) { }
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.searchService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
-        this.posts = post.posts;
-      }, err => this.errorMessage = err.error);
+    this.activeRoute.params.subscribe(() => {
+      this.getProfile();
+    });
+  }
+
+  getProfile() {
+    this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
+      this.posts = post.posts;
+    }, err => this.errorMessage = err.error);
+  }
+
+  onScroll() {
+    this.startPage++;
+    this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
+      const posts = post.posts;
+      posts.forEach(item => {
+        this.posts.push(item);
+      });
+    });
   }
 }
