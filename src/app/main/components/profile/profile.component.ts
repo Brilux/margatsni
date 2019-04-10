@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   startPage = 1;
   public posts: object[] = [];
   errorMessage: string;
+  spinner = true;
 
   constructor(private profileService: ProfileService,
               private router: Router,
@@ -19,6 +20,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe(() => {
+      this.spinner = true;
+      this.posts = [];
+      this.errorMessage = '';
       this.getProfile();
     });
   }
@@ -26,7 +30,11 @@ export class ProfileComponent implements OnInit {
   getProfile() {
     this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
-    }, err => this.errorMessage = err.error);
+      this.spinner = false;
+    }, err => {
+      this.errorMessage = err.error;
+      this.spinner = false;
+    });
   }
 
   onScroll() {
