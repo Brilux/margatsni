@@ -1,14 +1,21 @@
-<p>{{username}}</p>
-<p>{{bio}}</p>
-<button [routerLink]="[ '/edit-user-user-profile' ]">Edit profile</button>
-<button (click)="logout()">logout</button>
-<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
-<div class="post" *ngFor="let post of posts">
-  <img class="post-image" src="{{post.image}}" alt="postImage">
+<div>
+  <img class="user-avatar" src="{{userAvatar}}" alt="postImage">
+  <p>{{username}}</p>
+  <p>{{bio}}</p>
+  <button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
+  <button (click)="logout()">logout</button>
+  <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+  <div class="post-container">
+    <div class="post" *ngFor="let post of posts">
+      <button (click)="deletePost(post.id)">delete post</button>
+      <img class="post-image" src="{{post.image}}" alt="postImage">
+    </div>
+  </div>
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    (scrolled)="onScroll()">
+  </div>
 </div>
-<div
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="1000"
-  (scrolled)="onScroll()">
-</div>
+

@@ -20,11 +20,15 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe(() => {
-      this.spinner = true;
-      this.posts = [];
-      this.errorMessage = '';
-      this.getProfile();
+      this.reloadProfile();
     });
+  }
+
+  reloadProfile() {
+    this.spinner = true;
+    this.posts = [];
+    this.errorMessage = '';
+    this.getProfile();
   }
 
   getProfile() {
