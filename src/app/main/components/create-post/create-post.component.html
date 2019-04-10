@@ -1,8 +1,9 @@
-<form [formGroup]="postForm" (ngSubmit)="createPost()">
+<form [formGroup]="postForm">
   <label>
     <input type="file" formControlName="createPostImage" (change)="onImageSelected($event)">
   </label>
   <label>
     <input formControlName="createPostDescription">
   </label>
+  <button (click)="createPost()">Create post</button>
 </form>
