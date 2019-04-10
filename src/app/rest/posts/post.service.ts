@@ -24,4 +24,10 @@ export class PostService {
       map(response => response),
       catchError(err => throwError(err)));
   }
+
+  public deletePost(postId: number) {
+    return this.http.delete(`/posts/${postId}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
 }

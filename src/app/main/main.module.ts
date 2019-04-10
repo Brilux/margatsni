@@ -7,7 +7,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatProgressSpinnerModule } from '@angular/material';
 import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './components/search/search.component';
@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatCardModule,
     MatProgressSpinnerModule,
     InfiniteScrollModule,
+    MatFormFieldModule,
   ]
 })
 export class MainModule { }
