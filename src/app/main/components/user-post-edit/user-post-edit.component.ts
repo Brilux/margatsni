@@ -12,6 +12,7 @@ export class UserPostEditComponent implements OnInit {
   postImage;
   postDescription: string;
   postId: number;
+  userUrl: string;
 
   constructor(private postService: PostService,
               private shareService: ShareService) { }
@@ -25,6 +26,7 @@ export class UserPostEditComponent implements OnInit {
     this.postService.getPostById(this.postId).subscribe((post: any) => {
       this.postImage = post.post.image;
       this.postDescription = post.post.body;
+      this.userUrl = post.post.user.username;
     });
   }
 
