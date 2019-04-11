@@ -16,10 +16,10 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
-  public updateUserProfileInfo(email: string, username: string, bio: string ) {
+  public updateUserProfileInfo(email: string, username: string, bio: string ): Observable<any> {
     const body = { email: email, username: username, bio: bio };
     return this.http.put('/users/me', body).pipe(
-      map(response => console.log(response)),
+      map(response => response),
       catchError(err => throwError(err)));
   }
 

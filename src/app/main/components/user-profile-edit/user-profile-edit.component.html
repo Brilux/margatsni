@@ -13,6 +13,6 @@
     <label>
       <input formControlName="bio" value="{{bio}}">
     </label>
-    <button (click)="updateProfileInfo()">Submit</button>
+    <button (click)="updateProfileInfo()" [routerLink]="[ '/user-profile/' , userUrl ]">Submit</button>
   </form>
 </div>
