@@ -5,6 +5,8 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { TokenModel } from '../../rest/auth/token.model';
 
+const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -20,7 +22,7 @@ export class RegistrationComponent implements OnInit {
 
   public registrationForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailValidateRegex)]),
     password: new FormControl(null, Validators.required),
   });
 
@@ -30,7 +32,9 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.value.password).subscribe(response => {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
-    }, err => this.registrationError = err.error);
+    }, err => {
+      this.registrationError = err.error.errors[0];
+    });
   }
 
   ngOnInit() {
