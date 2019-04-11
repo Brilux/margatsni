@@ -7,8 +7,9 @@
   <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
   <div class="post-container">
     <div class="post" *ngFor="let post of posts">
-      <button (click)="deletePost(post.id)">delete post</button>
+      <button (click)="editPost(post.id)" [routerLink]="[ '/edit-post' ]">edit post</button>
       <img class="post-image" src="{{post.image}}" alt="postImage">
+      <p>{{post.body}}</p>
     </div>
   </div>
   <div

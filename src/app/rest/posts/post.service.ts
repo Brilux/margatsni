@@ -25,6 +25,19 @@ export class PostService {
       catchError(err => throwError(err)));
   }
 
+  public getPostById(postId: number) {
+    return this.http.get(`/posts/${postId}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
+
+  // public updatePost(postId: number, description: string) {
+  //   const body = { description };
+  //   return this.http.put(`/posts/${postId}`, body).pipe(
+  //     map(response => console.log(response)),
+  //     catchError(err => throwError(err)));
+  // }
+
   public deletePost(postId: number) {
     return this.http.delete(`/posts/${postId}`).pipe(
       map(response => response),

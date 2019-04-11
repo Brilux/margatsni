@@ -6,6 +6,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
 
 
 const mainRoutes: Routes = [
@@ -28,6 +29,10 @@ const mainRoutes: Routes = [
       {
         path: 'edit-profile',
         component: UserProfileEditComponent
+      },
+      {
+        path: 'edit-post',
+        component: UserPostEditComponent
       },
       {
         path: 'profile/:id',
