@@ -1,3 +1,6 @@
 <img src="{{postImage}}" alt="postImage">
-<p>{{postDescription}}</p>
-<button (click)="deletePost()">delete post</button>
+<label>
+  <input [formControl]="inputPostDescription" value="{{postDescription}}">
+</label>
+<button (click)="updatePost()" [routerLink]="[ '/user-profile/' , userUrl ]">update post</button>
+<button (click)="deletePost()" [routerLink]="[ '/user-profile/' , userUrl ]">delete post</button>

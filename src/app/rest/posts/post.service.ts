@@ -31,12 +31,13 @@ export class PostService {
       catchError(err => throwError(err)));
   }
 
-  // public updatePost(postId: number, description: string) {
-  //   const body = { description };
-  //   return this.http.put(`/posts/${postId}`, body).pipe(
-  //     map(response => console.log(response)),
-  //     catchError(err => throwError(err)));
-  // }
+  public updatePost(postId: number, description: string) {
+    const formData = new FormData();
+    formData.set('body', description);
+    return this.http.put(`/posts/${postId}`, formData).pipe(
+      map(response => console.log(response)),
+      catchError(err => throwError(err)));
+  }
 
   public deletePost(postId: number) {
     return this.http.delete(`/posts/${postId}`).pipe(
