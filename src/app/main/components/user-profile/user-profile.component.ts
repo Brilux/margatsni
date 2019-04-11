@@ -3,6 +3,7 @@ import { ProfileService } from '../../../rest/user-profile/profile.service';
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { PostService } from '../../../rest/posts/post.service';
+import { ShareService } from '../../services/share.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private profileService: ProfileService,
               private postService: PostService,
               private authService: AuthService,
+              private shareService: ShareService,
               private router: Router) { }
 
   ngOnInit() {
@@ -57,7 +59,8 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  deletePost(postId: number) {
-    this.postService.deletePost(postId).subscribe();
+  editPost(postId) {
+    this.shareService.editPost(postId);
   }
+
 }
