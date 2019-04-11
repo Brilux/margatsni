@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../rest/posts/post.service';
 import { ShareService } from '../../services/share.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-post-edit',
@@ -13,6 +14,8 @@ export class UserPostEditComponent implements OnInit {
   postDescription: string;
   postId: number;
   userUrl: string;
+
+  public inputPostDescription = new FormControl();
 
   constructor(private postService: PostService,
               private shareService: ShareService) { }
@@ -30,9 +33,9 @@ export class UserPostEditComponent implements OnInit {
     });
   }
 
-  // updatePost() {
-  //   this.postService.updatePost();
-  // }
+  updatePost() {
+    this.postService.updatePost(this.postId, this.inputPostDescription.value || this.postDescription).subscribe();
+  }
 
   deletePost() {
     this.postService.deletePost(this.postId).subscribe();
