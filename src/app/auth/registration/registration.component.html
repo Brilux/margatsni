@@ -19,11 +19,11 @@
       </mat-form-field>
       <mat-form-field class="input">
         <label>
-          <input matInput formControlName="password" placeholder="Enter password">
+          <input type="password" matInput formControlName="password" placeholder="Enter password">
         </label>
         <mat-error *ngIf="registrationForm.invalid && registrationForm.touched">Password can't be empty!</mat-error>
       </mat-form-field>
-      <p *ngIf="registrationError">{{registrationError.error}}</p>
+      <mat-error *ngIf="registrationError">{{registrationError}}</mat-error>
     </form>
     <div class="buttons-container">
       <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid">Sign up</button>
