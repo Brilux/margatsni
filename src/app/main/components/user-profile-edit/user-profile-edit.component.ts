@@ -12,6 +12,7 @@ export class UserProfileEditComponent implements OnInit {
   username: string;
   email: string;
   bio: string;
+  userUrl: number;
 
   public profileEditForm: FormGroup = new FormGroup({
     email: new FormControl(),
@@ -26,6 +27,7 @@ export class UserProfileEditComponent implements OnInit {
       this.username = info.user.username;
       this.email = info.user.email;
       this.bio = info.user.bio;
+      this.userUrl = info.user.id;
     });
   }
 
@@ -33,8 +35,8 @@ export class UserProfileEditComponent implements OnInit {
     this.profileService.updateUserProfileInfo(
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.username || this.username,
-      this.profileEditForm.value.bio || this.bio).subscribe(response => console.log(response),
-      err => console.log(err));
+      this.profileEditForm.value.bio || this.bio).subscribe(response => response,
+      err => err);
   }
 
 }

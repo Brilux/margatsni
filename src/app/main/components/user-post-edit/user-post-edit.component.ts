@@ -34,11 +34,13 @@ export class UserPostEditComponent implements OnInit {
   }
 
   updatePost() {
-    this.postService.updatePost(this.postId, this.inputPostDescription.value || this.postDescription).subscribe();
+    this.postService.updatePost(this.postId, this.inputPostDescription.value || this.postDescription).subscribe(
+      response => response,
+        err => err);
   }
 
   deletePost() {
-    this.postService.deletePost(this.postId).subscribe();
+    this.postService.deletePost(this.postId).subscribe(response => response, err => err);
   }
 
 }
