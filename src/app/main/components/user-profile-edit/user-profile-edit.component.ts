@@ -15,9 +15,9 @@ export class UserProfileEditComponent implements OnInit {
   userUrl: number;
 
   public profileEditForm: FormGroup = new FormGroup({
-    email: new FormControl(),
-    username: new FormControl(),
-    bio: new FormControl()
+    email: new FormControl(''),
+    username: new FormControl(''),
+    bio: new FormControl('')
   });
 
   constructor(private profileService: ProfileService) { }

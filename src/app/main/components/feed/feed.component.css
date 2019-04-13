@@ -33,6 +33,19 @@
   text-align: center;
 }
 
+.post-comments {
+  display: flex;
+}
+
+.comment-owner {
+  font-weight: bold;
+}
+
+.comment-body {
+  margin-left: 10px;
+  text-align: center;
+}
+
 @media screen and (max-width: 576px) {
   .post {
     width: 320px;
