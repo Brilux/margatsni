@@ -21,9 +21,9 @@ export class RegistrationComponent implements OnInit {
               private router: Router) {}
 
   public registrationForm: FormGroup = new FormGroup({
-    username: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email, Validators.pattern(emailValidateRegex)]),
-    password: new FormControl(null, Validators.required),
+    username: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailValidateRegex)]),
+    password: new FormControl('', Validators.required),
   });
 
   public registration(): void {

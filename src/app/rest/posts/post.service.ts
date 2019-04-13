@@ -25,13 +25,13 @@ export class PostService {
       catchError(err => throwError(err)));
   }
 
-  public getPostById(postId: number) {
+  public getPostById(postId: number): Observable<any> {
     return this.http.get(`/posts/${postId}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }
 
-  public updatePost(postId: number, description: string) {
+  public updatePost(postId: number, description: string): Observable<any> {
     const formData = new FormData();
     formData.set('body', description);
     return this.http.put(`/posts/${postId}`, formData).pipe(
@@ -39,8 +39,15 @@ export class PostService {
       catchError(err => throwError(err)));
   }
 
-  public deletePost(postId: number) {
+  public deletePost(postId: number): Observable<any> {
     return this.http.delete(`/posts/${postId}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
+
+  public sendComment(postId: number, comment: string): Observable<any> {
+    const body = { body: comment };
+    return this.http.post(`/posts/${postId}/comments`, body).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }

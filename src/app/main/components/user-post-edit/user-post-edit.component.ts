@@ -15,7 +15,7 @@ export class UserPostEditComponent implements OnInit {
   postId: number;
   userUrl: string;
 
-  public inputPostDescription = new FormControl();
+  public inputPostDescription = new FormControl('');
 
   constructor(private postService: PostService,
               private shareService: ShareService) { }

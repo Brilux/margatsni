@@ -3,10 +3,19 @@
   <div class="post" *ngFor="let post of posts">
     <p class="post-owner">{{post.user.username}}</p>
     <img class="post-image" src="{{post.image}}" alt="postImage">
-    <div class="post-info-container">
+    <div class="post-info-container" *ngIf="post.body">
       <p class="post-owner">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
     </div>
+    <div class="post-comments" *ngFor="let comment of post.comments">
+      <p class="comment-owner">{{comment.user.username}}</p>
+      <p class="comment-body">{{comment.body}}</p>
+    </div>
+    <form (ngSubmit)="addComment(post.id)">
+      <label>
+        <input type="text" [formControl]="addCommentForm" placeholder="Add a comment">
+      </label>
+    </form>
   </div>
   <div
     infiniteScroll

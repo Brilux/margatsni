@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
               private router: Router) {}
 
   public loginForm: FormGroup = new FormGroup({
-    email: new FormControl(null, [Validators.required, Validators.pattern(emailValidateRegex)]),
-    password: new FormControl(null, Validators.required),
+    email: new FormControl('', [Validators.required, Validators.pattern(emailValidateRegex)]),
+    password: new FormControl('', Validators.required),
   });
 
   public login(): void {
