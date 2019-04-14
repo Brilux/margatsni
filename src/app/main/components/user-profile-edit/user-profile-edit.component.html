@@ -1,6 +1,10 @@
 <div class="profile-edit-container">
   <p class="profile-edit-username">{{username}}</p>
   <form class="profile-edit-form-container" [formGroup]="profileEditForm">
+    <label>
+      <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
+      <input type="file" formControlName="userAvatar">
+    </label>
     <p>email:</p>
     <label>
       <input formControlName="email" value="{{email}}">

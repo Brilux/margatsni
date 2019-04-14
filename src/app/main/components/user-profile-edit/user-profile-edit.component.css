@@ -11,6 +11,10 @@
 .profile-edit-form-container {
 }
 
+.user-avatar {
+  width: 100px;
+}
+
 @media screen and (min-width: 576px) {
   .profile-edit-container {
     width: 550px;

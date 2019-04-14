@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../../rest/feed/feed.service';
 import { FormControl } from '@angular/forms';
 import { PostService } from '../../../rest/posts/post.service';
+import { PostInterface } from '../../../interfaces/post.interface';
 
 @Component({
   selector: 'app-feed',
@@ -10,25 +11,23 @@ import { PostService } from '../../../rest/posts/post.service';
 })
 export class FeedComponent implements OnInit {
 
-  public posts: object[] = [];
+  public posts: PostInterface[];
   spinner = true;
   startPage = 1;
-  comments;
 
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
-              private postService: PostService) { }
-
-  ngOnInit() {
-    this.getPosts();
+              private postService: PostService) {
   }
 
-  public getPosts() {
-    this.feedService.posts(this.startPage).subscribe(post => {
+  ngOnInit() {
+    this.getPosts(this.startPage);
+  }
+
+  public getPosts(pageNumber) {
+    this.feedService.posts(pageNumber).subscribe(post => {
       this.posts = post.posts;
-      console.log(this.posts);
-      this.comments = post.posts.comments;
       this.spinner = false;
     });
   }
@@ -44,8 +43,10 @@ export class FeedComponent implements OnInit {
   }
 
   public addComment(postId) {
-    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => response, err => err);
+    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => {
+      const post: PostInterface = this.posts.find(element => element.id === postId);
+      post.comments.push(response.comment);
+    }, err => err);
+    this.addCommentForm.reset();
   }
-
-
 }

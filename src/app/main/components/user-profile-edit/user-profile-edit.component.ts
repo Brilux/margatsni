@@ -13,11 +13,13 @@ export class UserProfileEditComponent implements OnInit {
   email: string;
   bio: string;
   userUrl: number;
+  userAvatar;
 
   public profileEditForm: FormGroup = new FormGroup({
     email: new FormControl(''),
     username: new FormControl(''),
-    bio: new FormControl('')
+    bio: new FormControl(''),
+    userAvatar: new FormControl(null)
   });
 
   constructor(private profileService: ProfileService) { }
@@ -27,6 +29,7 @@ export class UserProfileEditComponent implements OnInit {
       this.username = info.user.username;
       this.email = info.user.email;
       this.bio = info.user.bio;
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
       this.userUrl = info.user.id;
     });
   }
@@ -35,7 +38,9 @@ export class UserProfileEditComponent implements OnInit {
     this.profileService.updateUserProfileInfo(
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.username || this.username,
-      this.profileEditForm.value.bio || this.bio).subscribe(response => response,
+      this.profileEditForm.value.bio || this.bio
+      //
+    ).subscribe(response => response,
       err => err);
   }
 
