@@ -16,4 +16,10 @@ export class FeedService {
       map(response => response),
       catchError(err => throwError(err)));
   }
+
+  public getPostsById(postId): Observable<any> {
+    return this.http.get(`/posts/${postId}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
 }
