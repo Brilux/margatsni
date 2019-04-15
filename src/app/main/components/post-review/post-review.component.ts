@@ -46,6 +46,7 @@ export class PostReviewComponent implements OnInit {
       response.comments.forEach(item => {
         this.comments.push(item);
       });
+      this.comments.splice(-3, 3);
     });
   }
 
