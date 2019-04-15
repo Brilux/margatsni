@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../../rest/feed/feed.service';
 import { ShareService } from '../../services/share.service';
 import { CommentService } from '../../../rest/posts/comment.service';
+import { PostService } from '../../../rest/posts/post.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-post-review',
@@ -17,9 +19,12 @@ export class PostReviewComponent implements OnInit {
   comments: string[];
   startPage = 1;
 
+  public addCommentForm = new FormControl('');
+
   constructor(private feedService: FeedService,
               private shareService: ShareService,
-              private commentService: CommentService) { }
+              private commentService: CommentService,
+              private postService: PostService) { }
 
   ngOnInit() {
     this.postId = this.shareService.postIdForReview;
@@ -42,6 +47,13 @@ export class PostReviewComponent implements OnInit {
         this.comments.push(item);
       });
     });
+  }
+
+  public addComment(postId) {
+    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => {
+      this.comments.push(response.comment);
+    }, err => err);
+    this.addCommentForm.reset();
   }
 
   public deleteComment(postId: number, commentId: number, comment) {
