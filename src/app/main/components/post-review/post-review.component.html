@@ -10,5 +10,10 @@
     <p class="comment-body">{{comment.body}}</p>
     <button *ngIf="comment.user.username === postOwner" (click)="deleteComment(postId, comment.id, comment)">delete</button>
   </div>
+  <form (ngSubmit)="addComment(postId)">
+    <label>
+      <input type="text" [formControl]="addCommentForm" placeholder="Add a comment">
+    </label>
+  </form>
   <button (click)="getComments(postId, startPage)">Load more</button>
 </div>
