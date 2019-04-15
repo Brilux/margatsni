@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../../rest/feed/feed.service';
 import { ShareService } from '../../services/share.service';
 import { CommentService } from '../../../rest/posts/comment.service';
-import { PostInterface } from "../../../interfaces/post.interface";
-import { PostService } from "../../../rest/posts/post.service";
-import { FormControl } from "@angular/forms";
+import { PostService } from '../../../rest/posts/post.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-post-review',
