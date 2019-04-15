@@ -25,7 +25,7 @@ export class UserPostEditComponent implements OnInit {
     this.getPost();
   }
 
-  getPost() {
+  public getPost() {
     this.postService.getPostById(this.postId).subscribe(post => {
       this.postImage = post.post.image;
       this.postDescription = post.post.body;
@@ -33,13 +33,13 @@ export class UserPostEditComponent implements OnInit {
     });
   }
 
-  updatePost() {
+  public updatePost() {
     this.postService.updatePost(this.postId, this.inputPostDescription.value || this.postDescription).subscribe(
       response => response,
         err => err);
   }
 
-  deletePost() {
+  public deletePost() {
     this.postService.deletePost(this.postId).subscribe(response => response, err => err);
   }
 

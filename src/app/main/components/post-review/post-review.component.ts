@@ -4,6 +4,7 @@ import { ShareService } from '../../services/share.service';
 import { CommentService } from '../../../rest/posts/comment.service';
 import { PostService } from '../../../rest/posts/post.service';
 import { FormControl } from '@angular/forms';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-post-review',
@@ -18,17 +19,25 @@ export class PostReviewComponent implements OnInit {
   postDescription: string;
   comments: string[];
   startPage = 1;
+  user: string;
 
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
               private shareService: ShareService,
               private commentService: CommentService,
-              private postService: PostService) { }
+              private postService: PostService,
+              private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.postId = this.shareService.postIdForReview;
     this.getPost(this.postId);
+    this.getUser();
+  }
+
+  public getUser() {
+    const userInfo = this.localStorageService.getUserInfo();
+    this.user = userInfo.user.username;
   }
 
   public getPost(postId) {
