@@ -5,11 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class ShareService {
 
-  postId: number;
+  postIdForEdit: number;
+  postIdForReview: number;
 
   constructor() { }
 
-  editPost(postId) {
-    return this.postId = postId;
+  public editPost(postId) {
+    return this.postIdForEdit = postId;
+  }
+
+  public postReview(postId) {
+    return this.postIdForReview = postId;
   }
 }

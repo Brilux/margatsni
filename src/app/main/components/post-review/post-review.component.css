@@ -1,0 +1,38 @@
+.post {
+  margin: 20px auto;
+  border: 1px solid #C0C0C0;
+  width: 500px;
+  background-color: #ffff;
+}
+
+.post-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-info-container {
+  display: flex;
+}
+
+.post-owner {
+  font-weight: bold;
+}
+
+.post-description {
+  margin-left: 10px;
+  text-align: center;
+}
+
+.post-comments {
+  display: flex;
+}
+
+.comment-owner {
+  font-weight: bold;
+}
+
+.comment-body {
+  margin-left: 10px;
+  text-align: center;
+}

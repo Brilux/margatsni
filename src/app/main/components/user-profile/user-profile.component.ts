@@ -44,7 +44,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  onScroll() {
+  public onScroll() {
     this.startPage++;
     this.profileService.getUserProfilePosts(this.startPage).subscribe(post => {
       const posts = post.posts;
@@ -54,12 +54,12 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  logout() {
+  public logout() {
     this.authService.logout();
     this.router.navigate(['login']);
   }
 
-  editPost(postId) {
+  public editPost(postId) {
     this.shareService.editPost(postId);
   }
 

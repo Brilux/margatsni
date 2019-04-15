@@ -13,6 +13,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserPostEditComponent } from './components/user-post-edit/user-post-edi
     UserProfileEditComponent,
     SearchComponent,
     ProfileComponent,
-    UserPostEditComponent
+    UserPostEditComponent,
+    PostReviewComponent
   ],
   imports: [
     CommonModule,

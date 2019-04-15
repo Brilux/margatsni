@@ -3,6 +3,7 @@ import { FeedService } from '../../../rest/feed/feed.service';
 import { FormControl } from '@angular/forms';
 import { PostService } from '../../../rest/posts/post.service';
 import { PostInterface } from '../../../interfaces/post.interface';
+import { ShareService } from '../../services/share.service';
 
 @Component({
   selector: 'app-feed',
@@ -18,7 +19,8 @@ export class FeedComponent implements OnInit {
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
-              private postService: PostService) {
+              private postService: PostService,
+              private shareService: ShareService) {
   }
 
   ngOnInit() {
@@ -48,5 +50,9 @@ export class FeedComponent implements OnInit {
       post.comments.push(response.comment);
     }, err => err);
     this.addCommentForm.reset();
+  }
+
+  public postReview(postId) {
+    this.shareService.postReview(postId);
   }
 }
