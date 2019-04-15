@@ -21,12 +21,12 @@ export class UserPostEditComponent implements OnInit {
               private shareService: ShareService) { }
 
   ngOnInit() {
-    this.postId = this.shareService.postId;
+    this.postId = this.shareService.postIdForEdit;
     this.getPost();
   }
 
   getPost() {
-    this.postService.getPostById(this.postId).subscribe((post: any) => {
+    this.postService.getPostById(this.postId).subscribe(post => {
       this.postImage = post.post.image;
       this.postDescription = post.post.body;
       this.userUrl = post.post.user.username;

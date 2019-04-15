@@ -7,6 +7,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
 
 
 const mainRoutes: Routes = [
@@ -23,8 +24,8 @@ const mainRoutes: Routes = [
         component: CreatePostComponent
       },
       {
-        path: 'user-profile/:id',
-        component: UserProfileComponent
+        path: 'post-review',
+        component: PostReviewComponent
       },
       {
         path: 'edit-profile',
@@ -33,6 +34,10 @@ const mainRoutes: Routes = [
       {
         path: 'edit-post',
         component: UserPostEditComponent
+      },
+      {
+        path: 'user-profile/:id',
+        component: UserProfileComponent
       },
       {
         path: 'profile/:id',

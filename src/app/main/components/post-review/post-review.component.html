@@ -1,0 +1,14 @@
+<div class="post">
+  <p class="post-owner">{{postOwner}}</p>
+  <img class="post-image" src="{{postImage}}" alt="postImage">
+  <div class="post-info-container">
+    <p class="post-owner">{{postOwner}}</p>
+    <p class="post-description">{{postDescription}}</p>
+  </div>
+  <div class="post-comments" *ngFor="let comment of comments">
+    <p class="comment-owner">{{comment.user.username}}</p>
+    <p class="comment-body">{{comment.body}}</p>
+    <button *ngIf="comment.user.username === postOwner" (click)="deleteComment(postId, comment.id, comment)">delete</button>
+  </div>
+  <button (click)="getComments(postId, startPage)">Load more</button>
+</div>
