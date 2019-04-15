@@ -8,7 +8,7 @@
   <div class="post-comments" *ngFor="let comment of comments">
     <p class="comment-owner">{{comment.user.username}}</p>
     <p class="comment-body">{{comment.body}}</p>
-    <button *ngIf="comment.user.username === postOwner" (click)="deleteComment(postId, comment.id, comment)">delete</button>
+    <button *ngIf="comment.user.username === user" (click)="deleteComment(postId, comment.id, comment)">delete</button>
   </div>
   <form (ngSubmit)="addComment(postId)">
     <label>
