@@ -16,13 +16,17 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
-  public updateUserProfileInfo(username: string, email: string, password: string, bio: string, userAvatar: File ): Observable<any> {
+  public updateUserProfileInfo(username: string, email: string, password: string, bio: string, userAvatar: File | string): Observable<any> {
     const formData = new FormData();
     formData.set('username', username );
     formData.set('email', email);
-    formData.set('password', password);
+    if (password !== null) {
+      formData.set('password', password);
+    }
     formData.set('bio', bio );
-    formData.append('image_attributes[file_data]', userAvatar, userAvatar.name);
+    if (typeof userAvatar !== 'string') {
+      formData.append('image_attributes[file_data]', userAvatar, userAvatar.name);
+    }
 
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
