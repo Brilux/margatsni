@@ -5,6 +5,7 @@ import { CommentService } from '../../../rest/posts/comment.service';
 import { PostService } from '../../../rest/posts/post.service';
 import { FormControl } from '@angular/forms';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-review',
@@ -13,7 +14,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class PostReviewComponent implements OnInit {
 
-  postId: number;
+  postId: number | string;
   postImage;
   postOwner: string;
   postDescription: string;
@@ -27,10 +28,11 @@ export class PostReviewComponent implements OnInit {
               private shareService: ShareService,
               private commentService: CommentService,
               private postService: PostService,
-              private localStorageService: LocalStorageService) { }
+              private localStorageService: LocalStorageService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.postId = this.shareService.postIdForReview;
+    this.postId = this.shareService.postIdForReview || this.router.url.slice(13);
     this.getPost(this.postId);
     this.getUser();
   }
@@ -49,7 +51,7 @@ export class PostReviewComponent implements OnInit {
     });
   }
 
-  public getComments(postId: number, page: number) {
+  public getComments(postId: number | string, page: number) {
     this.startPage++;
     this.commentService.getCommentById(postId, page).subscribe(response => {
       response.comments.forEach(item => {
@@ -66,7 +68,7 @@ export class PostReviewComponent implements OnInit {
     this.addCommentForm.reset();
   }
 
-  public deleteComment(postId: number, commentId: number, comment) {
+  public deleteComment(postId: number | string, commentId: number, comment) {
     this.commentService.deleteCommentById(postId, commentId).subscribe(() => {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);

@@ -1,14 +1,25 @@
 <div class="post-container">
   <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
   <div class="post" *ngFor="let post of posts">
-    <p class="post-owner">{{post.user.username}}</p>
-    <img class="post-image" src="{{post.image}}" alt="postImage" (click)="postReview(post.id)" [routerLink]=" [ '/post-review' ]">
+    <div class="post-owner-container">
+      <img class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.jpg'" alt="postImage">
+      <p class="post-owner" [routerLink]=" [ '/profile/', post.user.username ]">{{post.user.username}}</p>
+    </div>
+    <img class="post-image" src="{{post.image}}" alt="postImage" (click)="postReview(post.id)"
+         [routerLink]=" [ '/post-review/', post.id ]">
     <div class="post-info-container" *ngIf="post.body">
       <p class="post-owner">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
+      <p class="post-likes">{{post.likes_count}} likes</p>
+    </div>
+    <div>
+      <button (click)="likePost(likeResourceType, post.id)">Like</button>
+    </div>
+    <div>
+      <button (click)="dislike(likeResourceType, post.id)">Dislike</button>
     </div>
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <p class="comment-owner">{{comment.user.username}}</p>
+      <p class="comment-owner"  [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
       <p class="comment-body">{{comment.body}}</p>
     </div>
     <form (ngSubmit)="addComment(post.id)">

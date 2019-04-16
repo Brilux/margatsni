@@ -27,15 +27,9 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profileService.userInfo().subscribe(info => {
-      const {
-        username,
-        bio,
-        userAvatar
-      } = info.user;
-
-      this.username = username;
-      this.bio = bio;
-      this.userAvatar = userAvatar || 'assets/images/default-avatar.jpg';
+      this.username = info.user.username;
+      this.bio = info.user.bio;
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
     });
 
     this.profileService.getUserProfilePosts(this.startPage).subscribe(post => {

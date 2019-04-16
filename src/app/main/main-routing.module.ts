@@ -8,6 +8,7 @@ import { UserProfileEditComponent } from './components/user-profile-edit/user-pr
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
 import { PostReviewComponent } from './components/post-review/post-review.component';
+import { MainGuard } from './main.guard';
 
 
 const mainRoutes: Routes = [
@@ -17,27 +18,32 @@ const mainRoutes: Routes = [
     children: [
       {
         path: '',
-        component: FeedComponent
+        component: FeedComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'post-create',
-        component: CreatePostComponent
+        component: CreatePostComponent,
+        canActivate: [MainGuard]
       },
       {
-        path: 'post-review',
+        path: 'post-review/:id',
         component: PostReviewComponent
       },
       {
         path: 'edit-profile',
-        component: UserProfileEditComponent
+        component: UserProfileEditComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'edit-post',
-        component: UserPostEditComponent
+        component: UserPostEditComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'user-profile/:id',
-        component: UserProfileComponent
+        component: UserProfileComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'profile/:id',
