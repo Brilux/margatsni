@@ -10,7 +10,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  public getCommentById(postId: number, page: number): Observable<any> {
+  public getCommentById(postId: number | string, page: number): Observable<any> {
     return this.http.get(`/posts/${postId}/comments?page=${page}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));

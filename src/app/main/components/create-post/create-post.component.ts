@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CreatePostComponent implements OnInit {
 
-  postImage: File = null;
+  public postImage: File = null;
 
   public postForm: FormGroup = new FormGroup({
     createPostDescription: new FormControl(''),

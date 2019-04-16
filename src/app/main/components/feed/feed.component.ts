@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { PostService } from '../../../rest/posts/post.service';
 import { PostInterface } from '../../../interfaces/post.interface';
 import { ShareService } from '../../services/share.service';
+import { LikeService } from '../../../rest/posts/like.service';
 
 @Component({
   selector: 'app-feed',
@@ -15,12 +16,14 @@ export class FeedComponent implements OnInit {
   public posts: PostInterface[];
   spinner = true;
   startPage = 1;
+  likeResourceType = 'posts';
 
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
               private postService: PostService,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private likeService: LikeService) {
   }
 
   ngOnInit() {
@@ -50,6 +53,20 @@ export class FeedComponent implements OnInit {
       post.comments.push(response.comment);
     }, err => err);
     this.addCommentForm.reset();
+  }
+
+  public likePost(likeResource, postId) {
+    this.likeService.putLike(likeResource, postId).subscribe(() => {
+      const post: PostInterface = this.posts.find(element => element.id === postId);
+      post.likes_count++;
+    });
+  }
+
+  public dislike(likeResource, postId) {
+    this.likeService.removeLike(likeResource, postId).subscribe(() => {
+      const post: PostInterface = this.posts.find(element => element.id === postId);
+      post.likes_count--;
+    });
   }
 
   public postReview(postId) {

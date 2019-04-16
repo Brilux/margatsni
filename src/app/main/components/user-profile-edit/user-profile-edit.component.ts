@@ -13,11 +13,13 @@ export class UserProfileEditComponent implements OnInit {
   email: string;
   bio: string;
   userUrl: number;
-  userAvatar;
+  userAvatar: string;
+  newUserAvatar: File = null;
 
   public profileEditForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
     username: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
     bio: new FormControl(''),
     userAvatar: new FormControl(null)
   });
@@ -30,18 +32,23 @@ export class UserProfileEditComponent implements OnInit {
       this.email = info.user.email;
       this.bio = info.user.bio;
       this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
-      this.userUrl = info.user.id;
+      this.userUrl = info.user.username;
     });
   }
 
-  updateProfileInfo() {
-    this.profileService.updateUserProfileInfo(
-      this.profileEditForm.value.email || this.email,
-      this.profileEditForm.value.username || this.username,
-      this.profileEditForm.value.bio || this.bio
-      //
-    ).subscribe(response => response,
-      err => err);
+  public onImageSelected(event) {
+    this.newUserAvatar = <File>event.target.files[0];
   }
 
+  public updateProfileInfo() {
+      console.log(this.profileEditForm);
+      this.profileService.updateUserProfileInfo(
+        this.profileEditForm.value.username || this.username,
+        this.profileEditForm.value.email || this.email,
+        this.profileEditForm.value.password || null,
+        this.profileEditForm.value.bio || this.bio,
+        this.newUserAvatar || null
+      ).subscribe(response => response,
+        err => err);
+    }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -16,9 +16,19 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
-  public updateUserProfileInfo(email: string, username: string, bio: string ): Observable<any> {
-    const body = { email: email, username: username, bio: bio };
-    return this.http.put('/users/me', body).pipe(
+  public updateUserProfileInfo(username: string, email: string, password: string, bio: string, userAvatar: File ): Observable<any> {
+    const formData = new FormData();
+    formData.set('username', username );
+    formData.set('email', email);
+    formData.set('password', password);
+    formData.set('bio', bio );
+    formData.append('image_attributes[file_data]', userAvatar, userAvatar.name);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    return this.http.put('/users/me', formData, { headers }).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }
