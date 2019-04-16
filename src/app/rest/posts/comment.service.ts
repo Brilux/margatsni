@@ -16,7 +16,7 @@ export class CommentService {
       catchError(err => throwError(err)));
   }
 
-  public deleteCommentById(postId: number, commentId: number): Observable<any> {
+  public deleteCommentById(postId: number | string, commentId: number): Observable<any> {
     return this.http.delete(`/posts/${postId}/comments/${commentId}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
