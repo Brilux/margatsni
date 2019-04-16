@@ -43,15 +43,14 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   public updateProfileInfo() {
-      this.profileService.updateUserProfileInfo(
-        this.profileEditForm.value.username || this.username,
-        this.profileEditForm.value.email || this.email,
-        this.profileEditForm.value.password || null,
-        this.profileEditForm.value.bio || this.bio,
-        this.newUserAvatar || null
-      ).subscribe( () => {
-        this.router.navigate(['/user-profile/', this.userUrl]);
-      },
-        err => err);
-    }
+    this.profileService.updateUserProfileInfo(
+      this.profileEditForm.value.username || this.username,
+      this.profileEditForm.value.email || this.email,
+      this.profileEditForm.value.password || null,
+      this.profileEditForm.value.bio || this.bio,
+      this.newUserAvatar || this.userAvatar
+    ).subscribe(() => {
+      this.router.navigate(['/user-profile/', this.userUrl]);
+    }, err => err);
+  }
 }
