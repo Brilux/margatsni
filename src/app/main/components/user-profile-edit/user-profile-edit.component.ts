@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../rest/user-profile/profile.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-edit',
@@ -24,7 +25,8 @@ export class UserProfileEditComponent implements OnInit {
     userAvatar: new FormControl(null)
   });
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService,
+              private router: Router) { }
 
   ngOnInit() {
     this.profileService.userInfo().subscribe(info => {
@@ -41,14 +43,15 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   public updateProfileInfo() {
-      console.log(this.profileEditForm);
       this.profileService.updateUserProfileInfo(
         this.profileEditForm.value.username || this.username,
         this.profileEditForm.value.email || this.email,
         this.profileEditForm.value.password || null,
         this.profileEditForm.value.bio || this.bio,
         this.newUserAvatar || null
-      ).subscribe(response => response,
+      ).subscribe( () => {
+        this.router.navigate(['/user-profile/', this.userUrl]);
+      },
         err => err);
     }
 }
