@@ -1,6 +1,6 @@
-<div class="post-container">
+<div class="feed-container">
   <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
-  <div class="post" *ngFor="let post of posts">
+  <div class="post-container" *ngFor="let post of posts">
     <div class="post-owner-container">
       <img class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.jpg'" alt="postImage">
       <p class="post-owner" [routerLink]=" [ '/profile/', post.user.username ]">{{post.user.username}}</p>

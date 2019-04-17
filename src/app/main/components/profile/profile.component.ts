@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../../rest/user-profile/profile.service';
+import { PostInterface } from '../../../interfaces/post.interface';
 
 @Component({
   selector: 'app-profile',
@@ -10,9 +11,12 @@ import { ProfileService } from '../../../rest/user-profile/profile.service';
 export class ProfileComponent implements OnInit {
 
   startPage = 1;
-  public posts: object[] = [];
+  public posts: PostInterface[] = [];
   errorMessage: string;
   spinner = true;
+  username: string;
+  bio: string;
+  userAvatar;
 
   constructor(private profileService: ProfileService,
               private router: Router,
@@ -24,14 +28,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  reloadProfile() {
+  public reloadProfile() {
     this.spinner = true;
     this.posts = [];
     this.errorMessage = '';
-    this.getProfile();
+    this.getUserPosts();
   }
 
-  getProfile() {
+  public getUserPosts() {
     this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.spinner = false;
@@ -40,6 +44,14 @@ export class ProfileComponent implements OnInit {
       this.spinner = false;
     });
   }
+
+  // public getUserProfile(userId) {
+  //   this.profileService.getUserProfileById(userId).subscribe((info: PostInterface) => {
+  //     this.username = info.user.username;
+  //     this.bio = info.user.bio;
+  //     this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
+  //   });
+  // }
 
   onScroll() {
     this.startPage++;

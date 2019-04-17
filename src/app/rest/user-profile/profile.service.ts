@@ -43,6 +43,12 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
+  public getUserProfileById(userId) {
+    return this.http.get(`/users/${userId}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
+
   public getUserPosts(user, page): Observable<any> {
     return this.http.get(`/posts/user/${user}?page=${page}`).pipe(
       map(response => response),
