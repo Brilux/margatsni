@@ -10,6 +10,7 @@ import { PostInterface } from '../../../interfaces/post.interface';
 })
 export class ProfileComponent implements OnInit {
 
+  searchedUser: string;
   startPage = 1;
   public posts: PostInterface[] = [];
   errorMessage: string;
@@ -32,6 +33,10 @@ export class ProfileComponent implements OnInit {
     this.spinner = true;
     this.posts = [];
     this.errorMessage = '';
+    this.username = '';
+    this.bio = '';
+    this.userAvatar = null;
+    this.getUserProfile();
     this.getUserPosts();
   }
 
@@ -45,13 +50,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // public getUserProfile(userId) {
-  //   this.profileService.getUserProfileById(userId).subscribe((info: PostInterface) => {
-  //     this.username = info.user.username;
-  //     this.bio = info.user.bio;
-  //     this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
-  //   });
-  // }
+  public getUserProfile() {
+    this.profileService.getUserProfileById(this.router.url.slice(9)).subscribe((info: PostInterface) => {
+      this.username = info.user.username;
+      this.bio = info.user.bio;
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
+      this.spinner = false;
+    });
+  }
 
   onScroll() {
     this.startPage++;

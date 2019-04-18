@@ -43,8 +43,8 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
-  public getUserProfileById(userId) {
-    return this.http.get(`/users/${userId}`).pipe(
+  public getUserProfileById(username) {
+    return this.http.get(`/users/${username}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }

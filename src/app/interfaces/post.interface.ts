@@ -7,6 +7,7 @@ export interface PostInterface {
   create_at: string;
   id: number;
   image: string;
+  liked: boolean;
   likes_count: number;
   user: UserInterface;
 }

@@ -59,6 +59,7 @@ export class FeedComponent implements OnInit {
     this.likeService.putLike(likeResource, postId).subscribe(() => {
       const post: PostInterface = this.posts.find(element => element.id === postId);
       post.likes_count++;
+      post.liked = true;
     });
   }
 
@@ -66,6 +67,7 @@ export class FeedComponent implements OnInit {
     this.likeService.removeLike(likeResource, postId).subscribe(() => {
       const post: PostInterface = this.posts.find(element => element.id === postId);
       post.likes_count--;
+      post.liked = false;
     });
   }
 

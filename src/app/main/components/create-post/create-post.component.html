@@ -1,6 +1,6 @@
 <form [formGroup]="postForm">
   <label>
-    <input type="file" formControlName="createPostImage" (change)="onImageSelected($event)">
+    <input type="file" (change)="onImageSelected($event)">
   </label>
   <label>
     <input formControlName="createPostDescription">

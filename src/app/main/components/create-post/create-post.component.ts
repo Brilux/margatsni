@@ -14,7 +14,6 @@ export class CreatePostComponent implements OnInit {
 
   public postForm: FormGroup = new FormGroup({
     createPostDescription: new FormControl(''),
-    createPostImage: new FormControl()
   });
 
   constructor(private postService: PostService,
@@ -28,8 +27,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   public createPost() {
-    this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
-      () => this.router.navigate(['']),
-      err => err);
+    if (this.postImage === null) {
+      alert('Please add an image');
+    } else {
+      this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
+        () => this.router.navigate(['']),
+        err => err);
+    }
   }
 }
