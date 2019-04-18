@@ -8,6 +8,7 @@
   <div>
     <button>Like</button>
   </div>
+  <button *ngIf="loadButton" (click)="getComments(postId, pageToLoad)">Load more</button>
   <div class="post-comments" *ngFor="let comment of comments">
     <p class="comment-owner">{{comment.user.username}}</p>
     <p class="comment-body">{{comment.body}}</p>
@@ -18,5 +19,4 @@
       <input type="text" [formControl]="addCommentForm" placeholder="Add a comment">
     </label>
   </form>
-  <button (click)="getComments(postId, startPage)">Load more</button>
 </div>

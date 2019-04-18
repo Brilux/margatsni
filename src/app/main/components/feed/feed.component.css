@@ -7,11 +7,12 @@
   margin: 0 auto;
 }
 
-.post {
+.post-container {
   margin: 20px auto;
   border: 1px solid #C0C0C0;
   width: 500px;
   background-color: #ffff;
+  border-radius: 2%;
 }
 
 .post-image {
@@ -62,7 +63,7 @@
 }
 
 @media screen and (max-width: 576px) {
-  .post {
+  .post-container {
     width: 320px;
   }
 }
