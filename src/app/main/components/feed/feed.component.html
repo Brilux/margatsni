@@ -10,13 +10,13 @@
     <div class="post-info-container" *ngIf="post.body">
       <p class="post-owner">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
-      <p class="post-likes">{{post.likes_count}} likes</p>
+    </div>
+    <p class="post-likes">{{post.likes_count}} likes</p>
+    <div>
+      <img src='../../../../assets/images/like-false.png' *ngIf="!post.liked" (click)="likePost(likeResourceType, post.id)" alt="like-false">
     </div>
     <div>
-      <button (click)="likePost(likeResourceType, post.id)">Like</button>
-    </div>
-    <div>
-      <button (click)="dislike(likeResourceType, post.id)">Dislike</button>
+      <img src='../../../../assets/images/like-true.png' *ngIf="post.liked" (click)="dislike(likeResourceType, post.id)" alt="like-true">
     </div>
     <div class="post-comments" *ngFor="let comment of post.comments">
       <p class="comment-owner"  [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
