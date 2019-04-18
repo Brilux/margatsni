@@ -36,7 +36,7 @@ const mainRoutes: Routes = [
         canActivate: [MainGuard]
       },
       {
-        path: 'edit-post',
+        path: 'edit-post/:id',
         component: UserPostEditComponent,
         canActivate: [MainGuard]
       },

@@ -14,13 +14,15 @@ import { Router } from '@angular/router';
 })
 export class PostReviewComponent implements OnInit {
 
-  postId: number | string;
+  postId: number;
   postImage;
   postOwner: string;
   postDescription: string;
-  comments: string[];
+  comments: string[] = [];
   startPage = 1;
+  pageToLoad = 2;
   user: string;
+  loadButton = true;
 
   public addCommentForm = new FormControl('');
 
@@ -32,7 +34,7 @@ export class PostReviewComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.postId = this.shareService.postIdForReview || this.router.url.slice(13);
+    this.postId = this.shareService.postIdForReview || parseInt(this.router.url.slice(13) , 10);
     this.getPost(this.postId);
     this.getUser();
   }
@@ -42,21 +44,28 @@ export class PostReviewComponent implements OnInit {
     this.user = userInfo.user.username;
   }
 
-  public getPost(postId) {
+  public getPost(postId: number) {
     this.feedService.getPostsById(postId).subscribe(post => {
       this.postImage = post.post.image;
       this.postOwner = post.post.user.username;
       this.postDescription = post.post.body;
-      this.comments = post.post.comments;
+    });
+    this.commentService.getCommentById(postId, this.startPage).subscribe(response => {
+      response.comments.forEach(item => {
+        this.comments.unshift(item);
+      });
     });
   }
 
-  public getComments(postId: number | string, page: number) {
-    this.startPage++;
+  public getComments(postId: number, page: number) {
+    this.pageToLoad++;
     this.commentService.getCommentById(postId, page).subscribe(response => {
       response.comments.forEach(item => {
-        this.comments.push(item);
+        this.comments.unshift(item);
       });
+      if (response.comments.length < 10) {
+        this.loadButton = false;
+      }
     });
   }
 
@@ -67,7 +76,7 @@ export class PostReviewComponent implements OnInit {
     this.addCommentForm.reset();
   }
 
-  public deleteComment(postId: number | string, commentId: number, comment) {
+  public deleteComment(postId: number, commentId: number, comment) {
     this.commentService.deleteCommentById(postId, commentId).subscribe(() => {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);

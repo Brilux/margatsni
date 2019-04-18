@@ -9,7 +9,7 @@
     <div class="post"
          [ngStyle]="{'background-image': 'url(' + post.image + ')'}"
          (click)="editPost(post.id)"
-         [routerLink]="[ '/edit-post' ]"
+         [routerLink]="[ '/edit-post', post.id ]"
          *ngFor="let post of posts">
     </div>
   </div>

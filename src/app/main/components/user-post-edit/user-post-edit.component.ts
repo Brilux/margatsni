@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../rest/posts/post.service';
 import { ShareService } from '../../services/share.service';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-post-edit',
@@ -18,10 +19,11 @@ export class UserPostEditComponent implements OnInit {
   public inputPostDescription = new FormControl('');
 
   constructor(private postService: PostService,
-              private shareService: ShareService) { }
+              private shareService: ShareService,
+              private router: Router) { }
 
   ngOnInit() {
-    this.postId = this.shareService.postIdForEdit;
+    this.postId = this.shareService.postIdForEdit || parseInt(this.router.url.slice(11), 10);
     this.getPost();
   }
 
