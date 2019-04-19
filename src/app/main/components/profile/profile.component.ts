@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProfileService } from '../../../rest/user-profile/profile.service';
+import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
 import { PostInterface } from '../../../interfaces/post.interface';
+import { ProfileService } from '../../../rest/profile/profile.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,23 +12,28 @@ import { PostInterface } from '../../../interfaces/post.interface';
 })
 export class ProfileComponent implements OnInit {
 
-  searchedUser: string;
-  startPage = 1;
+  public startPage = 1;
   public posts: PostInterface[] = [];
-  errorMessage: string;
-  spinner = true;
-  username: string;
-  bio: string;
-  userAvatar;
+  public errorMessage: string;
+  public spinner = true;
+  public username: string;
+  public bio: string;
+  public userAvatar;
+  public userId: number;
+  public subscribeStatus: boolean;
+  public authorizedUser: string;
 
-  constructor(private profileService: ProfileService,
+  constructor(private userProfileService: UserProfileService,
+              private profileService: ProfileService,
               private router: Router,
-              private activeRoute: ActivatedRoute) { }
+              private activeRoute: ActivatedRoute,
+              private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(() => {
       this.reloadProfile();
     });
+    this.getAuthorizedUser();
   }
 
   public reloadProfile() {
@@ -40,8 +47,13 @@ export class ProfileComponent implements OnInit {
     this.getUserPosts();
   }
 
+  public getAuthorizedUser() {
+    const userInfo = this.localStorageService.getUserInfo();
+    this.authorizedUser = userInfo.user.username;
+  }
+
   public getUserPosts() {
-    this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
+    this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.spinner = false;
     }, err => {
@@ -51,17 +63,38 @@ export class ProfileComponent implements OnInit {
   }
 
   public getUserProfile() {
-    this.profileService.getUserProfileById(this.router.url.slice(9)).subscribe((info: PostInterface) => {
+    this.profileService.getUserProfileByUsername(this.router.url.slice(9)).subscribe((info: PostInterface) => {
+      this.userId = info.user.id;
+      this.getSubscribe(this.userId);
       this.username = info.user.username;
       this.bio = info.user.bio;
       this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
-      this.spinner = false;
+    });
+  }
+
+  public getSubscribe(userId) {
+    this.profileService.getFollowers(userId).subscribe(response => {
+      response.forEach(item => {
+        this.subscribeStatus = item.username !== this.authorizedUser;
+      });
+    });
+  }
+
+  public subscribe(userId) {
+    this.profileService.sendSubscribe(userId).subscribe(() => {
+      this.subscribeStatus = false;
+    });
+  }
+
+  public unsubscribe(userId) {
+    this.profileService.sendUnSubscribe(userId).subscribe(() => {
+      this.subscribeStatus = true;
     });
   }
 
   onScroll() {
     this.startPage++;
-    this.profileService.getUserPosts(this.router.url.slice(9), this.startPage).subscribe(post => {
+    this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
       const posts = post.posts;
       posts.forEach(item => {
         this.posts.push(item);

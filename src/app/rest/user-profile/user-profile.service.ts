@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileService {
+export class UserProfileService {
 
   constructor(private http: HttpClient) { }
 
@@ -39,18 +39,6 @@ export class ProfileService {
 
   public getUserProfilePosts(page): Observable<any> {
     return this.http.get(`/posts/me?page=${page}`).pipe(
-      map(response => response),
-      catchError(err => throwError(err)));
-  }
-
-  public getUserProfileById(username) {
-    return this.http.get(`/users/${username}`).pipe(
-      map(response => response),
-      catchError(err => throwError(err)));
-  }
-
-  public getUserPosts(user, page): Observable<any> {
-    return this.http.get(`/posts/user/${user}?page=${page}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }

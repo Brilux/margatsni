@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../../../rest/user-profile/profile.service';
+import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -25,11 +25,11 @@ export class UserProfileEditComponent implements OnInit {
     userAvatar: new FormControl(null)
   });
 
-  constructor(private profileService: ProfileService,
+  constructor(private userProfileService: UserProfileService,
               private router: Router) { }
 
   ngOnInit() {
-    this.profileService.userInfo().subscribe(info => {
+    this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.email = info.user.email;
       this.bio = info.user.bio;
@@ -43,7 +43,7 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   public updateProfileInfo() {
-    this.profileService.updateUserProfileInfo(
+    this.userProfileService.updateUserProfileInfo(
       this.profileEditForm.value.username || this.username,
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.password || null,
