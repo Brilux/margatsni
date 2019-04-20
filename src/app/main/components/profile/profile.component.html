@@ -9,8 +9,10 @@
     <button *ngIf="!subscribeStatus" (click)="unsubscribe(userId)">UnSubscribe</button>
   </div>
 
-  <button (click)="openFollowing()">Following</button>
-  <button (click)="openFollowers()">Followers</button>
+  <div *ngIf="!errorMessage">
+    <button (click)="openFollowers()">Followers</button>
+    <button (click)="openFollowing()">Following</button>
+  </div>
 
   <div class="post-container" *ngFor="let post of posts">
     <img class="post-image" src="{{post.image}}" alt="postImage"

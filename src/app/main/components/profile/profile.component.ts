@@ -47,6 +47,9 @@ export class ProfileComponent implements OnInit {
     this.username = '';
     this.bio = '';
     this.userAvatar = null;
+    this.userId = null;
+    this.subscribeStatus = null;
+    this.authorizedUser = '';
     this.getUserProfile();
     this.getUserPosts();
   }
@@ -78,9 +81,12 @@ export class ProfileComponent implements OnInit {
 
   public getSubscribe(userId) {
     this.profileService.getFollowers(userId).subscribe(response => {
-      response.forEach(item => {
-        this.subscribeStatus = item.username !== this.authorizedUser;
-      });
+      const follower = response.find(element => element.username === this.authorizedUser);
+      if (follower === undefined) {
+        this.subscribeStatus = true;
+      } else {
+        this.subscribeStatus = false;
+      }
     });
   }
 
@@ -108,13 +114,15 @@ export class ProfileComponent implements OnInit {
 
   public openFollowing() {
     this.dialog.open(FollowingComponent, {
-      data: { userId: this.userId }
+      data: { userId: this.userId },
+      width: '400px'
     });
   }
 
   public openFollowers() {
     this.dialog.open(FollowersComponent, {
-      data: { userId: this.userId }
+      data: { userId: this.userId },
+      width: '400px'
     });
   }
 }
