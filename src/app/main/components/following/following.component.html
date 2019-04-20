@@ -1,9 +1,11 @@
 <p>following:</p>
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
 <div *ngIf="!spinner">
-  <div *ngFor="let profile of following" (click)="closeDialog()"  [routerLink]="[ '/profile/', profile.username ]">
-    <p>{{profile.username}}</p>
-    <img class="user-avatar" [src]="profile.image || 'assets/images/default-avatar.jpg'" alt="userAvatar">
+  <div *ngFor="let profile of following">
+    <div (click)="closeDialog()" [routerLink]="[ '/profile/', profile.username ]">
+      <p>{{profile.username}}</p>
+      <img class="user-avatar" [src]="profile.image || 'assets/images/default-avatar.jpg'" alt="userAvatar">
+    </div>
   </div>
   <p *ngIf="!following.length">No following</p>
 </div>

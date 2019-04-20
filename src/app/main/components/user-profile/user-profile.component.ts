@@ -66,13 +66,15 @@ export class UserProfileComponent implements OnInit {
 
   public openFollowing() {
     this.dialog.open(FollowingComponent, {
-      data: { userId: this.userId }
+      data: { userId: this.userId },
+      width: '400px'
     });
   }
 
   public openFollowers() {
     this.dialog.open(FollowersComponent, {
-      data: { userId: this.userId }
+      data: { userId: this.userId },
+      width: '400px'
     });
   }
 }
