@@ -1,10 +1,14 @@
-<div>
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+<div *ngIf="!spinner">
   <img class="user-avatar" src="{{userAvatar}}" alt="postImage">
   <p>{{username}}</p>
   <p>{{bio}}</p>
   <button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
   <button (click)="logout()">logout</button>
-  <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+  <button (click)="openFollowing()">Following</button>
+  <button (click)="openFollowers()">Followers</button>
+
   <div class="post-container">
     <div class="post"
          [ngStyle]="{'background-image': 'url(' + post.image + ')'}"

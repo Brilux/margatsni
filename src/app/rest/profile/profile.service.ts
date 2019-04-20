@@ -40,4 +40,10 @@ export class ProfileService {
       map(response => response),
       catchError(err => throwError(err)));
   }
+
+  public getFollowing(userId): Observable<any> {
+    return this.http.get(`/users/${userId}/following`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
 }
