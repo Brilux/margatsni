@@ -4,6 +4,9 @@ import { UserProfileService } from '../../../rest/user-profile/user-profile.serv
 import { PostInterface } from '../../../interfaces/post.interface';
 import { ProfileService } from '../../../rest/profile/profile.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { MatDialog } from '@angular/material';
+import { FollowersComponent } from '../followers/followers.component';
+import { FollowingComponent } from '../following/following.component';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +30,8 @@ export class ProfileComponent implements OnInit {
               private profileService: ProfileService,
               private router: Router,
               private activeRoute: ActivatedRoute,
-              private localStorageService: LocalStorageService) { }
+              private localStorageService: LocalStorageService,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(() => {
@@ -99,6 +103,18 @@ export class ProfileComponent implements OnInit {
       posts.forEach(item => {
         this.posts.push(item);
       });
+    });
+  }
+
+  public openFollowing() {
+    this.dialog.open(FollowingComponent, {
+      data: { userId: this.userId }
+    });
+  }
+
+  public openFollowers() {
+    this.dialog.open(FollowersComponent, {
+      data: { userId: this.userId }
     });
   }
 }
