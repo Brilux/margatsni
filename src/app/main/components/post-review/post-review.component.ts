@@ -14,15 +14,16 @@ import { Router } from '@angular/router';
 })
 export class PostReviewComponent implements OnInit {
 
-  postId: number;
-  postImage;
-  postOwner: string;
-  postDescription: string;
-  comments: string[] = [];
-  startPage = 1;
-  pageToLoad = 2;
-  user: string;
-  loadButton = true;
+  public postId: number;
+  public postImage;
+  public postOwner: string;
+  public postDescription: string;
+  public comments: string[] = [];
+  public startPage = 1;
+  public pageToLoad = 2;
+  public user: string;
+  public loadButton = true;
+  public spinner = true;
 
   public addCommentForm = new FormControl('');
 
@@ -54,6 +55,8 @@ export class PostReviewComponent implements OnInit {
       response.comments.forEach(item => {
         this.comments.unshift(item);
       });
+      this.checkPages(response.page, response.total_pages);
+      this.spinner = false;
     });
   }
 
@@ -63,10 +66,14 @@ export class PostReviewComponent implements OnInit {
       response.comments.forEach(item => {
         this.comments.unshift(item);
       });
-      if (response.comments.length < 10) {
-        this.loadButton = false;
-      }
+      this.checkPages(response.page, response.total_pages);
     });
+  }
+
+  public checkPages(currentPage: number, totalPage: number) {
+    if (currentPage === totalPage) {
+      this.loadButton = false;
+    }
   }
 
   public addComment(postId) {

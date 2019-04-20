@@ -5,5 +5,5 @@
     <p>{{profile.username}}</p>
     <img class="user-avatar" [src]="profile.image || 'assets/images/default-avatar.jpg'" alt="userAvatar">
   </div>
-  <p *ngIf="!following.length">No followers</p>
+  <p *ngIf="!following.length">No following</p>
 </div>
