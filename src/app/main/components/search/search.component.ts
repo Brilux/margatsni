@@ -29,5 +29,6 @@ export class SearchComponent implements OnInit {
     } else {
       this.router.navigate(['profile', this.searchForm.value]);
     }
+    this.searchForm.reset();
   }
 }

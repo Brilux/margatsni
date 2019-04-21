@@ -1,6 +1,7 @@
-<p>followers:</p>
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
 <div *ngIf="!spinner">
+  <p>followers:</p>
   <div *ngFor="let follower of followers">
     <div (click)="closeDialog()" [routerLink]=" [ '/profile/', follower.username ]">
       <p>{{follower.username}}</p>

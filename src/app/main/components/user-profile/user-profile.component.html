@@ -1,13 +1,35 @@
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
-<div *ngIf="!spinner">
-  <img class="user-avatar" src="{{userAvatar}}" alt="postImage">
-  <p>{{username}}</p>
-  <p>{{bio}}</p>
-  <button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
-  <button (click)="logout()">logout</button>
 
-  <button (click)="openFollowers()">Followers</button>
-  <button (click)="openFollowing()">Following</button>
+<div class="user-profile-container" *ngIf="!spinner">
+  <div class="user-profile-info-container">
+
+    <div class="user-info">
+      <img class="user-avatar" src="{{userAvatar}}" alt="postImage">
+      <div class="info-container">
+        <p class="user-username">{{username}}</p>
+        <p class="user-bio">{{bio}}</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="settings-container">
+        <button class="settings-button" mat-raised-button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
+        <button class="settings-button" mat-raised-button (click)="logout()">logout</button>
+      </div>
+
+      <div class="subscribe-container">
+        <div class="subscribe-container">
+          <p class="subscribe-count">{{followersCount}}</p>
+          <button mat-button (click)="openFollowers()">Followers</button>
+        </div>
+
+        <div class="subscribe-container">
+          <p class="subscribe-count">{{followingCount}}</p>
+          <button mat-button (click)="openFollowing()">Following</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="post-container">
     <div class="post"

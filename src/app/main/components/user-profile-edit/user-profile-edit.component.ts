@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 })
 export class UserProfileEditComponent implements OnInit {
 
-  username: string;
-  email: string;
-  bio: string;
-  userUrl: number;
-  userAvatar: string;
-  newUserAvatar: File = null;
+  public username: string;
+  public email: string;
+  public bio: string;
+  public userUrl: number;
+  public userAvatar: string;
+  public newUserAvatar: File = null;
+  public spinner = true;
 
   public profileEditForm: FormGroup = new FormGroup({
     username: new FormControl(''),
@@ -35,6 +36,7 @@ export class UserProfileEditComponent implements OnInit {
       this.bio = info.user.bio;
       this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
       this.userUrl = info.user.username;
+      this.spinner = false;
     });
   }
 

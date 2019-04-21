@@ -7,7 +7,14 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule, MatDialogModule, MatFormFieldModule, MatProgressSpinnerModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule, MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './components/search/search.component';
@@ -41,7 +48,10 @@ import { FollowingComponent } from './components/following/following.component';
     MatProgressSpinnerModule,
     InfiniteScrollModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    MatDividerModule,
+    MatButtonModule
   ],
   entryComponents: [FollowersComponent, FollowingComponent]
 })
