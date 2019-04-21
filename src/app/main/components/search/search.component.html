@@ -1,5 +1,7 @@
 <form (ngSubmit)="searchUser()">
+  <mat-form-field>
     <label>
-      <input type="text" [formControl]="searchForm" placeholder="Search">
+      <input matInput type="text" [formControl]="searchForm" placeholder="Search">
     </label>
+  </mat-form-field>
 </form>

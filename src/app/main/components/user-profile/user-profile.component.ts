@@ -8,6 +8,7 @@ import { FollowingComponent } from '../following/following.component';
 import { FollowersComponent } from '../followers/followers.component';
 import { MatDialog } from '@angular/material';
 import { PostInterface } from '../../../interfaces/post.interface';
+import { ProfileService } from '../../../rest/profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,32 +17,49 @@ import { PostInterface } from '../../../interfaces/post.interface';
 })
 export class UserProfileComponent implements OnInit {
 
-  username: string;
-  bio: string;
-  userAvatar;
-  spinner = true;
+  public username: string;
+  public bio: string;
+  public userAvatar;
+  public spinner = true;
   public posts: PostInterface[] = [];
-  startPage = 1;
-  userId: number;
+  public startPage = 1;
+  public userId: number;
+  public followersCount: number;
+  public followingCount: number;
 
   constructor(private userProfileService: UserProfileService,
               private postService: PostService,
               private authService: AuthService,
               private shareService: ShareService,
               private router: Router,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog,
+              private profileService: ProfileService) { }
 
   ngOnInit() {
     this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.bio = info.user.bio;
       this.userId = info.user.id;
+      this.getFollowersCount(this.userId);
+      this.getFollowingCount(this.userId);
       this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
     });
 
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.spinner = false;
+    });
+  }
+
+  public getFollowersCount(userId) {
+    this.profileService.getFollowers(userId).subscribe(response => {
+      this.followersCount = response.length;
+    });
+  }
+
+  public getFollowingCount(userId) {
+    this.profileService.getFollowing(userId).subscribe(response => {
+      this.followingCount = response.length;
     });
   }
 

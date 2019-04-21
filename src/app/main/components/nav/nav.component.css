@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-around;
   background-color: #ffff;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .nav-item {
@@ -9,8 +12,9 @@
 }
 
 .nav-profile-icon {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
 }
 
 .search-input {

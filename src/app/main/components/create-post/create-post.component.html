@@ -1,9 +1,11 @@
-<form [formGroup]="postForm">
-  <label>
-    <input type="file" (change)="onImageSelected($event)">
-  </label>
-  <label>
-    <input formControlName="createPostDescription">
-  </label>
-  <button (click)="createPost()">Create post</button>
-</form>
+<div class="create-post-container">
+  <form [formGroup]="postForm">
+    <label>
+      <input type="file" (change)="onImageSelected($event)">
+    </label>
+    <label>
+      <input formControlName="createPostDescription">
+    </label>
+    <button (click)="createPost()">Create post</button>
+  </form>
+</div>

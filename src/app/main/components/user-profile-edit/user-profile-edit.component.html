@@ -1,4 +1,6 @@
-<div class="profile-edit-container">
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="profile-edit-container" *ngIf="!spinner">
   <p class="profile-edit-username">{{username}}</p>
   <form class="profile-edit-form-container" [formGroup]="profileEditForm">
     <label>

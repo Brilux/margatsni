@@ -15,6 +15,7 @@ export class UserPostEditComponent implements OnInit {
   postDescription: string;
   postId: number;
   userUrl: string;
+  spinner = true;
 
   public inputPostDescription = new FormControl('');
 
@@ -32,6 +33,7 @@ export class UserPostEditComponent implements OnInit {
       this.postImage = post.post.image;
       this.postDescription = post.post.body;
       this.userUrl = post.post.user.username;
+      this.spinner = false;
     });
   }
 

@@ -1,33 +1,47 @@
-<div class="feed-container">
-  <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
-  <div class="post-container" *ngFor="let post of posts">
-    <div class="post-owner-container">
-      <img class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.jpg'" alt="postImage">
-      <p class="post-owner" [routerLink]=" [ '/profile/', post.user.username ]">{{post.user.username}}</p>
-    </div>
-    <img class="post-image" src="{{post.image}}" alt="postImage" (click)="postReview(post.id)"
-         [routerLink]=" [ '/post-review/', post.id ]">
-    <div class="post-info-container" *ngIf="post.body">
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="feed-container" *ngIf="!spinner">
+  <mat-card class="post-container" *ngFor="let post of posts">
+    <mat-card-header class="post-owner-container">
+      <img mat-card-avatar class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.jpg'"
+           alt="postImage">
+      <p class="post-owner" mat-card-title
+         [routerLink]=" [ '/profile/', post.user.username ]">{{post.user.username}}</p>
+    </mat-card-header>
+
+    <img mat-card-image src="{{post.image}}" alt="postImage" (click)="postReview(post.id)">
+
+    <mat-card-actions class="likes-container">
+      <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!post.liked"
+           (click)="likePost(likeResourceType, post.id)" alt="like-false">
+      <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="post.liked"
+           (click)="dislike(likeResourceType, post.id)" alt="like-true">
+      <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment"
+           [routerLink]=" [ '/post-review/', post.id ]">
+      <p class="post-likes">{{post.likes_count}} likes</p>
+    </mat-card-actions>
+
+    <mat-card-content class="post-info-container" *ngIf="post.body">
       <p class="post-owner">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
-    </div>
-    <p class="post-likes">{{post.likes_count}} likes</p>
-    <div>
-      <img src='../../../../assets/images/like-false.png' *ngIf="!post.liked" (click)="likePost(likeResourceType, post.id)" alt="like-false">
-    </div>
-    <div>
-      <img src='../../../../assets/images/like-true.png' *ngIf="post.liked" (click)="dislike(likeResourceType, post.id)" alt="like-true">
-    </div>
+    </mat-card-content>
+
+    <mat-divider style="position: initial"></mat-divider>
+
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <p class="comment-owner"  [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+      <p class="comment-owner" [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
       <p class="comment-body">{{comment.body}}</p>
     </div>
+
     <form (ngSubmit)="addComment(post.id)">
-      <label>
-        <input type="text" [formControl]="addCommentForm" placeholder="Add a comment">
-      </label>
+      <mat-form-field style="display: block">
+        <label>
+          <input matInput type="text" [formControl]="addCommentForm" placeholder="Add a comment">
+        </label>
+      </mat-form-field>
     </form>
-  </div>
+
+  </mat-card>
   <div
     infiniteScroll
     [infiniteScrollDistance]="2"
