@@ -14,9 +14,9 @@ import { LikeService } from '../../../rest/posts/like.service';
 export class FeedComponent implements OnInit {
 
   public posts: PostInterface[];
-  spinner = true;
-  startPage = 1;
-  likeResourceType = 'posts';
+  public spinner = true;
+  public startPage = 1;
+  public likeResourceType = 'posts';
 
   public addCommentForm = new FormControl('');
 

@@ -6,6 +6,7 @@ import { PostService } from '../../../rest/posts/post.service';
 import { FormControl } from '@angular/forms';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
+import { LikeService } from '../../../rest/posts/like.service';
 
 @Component({
   selector: 'app-post-review',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class PostReviewComponent implements OnInit {
 
+  public post;
   public postId: number;
   public postImage;
   public postOwner: string;
@@ -24,6 +26,10 @@ export class PostReviewComponent implements OnInit {
   public user: string;
   public loadButton = true;
   public spinner = true;
+  public likeResourceType = 'posts';
+  public postLiked: boolean;
+  public postLikedCount: number;
+  public postUserImage: string;
 
   public addCommentForm = new FormControl('');
 
@@ -32,6 +38,7 @@ export class PostReviewComponent implements OnInit {
               private commentService: CommentService,
               private postService: PostService,
               private localStorageService: LocalStorageService,
+              private likeService: LikeService,
               private router: Router) { }
 
   ngOnInit() {
@@ -47,9 +54,13 @@ export class PostReviewComponent implements OnInit {
 
   public getPost(postId: number) {
     this.feedService.getPostsById(postId).subscribe(post => {
+      this.post = post.post;
       this.postImage = post.post.image;
       this.postOwner = post.post.user.username;
       this.postDescription = post.post.body;
+      this.postLiked = post.post.liked;
+      this.postLikedCount = post.post.likes_count;
+      this.postUserImage = post.post.user.image;
     });
     this.commentService.getCommentById(postId, this.startPage).subscribe(response => {
       response.comments.forEach(item => {
@@ -74,6 +85,20 @@ export class PostReviewComponent implements OnInit {
     if (currentPage === totalPage) {
       this.loadButton = false;
     }
+  }
+
+  public likePost(likeResource, postId) {
+    this.likeService.putLike(likeResource, postId).subscribe(() => {
+      this.postLikedCount++;
+      this.postLiked = true;
+    });
+  }
+
+  public dislike(likeResource, postId) {
+    this.likeService.removeLike(likeResource, postId).subscribe(() => {
+      this.postLikedCount--;
+      this.postLiked = false;
+    });
   }
 
   public addComment(postId) {

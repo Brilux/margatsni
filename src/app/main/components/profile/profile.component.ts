@@ -25,6 +25,8 @@ export class ProfileComponent implements OnInit {
   public userId: number;
   public subscribeStatus: boolean;
   public authorizedUser: string;
+  public followersCount: number;
+  public followingCount: number;
 
   constructor(private userProfileService: UserProfileService,
               private profileService: ProfileService,
@@ -49,7 +51,8 @@ export class ProfileComponent implements OnInit {
     this.userAvatar = null;
     this.userId = null;
     this.subscribeStatus = null;
-    this.authorizedUser = '';
+    this.followersCount = null;
+    this.followingCount = null;
     this.getUserProfile();
     this.getUserPosts();
   }
@@ -73,6 +76,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.getUserProfileByUsername(this.router.url.slice(9)).subscribe((info: PostInterface) => {
       this.userId = info.user.id;
       this.getSubscribe(this.userId);
+      this.getFollowingCount(this.userId);
       this.username = info.user.username;
       this.bio = info.user.bio;
       this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
@@ -81,6 +85,7 @@ export class ProfileComponent implements OnInit {
 
   public getSubscribe(userId) {
     this.profileService.getFollowers(userId).subscribe(response => {
+      this.followersCount = response.length;
       const follower = response.find(element => element.username === this.authorizedUser);
       if (follower === undefined) {
         this.subscribeStatus = true;
@@ -90,15 +95,23 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  public getFollowingCount(userId) {
+    this.profileService.getFollowing(userId).subscribe(response => {
+      this.followingCount = response.length;
+    });
+  }
+
   public subscribe(userId) {
     this.profileService.sendSubscribe(userId).subscribe(() => {
       this.subscribeStatus = false;
+      this.followersCount++;
     });
   }
 
   public unsubscribe(userId) {
     this.profileService.sendUnSubscribe(userId).subscribe(() => {
       this.subscribeStatus = true;
+      this.followersCount--;
     });
   }
 

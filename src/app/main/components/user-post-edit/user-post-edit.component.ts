@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 })
 export class UserPostEditComponent implements OnInit {
 
-  postImage;
-  postDescription: string;
-  postId: number;
-  userUrl: string;
-  spinner = true;
+  public postImage;
+  public postDescription: string;
+  public postId: number;
+  public userUrl: string;
+  public spinner = true;
 
   public inputPostDescription = new FormControl('');
 

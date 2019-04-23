@@ -11,7 +11,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatDialogModule, MatDividerModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatProgressSpinnerModule
 } from '@angular/material';
@@ -51,7 +51,8 @@ import { FollowingComponent } from './components/following/following.component';
     MatDialogModule,
     MatInputModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   entryComponents: [FollowersComponent, FollowingComponent]
 })
