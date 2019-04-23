@@ -26,7 +26,10 @@
       <mat-error *ngIf="registrationError">{{registrationError}}</mat-error>
     </form>
     <div class="buttons-container">
-      <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid">Sign up</button>
+      <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid || loading">
+        <a *ngIf="!loading">Sign up</a>
+        <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
+      </button>
     </div>
   </div>
 </div>

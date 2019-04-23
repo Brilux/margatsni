@@ -15,6 +15,7 @@ const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 export class RegistrationComponent implements OnInit {
 
   public registrationError: string;
+  public loading: boolean;
 
   constructor(private registrationService: RegistrationService,
               private authService: AuthService,
@@ -27,13 +28,15 @@ export class RegistrationComponent implements OnInit {
   });
 
   public registration(): void {
+    this.loading = true;
     this.registrationService.sendRegistration(this.registrationForm.value.username,
     this.registrationForm.value.email,
     this.registrationForm.value.password).subscribe(response => {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
     }, err => {
-      this.registrationError = err.error.errors[0];
+      this.registrationError = err.error.error;
+      this.loading = false;
     });
   }
 

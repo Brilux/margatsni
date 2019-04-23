@@ -20,7 +20,10 @@
       <mat-error *ngIf="loginError">{{loginError.error}}</mat-error>
     </form>
     <div class="buttons-container">
-      <button class="login-button" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Log in</button>
+      <button class="login-button" mat-raised-button color="primary" [disabled]="!loginForm.valid || loading" (click)="login()">
+        <a *ngIf="!loading">Log in</a>
+        <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
+      </button>
     </div>
   </div>
 </div>
