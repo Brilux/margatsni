@@ -15,10 +15,11 @@ const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 export class LoginComponent implements OnInit {
 
   public loginError: string;
+  public loading: boolean;
 
   constructor(private loginService: LoginService,
               private authService: AuthService,
-              private router: Router) {}
+              private router: Router) { }
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern(emailValidateRegex)]),
@@ -26,11 +27,16 @@ export class LoginComponent implements OnInit {
   });
 
   public login(): void {
-    this.loginService.sendAuthorization(this.loginForm.value.email,
+    this.loading = true;
+    this.loginService.sendAuthorization(
+      this.loginForm.value.email,
       this.loginForm.value.password).subscribe(response => {
-        this.authService.LocalStorageSaveToken(new TokenModel(response));
-        this.router.navigate(['']);
-    }, err => this.loginError = err.error);
+      this.authService.LocalStorageSaveToken(new TokenModel(response));
+      this.router.navigate(['']);
+    }, err => {
+      this.loginError = err.error;
+      this.loading = false;
+    });
   }
 
   ngOnInit() {

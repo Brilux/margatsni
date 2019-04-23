@@ -33,6 +33,10 @@
   height: 50px;
 }
 
+.spinner {
+  margin: 0 auto;
+}
+
 .question-container {
   background-color: #ffff;
   margin: 20px auto;
