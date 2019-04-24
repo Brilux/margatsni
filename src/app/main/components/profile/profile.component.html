@@ -19,19 +19,23 @@
 
       <div class="subscribe-container">
         <div class="subscribe-container">
-          <p class="subscribe-count">{{followersCount}}</p>
-          <button mat-button (click)="openFollowers()">Followers</button>
+          <button mat-button (click)="openFollowers()">
+            <a style="vertical-align: initial" class="subscribe-count">{{followersCount}}</a>
+            Followers
+          </button>
         </div>
 
         <div class="subscribe-container">
-          <p class="subscribe-count">{{followingCount}}</p>
-          <button mat-button (click)="openFollowing()">Following</button>
+          <button mat-button (click)="openFollowing()">
+            <a style="vertical-align: initial" class="subscribe-count">{{followingCount}}</a>
+            Following
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <p *ngIf="errorMessage">{{errorMessage.error}}</p>
+  <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage.error}}</mat-error>
 
   <div class="post-container">
     <div class="post"
@@ -41,10 +45,13 @@
     </div>
   </div>
 
+  <mat-spinner class="infinite-spinner" *ngIf="infiniteSpinner" [diameter]="40"></mat-spinner>
+
   <div
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="1000"
+    [infiniteScrollDisabled]="infiniteScroll"
     (scrolled)="onScroll()">
   </div>
 </div>

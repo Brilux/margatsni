@@ -26,6 +26,9 @@ export class UserProfileComponent implements OnInit {
   public userId: number;
   public followersCount: number;
   public followingCount: number;
+  public infiniteScroll: boolean;
+  public infiniteSpinner: boolean;
+  public totalPages: number;
 
   constructor(private userProfileService: UserProfileService,
               private postService: PostService,
@@ -47,6 +50,7 @@ export class UserProfileComponent implements OnInit {
 
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
+      this.totalPages = post.total_pages;
       this.spinner = false;
     });
   }
@@ -64,13 +68,22 @@ export class UserProfileComponent implements OnInit {
   }
 
   public onScroll() {
-    this.startPage++;
-    this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
-      const posts = post.posts;
-      posts.forEach(item => {
-        this.posts.push(item);
+    if (this.startPage === this.totalPages) {
+      this.infiniteScroll = true;
+    } else {
+      this.infiniteSpinner = true;
+      this.infiniteScroll = true;
+      this.startPage++;
+      this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
+        const posts = post.posts;
+        this.totalPages = post.total_pages;
+        posts.forEach(item => {
+          this.posts.push(item);
+        });
+        this.infiniteSpinner = false;
+        this.infiniteScroll = false;
       });
-    });
+    }
   }
 
   public logout() {

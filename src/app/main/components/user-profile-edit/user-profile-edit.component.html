@@ -4,25 +4,33 @@
   <p class="profile-edit-username">{{username}}</p>
   <form class="profile-edit-form-container" [formGroup]="profileEditForm">
     <label>
-      <img class="user-avatar" src="{{userAvatar}}"  alt="userAvatar" >
+      <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
       <input type="file" formControlName="userAvatar" (change)="onImageSelected($event)">
     </label>
     <p>username:</p>
-    <label>
-      <input formControlName="username" value="{{username}}">
-    </label>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="username" value="{{username}}">
+      </label>
+    </mat-form-field>
     <p>email:</p>
-    <label>
-      <input formControlName="email" value="{{email}}">
-    </label>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="email" value="{{email}}">
+      </label>
+    </mat-form-field>
     <p>password:</p>
-    <label>
-      <input type="password" formControlName="password">
-    </label>
+    <mat-form-field>
+      <label>
+        <input matInput type="password" formControlName="password">
+      </label>
+    </mat-form-field>
     <p>bio:</p>
-    <label>
-      <input formControlName="bio" value="{{bio}}">
-    </label>
-    <button (click)="updateProfileInfo()">Submit</button>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="bio" value="{{bio}}">
+      </label>
+    </mat-form-field>
+    <button mat-raised-button (click)="updateProfileInfo()">Submit</button>
   </form>
 </div>

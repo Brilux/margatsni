@@ -27,13 +27,17 @@ export class ProfileComponent implements OnInit {
   public authorizedUser: string;
   public followersCount: number;
   public followingCount: number;
+  public infiniteScroll: boolean;
+  public infiniteSpinner: boolean;
+  public totalPages: number;
 
   constructor(private userProfileService: UserProfileService,
               private profileService: ProfileService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private localStorageService: LocalStorageService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog) {
+  }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(() => {
@@ -44,6 +48,7 @@ export class ProfileComponent implements OnInit {
 
   public reloadProfile() {
     this.spinner = true;
+    this.startPage = 1;
     this.posts = [];
     this.errorMessage = '';
     this.username = '';
@@ -53,6 +58,8 @@ export class ProfileComponent implements OnInit {
     this.subscribeStatus = null;
     this.followersCount = null;
     this.followingCount = null;
+    this.infiniteScroll = null;
+    this.totalPages = null;
     this.getUserProfile();
     this.getUserPosts();
   }
@@ -65,6 +72,7 @@ export class ProfileComponent implements OnInit {
   public getUserPosts() {
     this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
+      this.totalPages = post.total_pages;
       this.spinner = false;
     }, err => {
       this.errorMessage = err.error;
@@ -116,13 +124,22 @@ export class ProfileComponent implements OnInit {
   }
 
   onScroll() {
-    this.startPage++;
-    this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
-      const posts = post.posts;
-      posts.forEach(item => {
-        this.posts.push(item);
+    if (this.startPage === this.totalPages) {
+      this.infiniteScroll = true;
+    } else {
+      this.infiniteSpinner = true;
+      this.infiniteScroll = true;
+      this.startPage++;
+      this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
+        const posts = post.posts;
+        this.totalPages = post.total_pages;
+        posts.forEach(item => {
+          this.posts.push(item);
+        });
+        this.infiniteSpinner = false;
+        this.infiniteScroll = false;
       });
-    });
+    }
   }
 
   public openFollowing() {

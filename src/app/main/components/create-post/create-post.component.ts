@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class CreatePostComponent implements OnInit {
 
   public postImage: File = null;
+  public loading: boolean;
 
   public postForm: FormGroup = new FormGroup({
     createPostDescription: new FormControl(''),
@@ -27,12 +28,9 @@ export class CreatePostComponent implements OnInit {
   }
 
   public createPost() {
-    if (this.postImage === null) {
-      alert('Please add an image');
-    } else {
+    this.loading = true;
       this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
         () => this.router.navigate(['']),
         err => err);
-    }
   }
 }

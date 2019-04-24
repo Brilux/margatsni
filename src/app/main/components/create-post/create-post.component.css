@@ -1,0 +1,9 @@
+.create-post-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-chosen {
+  font-size: 20px;
+}
