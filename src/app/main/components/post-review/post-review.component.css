@@ -18,9 +18,15 @@
   margin-bottom: 10px;
 }
 
+.post-owner-title {
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
+
 .post-owner {
   font-weight: bold;
-  margin-top: 7px;
   cursor: pointer;
 }
 
@@ -47,16 +53,8 @@
   margin: initial;
 }
 
-.post-owner {
-  font-weight: bold;
-  margin-top: 7px;
-  cursor: pointer;
-}
-
 .post-description {
   margin-left: 10px;
-  text-align: center;
-  margin-bottom: initial;
   margin-block-start: 0;
 }
 

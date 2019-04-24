@@ -1,10 +1,74 @@
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
 
 <div class="post-container" *ngIf="!spinner">
-  <img class="post-image" src="{{postImage}}" alt="postImage">
-  <label>
-    <input [formControl]="inputPostDescription" value="{{postDescription}}">
-  </label>
-  <button (click)="updatePost()" [routerLink]="[ '/user-profile/' , userUrl ]">update post</button>
-  <button (click)="deletePost()" [routerLink]="[ '/user-profile/' , userUrl ]">delete post</button>
+  <mat-card>
+    <mat-card-header class="post-owner-container">
+      <img mat-card-avatar class="post-owner-avatar" [src]="postUserImage || 'assets/images/default-avatar.jpg'"
+           alt="userAvatar">
+      <p class="post-owner-title" mat-card-title
+         [routerLink]=" [ '/profile/', postOwner ]">{{postOwner}}</p>
+    </mat-card-header>
+
+    <img mat-card-image src="{{postImage}}" alt="postImage">
+
+    <mat-card-actions class="likes-container">
+      <div>
+        <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!postLiked"
+             (click)="likePost(likeResourceType, postId)" alt="like-false">
+        <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="postLiked"
+             (click)="dislike(likeResourceType, postId)" alt="like-true">
+        <p class="post-likes">{{postLikedCount}} likes</p>
+      </div>
+      <div>
+        <button mat-raised-button (click)="deletePost()" [routerLink]="[ '/user-profile/' , userUrl ]">Delete post
+        </button>
+      </div>
+    </mat-card-actions>
+
+    <mat-card-content class="post-info-container" *ngIf="postDescription">
+      <div style="display: flex">
+        <p class="post-owner">{{postOwner}}</p>
+        <mat-form-field class="post-description" style="display: block">
+          <label>
+            <input matInput [formControl]="inputPostDescription" value="{{postDescription}}">
+          </label>
+        </mat-form-field>
+      </div>
+      <div style="margin-right: -10px">
+        <button mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , userUrl ]">Update post
+        </button>
+      </div>
+    </mat-card-content>
+
+    <mat-divider style="position: initial"></mat-divider>
+
+    <div class="load-more-comments-container">
+      <button class="load-more-comments-icon" mat-icon-button *ngIf="loadButton"
+              (click)="getComments(postId, pageToLoad)">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+
+
+    <div class="post-comments" *ngFor="let comment of comments">
+      <div class="post-comments-info-container">
+        <p class="comment-owner"
+           [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+        <p class="comment-body">{{comment.body}}</p>
+      </div>
+      <button class="delete-comment-icon" mat-icon-button *ngIf="comment.user.username === user"
+              (click)="deleteComment(postId, comment.id, comment)">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </div>
+
+    <form (ngSubmit)="addComment(postId)">
+      <mat-form-field style="display: block">
+        <label>
+          <input matInput type="text" [formControl]="addCommentForm" placeholder="Add a comment">
+        </label>
+      </mat-form-field>
+    </form>
+
+  </mat-card>
 </div>

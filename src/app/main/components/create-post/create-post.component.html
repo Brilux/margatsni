@@ -1,11 +1,21 @@
 <div class="create-post-container">
-  <form [formGroup]="postForm">
-    <label>
-      <input type="file" (change)="onImageSelected($event)">
-    </label>
-    <label>
-      <input formControlName="createPostDescription">
-    </label>
-    <button (click)="createPost()">Create post</button>
+
+  <h1>Add your image</h1>
+
+  <form class="create-post-container" [formGroup]="postForm">
+    <button mat-raised-button onclick="document.getElementById('fileToUpload').click()">Choose your image</button>
+    <input id="fileToUpload" type="file" (change)="onImageSelected($event)" style="display:none;">
+    <p class="image-chosen" *ngIf="postImage">Image chosen</p>
+
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="createPostDescription" placeholder="Add description">
+      </label>
+    </mat-form-field>
+
+    <button mat-raised-button [disabled]="!postImage || loading" (click)="createPost()">
+      <a *ngIf="!loading">Create post</a>
+      <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
+    </button>
   </form>
 </div>

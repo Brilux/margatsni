@@ -20,8 +20,9 @@
 .info-container {
   display: flex;
   flex-direction: column;
+  margin-right: 20px;
   margin-left: 20px;
-  width: 100px;
+  width: 150px;
 }
 
 .user-username {
@@ -29,12 +30,16 @@
   font-size: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .user-bio {
   font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .user-avatar {
@@ -58,6 +63,7 @@
 
 .subscribe-count {
   font-weight: bold;
+  vertical-align: initial;
 }
 
 .post-container {
@@ -87,4 +93,8 @@
   width: 100%;
   object-fit: cover;
   align-self: center;
+}
+
+.infinite-spinner {
+  margin: 50px auto;
 }

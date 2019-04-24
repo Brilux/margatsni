@@ -17,6 +17,9 @@ export class FeedComponent implements OnInit {
   public spinner = true;
   public startPage = 1;
   public likeResourceType = 'posts';
+  public infiniteScroll: boolean;
+  public infiniteSpinner: boolean;
+  public totalPages: number;
 
   public addCommentForm = new FormControl('');
 
@@ -33,18 +36,28 @@ export class FeedComponent implements OnInit {
   public getPosts(pageNumber) {
     this.feedService.posts(pageNumber).subscribe(post => {
       this.posts = post.posts;
+      this.totalPages = post.total_pages;
       this.spinner = false;
     });
   }
 
   public onScroll() {
-    this.startPage++;
-    this.feedService.posts(this.startPage).subscribe(post => {
-      const posts = post.posts;
-      posts.forEach(item => {
-        this.posts.push(item);
+    if (this.startPage === this.totalPages) {
+      this.infiniteScroll = true;
+    } else {
+      this.infiniteSpinner = true;
+      this.infiniteScroll = true;
+      this.startPage++;
+      this.feedService.posts(this.startPage).subscribe(post => {
+        const posts = post.posts;
+        this.totalPages = post.total_pages;
+        posts.forEach(item => {
+          this.posts.push(item);
+        });
+        this.infiniteSpinner = false;
+        this.infiniteScroll = false;
       });
-    });
+    }
   }
 
   public addComment(postId) {

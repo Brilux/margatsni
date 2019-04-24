@@ -19,6 +19,13 @@
   margin-bottom: 10px;
 }
 
+.post-owner-title {
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 7px;
+}
+
+
 .likes-container {
   padding: initial;
   margin-bottom: initial;
@@ -51,7 +58,6 @@
 
 .post-owner {
   font-weight: bold;
-  margin-top: 7px;
   cursor: pointer;
 }
 
@@ -74,6 +80,10 @@
 .comment-body {
   margin-left: 10px;
   text-align: center;
+}
+
+.infinite-spinner {
+  margin: 50px auto;
 }
 
 @media screen and (max-width: 576px) {
