@@ -75,7 +75,8 @@ export class ProfileComponent implements OnInit {
       this.totalPages = post.total_pages;
       this.spinner = false;
     }, err => {
-      this.errorMessage = err.error;
+      const errorMessage = Object.keys(err.error.errors);
+      this.errorMessage = `${errorMessage[0]} ${err.error.errors[errorMessage[0]]}`;
       this.spinner = false;
     });
   }
