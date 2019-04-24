@@ -27,7 +27,7 @@ export class UserPostEditComponent implements OnInit {
   public comments: string[] = [];
   public postLiked: boolean;
   public postLikedCount: number;
-  public loadButton = true;
+  public loadButton: boolean;
   public user: string;
 
   public inputPostDescription = new FormControl('');
@@ -72,8 +72,10 @@ export class UserPostEditComponent implements OnInit {
   }
 
   public checkPages(currentPage: number, totalPage: number) {
-    if (currentPage === totalPage) {
+    if (currentPage >= totalPage) {
       this.loadButton = false;
+    } else {
+      this.loadButton = true;
     }
   }
 

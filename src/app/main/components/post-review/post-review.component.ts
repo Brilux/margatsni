@@ -24,7 +24,7 @@ export class PostReviewComponent implements OnInit {
   public startPage = 1;
   public pageToLoad = 2;
   public user: string;
-  public loadButton = true;
+  public loadButton: boolean;
   public spinner = true;
   public likeResourceType = 'posts';
   public postLiked: boolean;
@@ -82,8 +82,10 @@ export class PostReviewComponent implements OnInit {
   }
 
   public checkPages(currentPage: number, totalPage: number) {
-    if (currentPage === totalPage) {
+    if (currentPage >= totalPage) {
       this.loadButton = false;
+    } else {
+      this.loadButton = true;
     }
   }
 
