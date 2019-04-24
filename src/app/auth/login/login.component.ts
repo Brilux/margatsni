@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
     }, err => {
-      this.loginError = err.error;
+      const errorMessage = Object.keys(err.error.errors);
+      this.loginError = `${errorMessage[0]} ${err.error.errors[errorMessage[0]]}`;
       this.loading = false;
     });
   }

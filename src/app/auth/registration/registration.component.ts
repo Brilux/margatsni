@@ -45,7 +45,8 @@ export class RegistrationComponent implements OnInit {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
     }, err => {
-      this.registrationError = err.error.error;
+      const errorMessage = Object.keys(err.error.errors);
+      this.registrationError = `${errorMessage[0]} ${err.error.errors[errorMessage[0]]}`;
       this.loading = false;
     });
   }
