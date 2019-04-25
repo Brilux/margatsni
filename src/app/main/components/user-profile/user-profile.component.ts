@@ -45,7 +45,7 @@ export class UserProfileComponent implements OnInit {
       this.userId = info.user.id;
       this.getFollowersCount(this.userId);
       this.getFollowingCount(this.userId);
-      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.png';
     });
 
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {

@@ -8,6 +8,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCardModule,
   MatDialogModule, MatDividerModule,
@@ -52,7 +53,8 @@ import { FollowingComponent } from './components/following/following.component';
     MatInputModule,
     MatDividerModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatAutocompleteModule
   ],
   entryComponents: [FollowersComponent, FollowingComponent]
 })

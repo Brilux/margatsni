@@ -1,7 +1,15 @@
-<form (ngSubmit)="searchUser()">
+<form>
   <mat-form-field>
     <label>
-      <input matInput type="text" [formControl]="searchForm" placeholder="Search">
+      <input matInput type="text" [formControl]="searchForm" placeholder="Search" [matAutocomplete]="auto">
     </label>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let user of filteredUsersArray | async" [value]="user.username">
+        <p
+          [routerLink]="username == user.username ? ['/user-profile/' , user.username] : ['/profile/' , user.username]">
+          {{user.username}}
+        </p>
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 </form>

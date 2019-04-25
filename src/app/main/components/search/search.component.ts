@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { SearchService } from '../../../rest/search/search.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -14,21 +16,37 @@ export class SearchComponent implements OnInit {
   public searchForm = new FormControl('');
   public username: string;
 
+  public usersArray = [];
+  public filteredUsersArray: Observable<any>;
+
   constructor(private searchService: SearchService,
               private router: Router,
-              private localStorageService: LocalStorageService) { }
+              private localStorageService: LocalStorageService) {
+    this.searchForm.valueChanges.subscribe(user => {
+      this.getUsers(user || null);
+    });
+  }
 
   ngOnInit() {
     const userInfo = this.localStorageService.getUserInfo();
     this.username = userInfo.user.username;
   }
 
-  public searchUser() {
-    if (this.username === this.searchForm.value) {
-      this.router.navigate(['user-profile', this.searchForm.value]);
-    } else {
-      this.router.navigate(['profile', this.searchForm.value]);
-    }
-    this.searchForm.reset();
+  public getUsers(user) {
+    this.searchService.getUsersForSearchByUsername(user).subscribe(response => {
+      this.usersArray = response.users;
+      this.autoCompleteFilter();
+    });
+  }
+
+  public autoCompleteFilter() {
+    this.filteredUsersArray = this.searchForm.valueChanges
+      .pipe(
+        startWith(''),
+        map(user => {
+          const filterUser = user.toLowerCase();
+          return this.usersArray.filter(filteredUsers => filteredUsers.username.toLowerCase().indexOf(filterUser) === 0);
+        })
+      );
   }
 }
