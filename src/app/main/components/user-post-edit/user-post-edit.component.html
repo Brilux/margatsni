@@ -3,7 +3,7 @@
 <div class="post-container" *ngIf="!spinner">
   <mat-card>
     <mat-card-header class="post-owner-container">
-      <img mat-card-avatar class="post-owner-avatar" [src]="postUserImage || 'assets/images/default-avatar.jpg'"
+      <img mat-card-avatar class="post-owner-avatar" [src]="postUserImage || 'assets/images/default-avatar.png'"
            alt="userAvatar">
       <p class="post-owner-title" mat-card-title
          [routerLink]=" [ '/profile/', postOwner ]">{{postOwner}}</p>

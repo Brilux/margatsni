@@ -34,7 +34,7 @@ export class UserProfileEditComponent implements OnInit {
       this.username = info.user.username;
       this.email = info.user.email;
       this.bio = info.user.bio;
-      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.png';
       this.userUrl = info.user.username;
       this.spinner = false;
     });

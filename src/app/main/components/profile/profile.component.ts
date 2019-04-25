@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
       this.getFollowingCount(this.userId);
       this.username = info.user.username;
       this.bio = info.user.bio;
-      this.userAvatar = info.user.image || 'assets/images/default-avatar.jpg';
+      this.userAvatar = info.user.image || 'assets/images/default-avatar.png';
     });
   }
 

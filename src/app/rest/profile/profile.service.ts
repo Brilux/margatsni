@@ -10,7 +10,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  public getUserProfileByUsername(username) {
+  public getUserProfileByUsername(username): Observable<any> {
     return this.http.get(`/users/${username}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
