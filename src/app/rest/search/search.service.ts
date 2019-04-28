@@ -10,8 +10,8 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsersForSearchByUsername(username): Observable<any> {
-    return this.http.get(`/users/?username_query=${username}`).pipe(
+  public getUsersForSearchByUsername(username, page): Observable<any> {
+    return this.http.get(`/users/?page=${page}&username_query=${username}`).pipe(
       map(response => response),
       catchError(err => throwError(err)));
   }

@@ -14,16 +14,26 @@ import { map, startWith } from 'rxjs/operators';
 export class SearchComponent implements OnInit {
 
   public searchForm = new FormControl('');
+
   public username: string;
 
   public usersArray = [];
   public filteredUsersArray: Observable<any>;
+  public userForSearch: string;
+  public startPage = 1;
+  public spinner: boolean;
+  public loadButton: boolean;
+  public loadMoreSpinner: boolean;
+  public currentPage: number;
+  public totalPages: number;
 
   constructor(private searchService: SearchService,
               private router: Router,
               private localStorageService: LocalStorageService) {
     this.searchForm.valueChanges.subscribe(user => {
-      this.getUsers(user || null);
+      this.spinner = true;
+      this.startPage = 1;
+      this.getUsers(user.toLowerCase() || null);
     });
   }
 
@@ -33,8 +43,17 @@ export class SearchComponent implements OnInit {
   }
 
   public getUsers(user) {
-    this.searchService.getUsersForSearchByUsername(user).subscribe(response => {
+    this.searchService.getUsersForSearchByUsername(user, this.startPage).subscribe(response => {
       this.usersArray = response.users;
+      this.currentPage = response.page;
+      this.totalPages = response.total_pages;
+      if (this.currentPage >= this.totalPages) {
+        this.loadButton = false;
+      } else {
+        this.loadButton = true;
+      }
+      this.userForSearch = user;
+      this.spinner = false;
       this.autoCompleteFilter();
     });
   }
@@ -48,5 +67,24 @@ export class SearchComponent implements OnInit {
           return this.usersArray.filter(filteredUsers => filteredUsers.username.toLowerCase().indexOf(filterUser) === 0);
         })
       );
+  }
+
+  public loadMoreUsers(user) {
+    this.startPage++;
+    this.loadMoreSpinner = true;
+    this.searchService.getUsersForSearchByUsername(user, this.startPage).subscribe(response => {
+      this.currentPage = response.page;
+      this.totalPages = response.total_pages;
+      if (this.currentPage >= this.totalPages) {
+        this.loadButton = false;
+      } else {
+        this.loadButton = true;
+      }
+      response.users.forEach(item => {
+        this.usersArray.push(item);
+      });
+      this.loadMoreSpinner = false;
+      this.autoCompleteFilter();
+    });
   }
 }

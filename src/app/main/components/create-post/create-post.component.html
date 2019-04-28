@@ -4,10 +4,14 @@
 
   <form class="create-post-container" [formGroup]="postForm">
     <button mat-raised-button onclick="document.getElementById('fileToUpload').click()">Choose your image</button>
-    <input id="fileToUpload" type="file" (change)="onImageSelected($event)" style="display:none;">
-    <p class="image-chosen" *ngIf="postImage">Image chosen</p>
+    <input #file id="fileToUpload" type="file" accept='image/*' (change)="onImageSelected($event, file.files)"
+           style="display:none;">
+    <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    <div class="image-preview-container">
+      <img class="image-preview" [src]="imgURL" height="200" *ngIf="imgURL" alt="previewImage">
+    </div>
 
-    <mat-form-field>
+    <mat-form-field class="input-description">
       <label>
         <input matInput formControlName="createPostDescription" placeholder="Add description">
       </label>
