@@ -33,7 +33,7 @@
     </form>
     <div class="buttons-container">
       <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid || loading">
-        <a *ngIf="!loading">Sign up</a>
+        <span *ngIf="!loading">Sign up</span>
         <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
       </button>
     </div>

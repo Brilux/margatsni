@@ -39,6 +39,11 @@ export class UserProfileComponent implements OnInit {
               private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.getUserInfo();
+    this.getUserPosts();
+  }
+
+  public getUserInfo() {
     this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.bio = info.user.bio;
@@ -47,7 +52,9 @@ export class UserProfileComponent implements OnInit {
       this.getFollowingCount(this.userId);
       this.userAvatar = info.user.image || 'assets/images/default-avatar.png';
     });
+  }
 
+  public getUserPosts() {
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
       this.totalPages = post.total_pages;

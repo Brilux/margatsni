@@ -30,6 +30,10 @@ export class UserProfileEditComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.getUserInfo();
+  }
+
+  public getUserInfo() {
     this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.email = info.user.email;
