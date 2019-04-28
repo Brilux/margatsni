@@ -86,7 +86,9 @@ export class UserPostEditComponent implements OnInit {
   }
 
   public deletePost() {
-    this.postService.deletePost(this.postId).subscribe(response => response, err => err);
+    this.postService.deletePost(this.postId).subscribe(() => {
+      this.router.navigate([ '/user-profile/' , this.userUrl]);
+    }, err => err);
   }
 
   public likePost(likeResource, postId) {
