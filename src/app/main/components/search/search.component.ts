@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit {
 
   public searchForm = new FormControl('');
 
-  public username: string;
+  public authorizedUser: string;
 
   public usersArray = [];
   public tagsArray = [];
@@ -51,7 +51,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
-      this.username = userInfo.user.username;
+      this.authorizedUser = userInfo.user.username;
     }
   }
 

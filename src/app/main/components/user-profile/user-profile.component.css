@@ -68,7 +68,8 @@
 
 .post-container {
   display: flex;
-  width: 100%;
+  max-width: 970px;
+  margin: 0 auto;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;

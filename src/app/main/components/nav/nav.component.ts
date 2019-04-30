@@ -10,7 +10,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class NavComponent implements OnInit {
 
-  public userUrl: string;
+  public authorizedUser: string;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
-      this.userUrl = userInfo.user.username;
+      this.authorizedUser = userInfo.user.username;
     }
   }
 

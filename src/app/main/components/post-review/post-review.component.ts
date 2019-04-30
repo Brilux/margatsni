@@ -23,7 +23,7 @@ export class PostReviewComponent implements OnInit {
   public comments: string[] = [];
   public startPage = 1;
   public pageToLoad = 2;
-  public user: string;
+  public authorizedUser: string;
   public loadButton: boolean;
   public spinner = true;
   public likeResourceType = 'posts';
@@ -50,7 +50,7 @@ export class PostReviewComponent implements OnInit {
   public getUser() {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
-      this.user = userInfo.user.username;
+      this.authorizedUser = userInfo.user.username;
     }
   }
 

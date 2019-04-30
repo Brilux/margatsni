@@ -28,7 +28,7 @@ export class UserPostEditComponent implements OnInit {
   public postLiked: boolean;
   public postLikedCount: number;
   public loadButton: boolean;
-  public user: string;
+  public authorizedUser: string;
 
   public inputPostDescription = new FormControl('');
   public addCommentForm = new FormControl('');
@@ -48,7 +48,7 @@ export class UserPostEditComponent implements OnInit {
 
   public getUser() {
     const userInfo = this.localStorageService.getUserInfo();
-    this.user = userInfo.user.username;
+    this.authorizedUser = userInfo.user.username;
   }
 
   public getPost() {

@@ -21,7 +21,7 @@ export class FeedComponent implements OnInit {
   public infiniteScroll: boolean;
   public infiniteSpinner: boolean;
   public totalPages: number;
-  public userName: string;
+  public authorizedUser: string;
 
   public addCommentForm = new FormControl('');
 
@@ -35,7 +35,7 @@ export class FeedComponent implements OnInit {
   ngOnInit() {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
-      this.userName = userInfo.user.username;
+      this.authorizedUser = userInfo.user.username;
     }
     this.getPosts(this.startPage);
   }
