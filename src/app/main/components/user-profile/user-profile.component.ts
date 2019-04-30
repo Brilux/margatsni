@@ -36,7 +36,8 @@ export class UserProfileComponent implements OnInit {
               private shareService: ShareService,
               private router: Router,
               private dialog: MatDialog,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService) {
+  }
 
   ngOnInit() {
     this.getUserInfo();
@@ -57,6 +58,23 @@ export class UserProfileComponent implements OnInit {
   public getUserPosts() {
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
+      const fakePost = {
+        body: null,
+        comments: null,
+        create_at: null,
+        id: null,
+        image: null,
+        liked: null,
+        likes_count: null,
+        user: null,
+      };
+      const checkMissingPosts = this.posts.length % 3;
+      if (checkMissingPosts === 1) {
+        this.posts.push(fakePost, fakePost);
+      }
+      if (checkMissingPosts === 2) {
+        this.posts.push(fakePost);
+      }
       this.totalPages = post.total_pages;
       this.spinner = false;
     });

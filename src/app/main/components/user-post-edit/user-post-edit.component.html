@@ -52,10 +52,10 @@
     <div class="post-comments" *ngFor="let comment of comments">
       <div class="post-comments-info-container">
         <p class="comment-owner"
-           [routerLink]="user == comment.user.username ? [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+           [routerLink]="authorizedUser == comment.user.username ? [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
         <p class="comment-body">{{comment.body}}</p>
       </div>
-      <button class="delete-comment-icon" mat-icon-button *ngIf="comment.user.username === user"
+      <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
               (click)="deleteComment(postId, comment.id, comment)">
         <mat-icon>clear</mat-icon>
       </button>

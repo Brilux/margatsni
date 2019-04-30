@@ -13,7 +13,7 @@ export class UserProfileEditComponent implements OnInit {
   public username: string;
   public email: string;
   public bio: string;
-  public userUrl: number;
+  public userUrl: string;
   public userAvatar: string;
   public newUserAvatar: File = null;
   public imgURL: any;

@@ -1,3 +1,9 @@
-<p>
-  tag works!
-</p>
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="post-container">
+  <div class="post"
+       [ngStyle]="{'background-image': 'url(' + post.image + ')'}"
+         [routerLink]="authorizedUser == post.user.username ? [ '/edit-post/', post.id ] : [ '/post-review/', post.id ]"
+       *ngFor="let post of posts">
+  </div>
+</div>

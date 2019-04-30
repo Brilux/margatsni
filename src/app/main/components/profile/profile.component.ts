@@ -74,6 +74,23 @@ export class ProfileComponent implements OnInit {
   public getUserPosts() {
     this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
+      const fakePost = {
+        body: null,
+        comments: null,
+        create_at: null,
+        id: null,
+        image: null,
+        liked: null,
+        likes_count: null,
+        user: null,
+      };
+      const checkMissingPosts = this.posts.length % 3;
+      if (checkMissingPosts === 1) {
+        this.posts.push(fakePost, fakePost);
+      }
+      if (checkMissingPosts === 2) {
+        this.posts.push(fakePost);
+      }
       this.totalPages = post.total_pages;
       this.spinner = false;
     }, err => {
