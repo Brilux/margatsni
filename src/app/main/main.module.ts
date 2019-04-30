@@ -24,6 +24,7 @@ import { UserPostEditComponent } from './components/user-post-edit/user-post-edi
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { FollowersComponent } from './components/followers/followers.component';
 import { FollowingComponent } from './components/following/following.component';
+import { TagComponent } from './components/tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FollowingComponent } from './components/following/following.component';
     UserPostEditComponent,
     PostReviewComponent,
     FollowersComponent,
-    FollowingComponent
+    FollowingComponent,
+    TagComponent
   ],
   imports: [
     CommonModule,

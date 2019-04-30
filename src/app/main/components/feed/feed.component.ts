@@ -5,6 +5,7 @@ import { PostService } from '../../../rest/posts/post.service';
 import { PostInterface } from '../../../interfaces/post.interface';
 import { ShareService } from '../../services/share.service';
 import { LikeService } from '../../../rest/posts/like.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-feed',
@@ -20,16 +21,22 @@ export class FeedComponent implements OnInit {
   public infiniteScroll: boolean;
   public infiniteSpinner: boolean;
   public totalPages: number;
+  public userName: string;
 
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
               private postService: PostService,
               private shareService: ShareService,
+              private localStorageService: LocalStorageService,
               private likeService: LikeService) {
   }
 
   ngOnInit() {
+    const userInfo = this.localStorageService.getUserInfo();
+    if (userInfo) {
+      this.userName = userInfo.user.username;
+    }
     this.getPosts(this.startPage);
   }
 

@@ -49,7 +49,9 @@ export class PostReviewComponent implements OnInit {
 
   public getUser() {
     const userInfo = this.localStorageService.getUserInfo();
-    this.user = userInfo.user.username;
+    if (userInfo) {
+      this.user = userInfo.user.username;
+    }
   }
 
   public getPost(postId: number) {
@@ -93,6 +95,10 @@ export class PostReviewComponent implements OnInit {
     this.likeService.putLike(likeResource, postId).subscribe(() => {
       this.postLikedCount++;
       this.postLiked = true;
+    }, err => {
+      if (err.statusText === 'Unauthorized') {
+        this.router.navigate(['/login']);
+      }
     });
   }
 
@@ -106,7 +112,11 @@ export class PostReviewComponent implements OnInit {
   public addComment(postId) {
     this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => {
       this.comments.push(response.comment);
-    }, err => err);
+    }, err => {
+      if (err.statusText === 'Unauthorized') {
+        this.router.navigate(['/login']);
+      }
+    });
     this.addCommentForm.reset();
   }
 

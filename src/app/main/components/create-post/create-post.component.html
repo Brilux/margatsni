@@ -8,7 +8,7 @@
            style="display:none;">
     <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
     <div class="image-preview-container">
-      <img class="image-preview" [src]="imgURL" height="200" *ngIf="imgURL" alt="previewImage">
+      <img class="image-preview" [src]="imgURL" *ngIf="imgURL" alt="previewImage">
     </div>
 
     <mat-form-field class="input-description">

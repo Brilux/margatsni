@@ -9,6 +9,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { MainGuard } from './main.guard';
+import { TagComponent } from './components/tag/tag.component';
 
 
 const mainRoutes: Routes = [
@@ -48,6 +49,11 @@ const mainRoutes: Routes = [
       {
         path: 'profile/:id',
         component: ProfileComponent
+      },
+      {
+        path: 'tag/:name',
+        component: TagComponent,
+        canActivate: [MainGuard]
       },
     ]
   },

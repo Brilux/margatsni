@@ -6,7 +6,7 @@
       <img mat-card-avatar class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.png'"
            alt="userAvatar">
       <p class="post-owner-title" mat-card-title
-         [routerLink]=" [ '/profile/', post.user.username ]">{{post.user.username}}</p>
+         [routerLink]="userName == post.user.username ? [ '/user-profile/', post.user.username ] : [ '/profile/', post.user.username ]">{{post.user.username}}</p>
     </mat-card-header>
 
     <img mat-card-image src="{{post.image}}" alt="postImage" (click)="postReview(post.id)">
@@ -17,7 +17,7 @@
       <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="post.liked"
            (click)="dislike(likeResourceType, post.id)" alt="like-true">
       <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment"
-           [routerLink]=" [ '/post-review/', post.id ]">
+           [routerLink]="userName == post.user.username ? [ '/edit-post/', post.id ] : [ '/post-review/', post.id ]">
       <p class="post-likes">{{post.likes_count}} likes</p>
     </mat-card-actions>
 
@@ -29,7 +29,8 @@
     <mat-divider style="position: initial"></mat-divider>
 
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <p class="comment-owner" [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+      <p class="comment-owner"
+         [routerLink]="userName == comment.user.username ? [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
       <p class="comment-body">{{comment.body}}</p>
     </div>
 
