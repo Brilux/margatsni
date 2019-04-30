@@ -5,19 +5,19 @@
     </label>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-spinner class="spinner" *ngIf="spinner" [diameter]="40"></mat-spinner>
-      <mat-option class="user-info-container" *ngFor="let user of filteredUsersArray | async" [value]="user.username"
-                  [routerLink]="username == user.username ? ['/user-profile/' , user.username] : ['/profile/' , user.username]"
+      <mat-option class="user-info-container" *ngFor="let user of filteredArray | async" [value]="user.username || tagsArray[0]"
+                  [routerLink]="!tagForSearch ? (username == user.username ? ['/user-profile/' , user.username] : ['/profile/' , user.username]) : tagsArray ? ['/tag/' , tagForSearch] : null"
       (click)="searchForm.setValue('')">
         <div *ngIf="!spinner">
-          <img class="user-avatar" [src]="user.image || 'assets/images/default-avatar.png'" alt="userAvatar">
+          <img *ngIf="!avatarDisable" class="user-avatar" [src]="user.image || 'assets/images/default-avatar.png'" alt="userAvatar">
           <span>
-            {{user.username}}
+            {{user.username || tagsArray[0]}}
           </span>
         </div>
       </mat-option>
       <mat-spinner class="spinner" *ngIf="loadMoreSpinner" [diameter]="40"></mat-spinner>
       <div class="load-more-users-icon-container">
-        <button *ngIf="loadButton" mat-icon-button (click)="loadMoreUsers(userForSearch)">
+        <button *ngIf="loadButton" [ngStyle]="loadMoreSpinner ? {'display': 'none'} : {'display': 'inline-block'}" mat-icon-button (click)="loadMoreUsers(userForSearch)">
           <mat-icon>add_circle_outline</mat-icon>
         </button>
       </div>

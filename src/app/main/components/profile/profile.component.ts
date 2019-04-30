@@ -66,7 +66,9 @@ export class ProfileComponent implements OnInit {
 
   public getAuthorizedUser() {
     const userInfo = this.localStorageService.getUserInfo();
-    this.authorizedUser = userInfo.user.username;
+    if (userInfo) {
+      this.authorizedUser = userInfo.user.username;
+    }
   }
 
   public getUserPosts() {
@@ -114,6 +116,10 @@ export class ProfileComponent implements OnInit {
     this.profileService.sendSubscribe(userId).subscribe(() => {
       this.subscribeStatus = false;
       this.followersCount++;
+    }, err => {
+      if (err.statusText === 'Unauthorized') {
+        this.router.navigate(['/login']);
+      }
     });
   }
 

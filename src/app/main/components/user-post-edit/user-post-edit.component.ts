@@ -87,7 +87,7 @@ export class UserPostEditComponent implements OnInit {
 
   public deletePost() {
     this.postService.deletePost(this.postId).subscribe(() => {
-      this.router.navigate([ '/user-profile/' , this.userUrl]);
+        this.router.navigate([ '/user-profile/' , this.userUrl]);
     }, err => err);
   }
 

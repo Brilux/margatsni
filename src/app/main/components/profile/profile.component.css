@@ -82,6 +82,8 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #808080;
 }
 
 .post:hover {

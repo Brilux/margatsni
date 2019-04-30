@@ -18,7 +18,8 @@ export class SearchComponent implements OnInit {
   public username: string;
 
   public usersArray = [];
-  public filteredUsersArray: Observable<any>;
+  public tagsArray = [];
+  public filteredArray: Observable<any>;
   public userForSearch: string;
   public startPage = 1;
   public spinner: boolean;
@@ -26,20 +27,32 @@ export class SearchComponent implements OnInit {
   public loadMoreSpinner: boolean;
   public currentPage: number;
   public totalPages: number;
+  public avatarDisable: boolean;
+  public tagForSearch: string;
 
   constructor(private searchService: SearchService,
               private router: Router,
               private localStorageService: LocalStorageService) {
-    this.searchForm.valueChanges.subscribe(user => {
-      this.spinner = true;
-      this.startPage = 1;
-      this.getUsers(user.toLowerCase() || null);
+    this.searchForm.valueChanges.subscribe(searchItem => {
+      this.tagForSearch = null;
+        if (searchItem.indexOf('#') === 0) {
+          this.tagForSearch = searchItem;
+          this.searchTag(searchItem || null);
+          this.avatarDisable = true;
+        } else {
+          this.spinner = true;
+          this.avatarDisable = false;
+          this.startPage = 1;
+          this.getUsers(searchItem.toLowerCase() || null);
+        }
     });
   }
 
   ngOnInit() {
     const userInfo = this.localStorageService.getUserInfo();
-    this.username = userInfo.user.username;
+    if (userInfo) {
+      this.username = userInfo.user.username;
+    }
   }
 
   public getUsers(user) {
@@ -59,7 +72,7 @@ export class SearchComponent implements OnInit {
   }
 
   public autoCompleteFilter() {
-    this.filteredUsersArray = this.searchForm.valueChanges
+    this.filteredArray = this.searchForm.valueChanges
       .pipe(
         startWith(''),
         map(user => {
@@ -86,5 +99,25 @@ export class SearchComponent implements OnInit {
       this.loadMoreSpinner = false;
       this.autoCompleteFilter();
     });
+  }
+
+  public searchTag(searchItem) {
+    if (searchItem.length > 1) {
+      this.searchService.getTagByName(searchItem.slice(1)).subscribe(() => {
+        this.tagsArray = [];
+        this.tagsArray.push(searchItem);
+        this.autoCompleteTagFilter();
+      });
+    }
+  }
+
+  public autoCompleteTagFilter() {
+    this.filteredArray = this.searchForm.valueChanges
+      .pipe(
+        startWith(''),
+        map(() => {
+          const filter = this.tagForSearch;
+          return this.tagsArray.filter(filteredTags => filteredTags.indexOf(filter) === 0);
+        }));
   }
 }

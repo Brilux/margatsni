@@ -6,7 +6,7 @@
       <img mat-card-avatar class="post-owner-avatar" [src]="postUserImage || 'assets/images/default-avatar.png'"
            alt="userAvatar">
       <p class="post-owner-title" mat-card-title
-         [routerLink]=" [ '/profile/', postOwner ]">{{postOwner}}</p>
+         [routerLink]=" [ '/user-profile/', postOwner ]">{{postOwner}}</p>
     </mat-card-header>
 
     <img mat-card-image src="{{postImage}}" alt="postImage">
@@ -20,8 +20,7 @@
         <p class="post-likes">{{postLikedCount}} likes</p>
       </div>
       <div>
-        <button mat-raised-button (click)="deletePost()" [routerLink]="[ '/user-profile/' , userUrl ]">Delete post
-        </button>
+        <button mat-raised-button (click)="deletePost()">Delete post</button>
       </div>
     </mat-card-actions>
 
@@ -53,7 +52,7 @@
     <div class="post-comments" *ngFor="let comment of comments">
       <div class="post-comments-info-container">
         <p class="comment-owner"
-           [routerLink]=" [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+           [routerLink]="user == comment.user.username ? [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
         <p class="comment-body">{{comment.body}}</p>
       </div>
       <button class="delete-comment-icon" mat-icon-button *ngIf="comment.user.username === user"

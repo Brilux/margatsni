@@ -16,6 +16,8 @@ export class UserProfileEditComponent implements OnInit {
   public userUrl: number;
   public userAvatar: string;
   public newUserAvatar: File = null;
+  public imgURL: any;
+  public errorMessage: string;
   public spinner = true;
 
   public profileEditForm: FormGroup = new FormGroup({
@@ -44,8 +46,19 @@ export class UserProfileEditComponent implements OnInit {
     });
   }
 
-  public onImageSelected(event) {
-    this.newUserAvatar = <File>event.target.files[0];
+  public onImageSelected(event, files) {
+    if (files[0].type.match(/image\/*/) == null) {
+      this.errorMessage = 'Only images are supported.';
+      return;
+    } else {
+      this.errorMessage = '';
+      this.newUserAvatar = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload = () => {
+        this.imgURL = reader.result;
+      };
+    }
   }
 
   public updateProfileInfo() {

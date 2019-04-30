@@ -15,4 +15,10 @@ export class SearchService {
       map(response => response),
       catchError(err => throwError(err)));
   }
+
+  public getTagByName(tagName): Observable<any> {
+    return this.http.get(`/posts//tags/${tagName}`).pipe(
+      map(response => response),
+      catchError(err => throwError(err)));
+  }
 }
