@@ -13,7 +13,7 @@ export class CreatePostComponent implements OnInit {
   public postImage: File = null;
   public loading: boolean;
 
-  public imgURL: any;
+  public imgURL: string | ArrayBuffer;
   public errorMessage: string;
 
   public postForm: FormGroup = new FormGroup({
@@ -27,7 +27,7 @@ export class CreatePostComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onImageSelected(event, files) {
+  public onImageSelected(event, files): void {
     if (files[0].type.match(/image\/*/) == null) {
       this.errorMessage = 'Only images are supported.';
       return;
@@ -42,7 +42,7 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  public createPost() {
+  public createPost(): void {
     this.loading = true;
     this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
       () => this.router.navigate(['']),

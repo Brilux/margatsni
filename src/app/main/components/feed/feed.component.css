@@ -75,6 +75,7 @@
 
 .comment-owner {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .comment-body {

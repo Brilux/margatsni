@@ -1,8 +1,8 @@
-import { UserInterface } from '../../interfaces/user.interface';
+import { UserModel } from './user.model';
 
 export class TokenModel {
   token: string;
-  user: UserInterface;
+  user: UserModel;
 
   constructor(response: TokenModel) {
     if (response) {

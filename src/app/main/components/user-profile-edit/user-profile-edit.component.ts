@@ -16,7 +16,7 @@ export class UserProfileEditComponent implements OnInit {
   public userUrl: string;
   public userAvatar: string;
   public newUserAvatar: File = null;
-  public imgURL: any;
+  public imgURL: string | ArrayBuffer;
   public errorMessage: string;
   public spinner = true;
 
@@ -35,7 +35,7 @@ export class UserProfileEditComponent implements OnInit {
     this.getUserInfo();
   }
 
-  public getUserInfo() {
+  public getUserInfo(): void {
     this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.email = info.user.email;
@@ -46,7 +46,7 @@ export class UserProfileEditComponent implements OnInit {
     });
   }
 
-  public onImageSelected(event, files) {
+  public onImageSelected(event, files): void {
     if (files[0].type.match(/image\/*/) == null) {
       this.errorMessage = 'Only images are supported.';
       return;
@@ -61,7 +61,7 @@ export class UserProfileEditComponent implements OnInit {
     }
   }
 
-  public updateProfileInfo() {
+  public updateProfileInfo(): void {
     this.userProfileService.updateUserProfileInfo(
       this.profileEditForm.value.username || this.username,
       this.profileEditForm.value.email || this.email,

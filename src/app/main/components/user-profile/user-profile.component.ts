@@ -7,8 +7,8 @@ import { ShareService } from '../../services/share.service';
 import { FollowingComponent } from '../following/following.component';
 import { FollowersComponent } from '../followers/followers.component';
 import { MatDialog } from '@angular/material';
-import { PostInterface } from '../../../interfaces/post.interface';
 import { ProfileService } from '../../../rest/profile/profile.service';
+import { PostModel } from '../../../models/post.model';
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   public bio: string;
   public userAvatar;
   public spinner = true;
-  public posts: PostInterface[] = [];
+  public posts: PostModel[] = [];
   public startPage = 1;
   public userId: number;
   public followersCount: number;
@@ -44,7 +44,7 @@ export class UserProfileComponent implements OnInit {
     this.getUserPosts();
   }
 
-  public getUserInfo() {
+  public getUserInfo(): void {
     this.userProfileService.userInfo().subscribe(info => {
       this.username = info.user.username;
       this.bio = info.user.bio;
@@ -55,44 +55,27 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  public getUserPosts() {
+  public getUserPosts(): void {
     this.userProfileService.getUserProfilePosts(this.startPage).subscribe(post => {
       this.posts = post.posts;
-      const fakePost = {
-        body: null,
-        comments: null,
-        create_at: null,
-        id: null,
-        image: null,
-        liked: null,
-        likes_count: null,
-        user: null,
-      };
-      const checkMissingPosts = this.posts.length % 3;
-      if (checkMissingPosts === 1) {
-        this.posts.push(fakePost, fakePost);
-      }
-      if (checkMissingPosts === 2) {
-        this.posts.push(fakePost);
-      }
       this.totalPages = post.total_pages;
       this.spinner = false;
     });
   }
 
-  public getFollowersCount(userId) {
+  public getFollowersCount(userId): void {
     this.profileService.getFollowers(userId).subscribe(response => {
       this.followersCount = response.length;
     });
   }
 
-  public getFollowingCount(userId) {
+  public getFollowingCount(userId): void {
     this.profileService.getFollowing(userId).subscribe(response => {
       this.followingCount = response.length;
     });
   }
 
-  public onScroll() {
+  public onScroll(): void {
     if (this.startPage === this.totalPages) {
       this.infiniteScroll = true;
     } else {
@@ -111,23 +94,23 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  public logout() {
+  public logout(): void {
     this.authService.logout();
     this.router.navigate(['login']);
   }
 
-  public editPost(postId) {
+  public editPost(postId): void {
     this.shareService.editPost(postId);
   }
 
-  public openFollowing() {
+  public openFollowing(): void {
     this.dialog.open(FollowingComponent, {
       data: { userId: this.userId },
       width: '400px'
     });
   }
 
-  public openFollowers() {
+  public openFollowers(): void {
     this.dialog.open(FollowersComponent, {
       data: { userId: this.userId },
       width: '400px'

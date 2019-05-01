@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../../rest/search/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostInterface } from '../../../interfaces/post.interface';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { PostModel } from '../../../models/post.model';
 
 @Component({
   selector: 'app-tag',
@@ -12,7 +12,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 export class TagComponent implements OnInit {
 
   public tag: string;
-  public posts: PostInterface[] = [];
+  public posts: PostModel[] = [];
   public spinner = true;
   public authorizedUser: string;
 
@@ -30,37 +30,20 @@ export class TagComponent implements OnInit {
     });
   }
 
-  public getAuthorizedUser() {
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;
     }
   }
 
-  public getTagName() {
+  public getTagName(): void {
     this.tag = this.router.url.slice(8);
   }
 
-  public getPostsWithTag() {
+  public getPostsWithTag(): void {
     this.searchService.getTagByName(this.tag).subscribe(response => {
       this.posts = response.posts;
-      const fakePost = {
-        body: null,
-        comments: null,
-        create_at: null,
-        id: null,
-        image: null,
-        liked: null,
-        likes_count: null,
-        user: null,
-      };
-      const checkMissingPosts = this.posts.length % 3;
-      if (checkMissingPosts === 1) {
-        this.posts.push(fakePost, fakePost);
-      }
-      if (checkMissingPosts === 2) {
-        this.posts.push(fakePost);
-      }
       this.spinner = false;
     });
   }

@@ -5,7 +5,7 @@
     <mat-card-header class="post-owner-container">
       <img mat-card-avatar class="post-owner-avatar" [src]="postUserImage || 'assets/images/default-avatar.png'" alt="userAvatar">
       <p class="post-owner-title" mat-card-title
-         [routerLink]="authorizedUser == postOwner ?  [ '/user-profile/', postOwner ] : [ '/profile/', postOwner ]">{{postOwner}}</p>
+         [routerLink]="[authorizedUser == postOwner ? '/user-profile/' : '/profile/' , postOwner ]">{{postOwner}}</p>
     </mat-card-header>
 
     <img mat-card-image src="{{postImage}}" alt="postImage">
@@ -34,10 +34,10 @@
     <div class="post-comments" *ngFor="let comment of comments">
       <div class="post-comments-info-container">
       <p class="comment-owner"
-         [routerLink]="authorizedUser == comment.user.username ?  [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+         [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/' , comment.user.username ]">{{comment.user.username}}</p>
       <p class="comment-body">{{comment.body}}</p>
       </div>
-      <button class="delete-comment-icon" mat-icon-button *ngIf="comment.user.username === user" (click)="deleteComment(postId, comment.id, comment)">
+      <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username" (click)="deleteComment(postId, comment.id, comment)">
         <mat-icon>clear</mat-icon>
       </button>
     </div>

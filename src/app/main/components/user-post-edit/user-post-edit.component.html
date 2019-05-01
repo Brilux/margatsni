@@ -26,7 +26,8 @@
 
     <mat-card-content class="post-info-container" *ngIf="postDescription">
       <div style="display: flex">
-        <p class="post-owner">{{postOwner}}</p>
+        <p class="post-owner"
+          [routerLink]=" [ '/user-profile/', postOwner ]">{{postOwner}}</p>
         <mat-form-field class="post-description" style="display: block">
           <label>
             <input matInput [formControl]="inputPostDescription" value="{{postDescription}}">
@@ -34,7 +35,7 @@
         </mat-form-field>
       </div>
       <div style="margin-right: -10px">
-        <button mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , userUrl ]">Update post
+        <button mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , postOwner ]">Update post
         </button>
       </div>
     </mat-card-content>
@@ -52,7 +53,7 @@
     <div class="post-comments" *ngFor="let comment of comments">
       <div class="post-comments-info-container">
         <p class="comment-owner"
-           [routerLink]="authorizedUser == comment.user.username ? [ '/user-profile/', comment.user.username ] : [ '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+           [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
         <p class="comment-body">{{comment.body}}</p>
       </div>
       <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"

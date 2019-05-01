@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../../rest/feed/feed.service';
 import { FormControl } from '@angular/forms';
 import { PostService } from '../../../rest/posts/post.service';
-import { PostInterface } from '../../../interfaces/post.interface';
 import { ShareService } from '../../services/share.service';
 import { LikeService } from '../../../rest/posts/like.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { PostModel } from '../../../models/post.model';
 
 @Component({
   selector: 'app-feed',
@@ -14,14 +14,14 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class FeedComponent implements OnInit {
 
-  public posts: PostInterface[];
+  public posts: PostModel[];
+  public authorizedUser: string;
   public spinner = true;
   public startPage = 1;
   public likeResourceType = 'posts';
   public infiniteScroll: boolean;
   public infiniteSpinner: boolean;
   public totalPages: number;
-  public authorizedUser: string;
 
   public addCommentForm = new FormControl('');
 
@@ -33,29 +33,33 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAuthorizedUser();
+    this.getPosts(this.startPage);
+  }
+
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;
     }
-    this.getPosts(this.startPage);
   }
 
-  public getPosts(pageNumber) {
-    this.feedService.posts(pageNumber).subscribe(post => {
-      this.posts = post.posts;
-      this.totalPages = post.total_pages;
+  public getPosts(pageNumber): void {
+    this.feedService.getPosts(pageNumber).subscribe(response => {
+      this.posts = response.posts;
+      this.totalPages = response.total_pages;
       this.spinner = false;
     });
   }
 
-  public onScroll() {
+  public onScroll(): void {
     if (this.startPage === this.totalPages) {
       this.infiniteScroll = true;
     } else {
       this.infiniteSpinner = true;
       this.infiniteScroll = true;
       this.startPage++;
-      this.feedService.posts(this.startPage).subscribe(post => {
+      this.feedService.getPosts(this.startPage).subscribe(post => {
         const posts = post.posts;
         this.totalPages = post.total_pages;
         posts.forEach(item => {
@@ -67,31 +71,31 @@ export class FeedComponent implements OnInit {
     }
   }
 
-  public addComment(postId) {
-    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => {
-      const post: PostInterface = this.posts.find(element => element.id === postId);
-      post.comments.push(response.comment);
+  public addComment(postId): void {
+    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(comment => {
+      const post: PostModel = this.posts.find(element => element.id === postId);
+      post.comments.push(comment);
     }, err => err);
     this.addCommentForm.reset();
   }
 
-  public likePost(likeResource, postId) {
+  public likePost(likeResource, postId): void {
     this.likeService.putLike(likeResource, postId).subscribe(() => {
-      const post: PostInterface = this.posts.find(element => element.id === postId);
+      const post: PostModel = this.posts.find(element => element.id === postId);
       post.likes_count++;
       post.liked = true;
     });
   }
 
-  public dislike(likeResource, postId) {
+  public dislike(likeResource, postId): void {
     this.likeService.removeLike(likeResource, postId).subscribe(() => {
-      const post: PostInterface = this.posts.find(element => element.id === postId);
+      const post: PostModel = this.posts.find(element => element.id === postId);
       post.likes_count--;
       post.liked = false;
     });
   }
 
-  public postReview(postId) {
+  public postReview(postId): void {
     this.shareService.postReview(postId);
   }
 }
