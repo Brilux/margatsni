@@ -17,6 +17,10 @@ export class NavComponent implements OnInit {
               private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
+    this.getAuthorizedUser();
+  }
+
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { UserModel } from '../../../rest/auth/user.model';
 
 @Component({
   selector: 'app-search',
@@ -19,7 +20,7 @@ export class SearchComponent implements OnInit {
 
   public usersArray = [];
   public tagsArray = [];
-  public filteredArray: Observable<any>;
+  public filteredArray: Observable<UserModel[]>;
   public userForSearch: string;
   public startPage = 1;
   public spinner: boolean;
@@ -49,13 +50,17 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAuthorizedUser();
+  }
+
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;
     }
   }
 
-  public getUsers(user) {
+  public getUsers(user): void {
     this.searchService.getUsersForSearchByUsername(user, this.startPage).subscribe(response => {
       this.usersArray = response.users;
       this.currentPage = response.page;
@@ -67,11 +72,11 @@ export class SearchComponent implements OnInit {
       }
       this.userForSearch = user;
       this.spinner = false;
-      this.autoCompleteFilter();
+      this.autoCompleteUsersFilter();
     });
   }
 
-  public autoCompleteFilter() {
+  public autoCompleteUsersFilter(): void {
     this.filteredArray = this.searchForm.valueChanges
       .pipe(
         startWith(''),
@@ -82,7 +87,7 @@ export class SearchComponent implements OnInit {
       );
   }
 
-  public loadMoreUsers(user) {
+  public loadMoreUsers(user): void {
     this.startPage++;
     this.loadMoreSpinner = true;
     this.searchService.getUsersForSearchByUsername(user, this.startPage).subscribe(response => {
@@ -97,11 +102,11 @@ export class SearchComponent implements OnInit {
         this.usersArray.push(item);
       });
       this.loadMoreSpinner = false;
-      this.autoCompleteFilter();
+      this.autoCompleteUsersFilter();
     });
   }
 
-  public searchTag(searchItem) {
+  public searchTag(searchItem): void {
     if (searchItem.length > 1) {
       this.searchService.getTagByName(searchItem.slice(1)).subscribe(() => {
         this.tagsArray = [];
@@ -111,13 +116,10 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  public autoCompleteTagFilter() {
+  public autoCompleteTagFilter(): void {
     this.filteredArray = this.searchForm.valueChanges
       .pipe(
         startWith(''),
-        map(() => {
-          const filter = this.tagForSearch;
-          return this.tagsArray.filter(filteredTags => filteredTags.indexOf(filter) === 0);
-        }));
+        map(() => this.tagsArray.filter(filteredTags => filteredTags.indexOf(this.tagForSearch) === 0)));
   }
 }

@@ -22,14 +22,14 @@ export class FollowersComponent implements OnInit {
     this.getFollowers(this.userId);
   }
 
-  public getFollowers(userId) {
+  public getFollowers(userId): void {
     this.profileService.getFollowers(userId).subscribe(response => {
       this.followers = response;
       this.spinner = false;
     });
   }
 
-  public closeDialog() {
+  public closeDialog(): void {
     this.dialog.closeAll();
   }
 }

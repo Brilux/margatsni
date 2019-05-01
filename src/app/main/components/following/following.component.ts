@@ -11,7 +11,7 @@ export class FollowingComponent implements OnInit {
 
   public userId: number;
   public following: [] = [];
-  spinner = true;
+  public spinner = true;
 
   constructor(private profileService: ProfileService,
               private dialog: MatDialog,
@@ -22,14 +22,14 @@ export class FollowingComponent implements OnInit {
     this.getFollowing(this.userId);
   }
 
-  public getFollowing(userId) {
+  public getFollowing(userId): void {
     this.profileService.getFollowing(userId).subscribe(response => {
       this.following = response;
       this.spinner = false;
     });
   }
 
-  public closeDialog() {
+  public closeDialog(): void {
     this.dialog.closeAll();
   }
 }

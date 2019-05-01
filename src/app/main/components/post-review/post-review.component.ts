@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { LikeService } from '../../../rest/posts/like.service';
+import { CommentModel } from '../../../models/comment.model';
 
 @Component({
   selector: 'app-post-review',
@@ -20,7 +21,7 @@ export class PostReviewComponent implements OnInit {
   public postImage;
   public postOwner: string;
   public postDescription: string;
-  public comments: string[] = [];
+  public comments: CommentModel[] = [];
   public startPage = 1;
   public pageToLoad = 2;
   public authorizedUser: string;
@@ -44,25 +45,25 @@ export class PostReviewComponent implements OnInit {
   ngOnInit() {
     this.postId = this.shareService.postIdForReview || parseInt(this.router.url.slice(13) , 10);
     this.getPost(this.postId);
-    this.getUser();
+    this.getAuthorizedUser();
   }
 
-  public getUser() {
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;
     }
   }
 
-  public getPost(postId: number) {
+  public getPost(postId: number): void {
     this.feedService.getPostsById(postId).subscribe(post => {
-      this.post = post.post;
-      this.postImage = post.post.image;
-      this.postOwner = post.post.user.username;
-      this.postDescription = post.post.body;
-      this.postLiked = post.post.liked;
-      this.postLikedCount = post.post.likes_count;
-      this.postUserImage = post.post.user.image;
+      this.post = post;
+      this.postImage = post.image;
+      this.postOwner = post.user.username;
+      this.postDescription = post.body;
+      this.postLiked = post.liked;
+      this.postLikedCount = post.likes_count;
+      this.postUserImage = post.user.image;
     });
     this.commentService.getCommentById(postId, this.startPage).subscribe(response => {
       response.comments.forEach(item => {
@@ -73,7 +74,7 @@ export class PostReviewComponent implements OnInit {
     });
   }
 
-  public getComments(postId: number, page: number) {
+  public getComments(postId: number, page: number): void {
     this.pageToLoad++;
     this.commentService.getCommentById(postId, page).subscribe(response => {
       response.comments.forEach(item => {
@@ -83,7 +84,7 @@ export class PostReviewComponent implements OnInit {
     });
   }
 
-  public checkPages(currentPage: number, totalPage: number) {
+  public checkPages(currentPage: number, totalPage: number): void {
     if (currentPage >= totalPage) {
       this.loadButton = false;
     } else {
@@ -91,7 +92,7 @@ export class PostReviewComponent implements OnInit {
     }
   }
 
-  public likePost(likeResource, postId) {
+  public likePost(likeResource, postId): void {
     this.likeService.putLike(likeResource, postId).subscribe(() => {
       this.postLikedCount++;
       this.postLiked = true;
@@ -102,16 +103,16 @@ export class PostReviewComponent implements OnInit {
     });
   }
 
-  public dislike(likeResource, postId) {
+  public dislike(likeResource, postId): void {
     this.likeService.removeLike(likeResource, postId).subscribe(() => {
       this.postLikedCount--;
       this.postLiked = false;
     });
   }
 
-  public addComment(postId) {
-    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(response => {
-      this.comments.push(response.comment);
+  public addComment(postId): void {
+    this.postService.sendComment(postId, this.addCommentForm.value).subscribe(comment => {
+      this.comments.push(comment);
     }, err => {
       if (err.statusText === 'Unauthorized') {
         this.router.navigate(['/login']);
@@ -120,7 +121,7 @@ export class PostReviewComponent implements OnInit {
     this.addCommentForm.reset();
   }
 
-  public deleteComment(postId: number, commentId: number, comment) {
+  public deleteComment(postId: number, commentId: number, comment): void {
     this.commentService.deleteCommentById(postId, commentId).subscribe(() => {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);

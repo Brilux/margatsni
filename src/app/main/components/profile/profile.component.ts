@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
-import { PostInterface } from '../../../interfaces/post.interface';
 import { ProfileService } from '../../../rest/profile/profile.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { MatDialog } from '@angular/material';
 import { FollowersComponent } from '../followers/followers.component';
 import { FollowingComponent } from '../following/following.component';
+import { PostModel } from '../../../models/post.model';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,7 @@ import { FollowingComponent } from '../following/following.component';
 export class ProfileComponent implements OnInit {
 
   public startPage = 1;
-  public posts: PostInterface[] = [];
+  public posts: PostModel[] = [];
   public errorMessage: string;
   public spinner = true;
   public username: string;
@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this.getAuthorizedUser();
   }
 
-  public reloadProfile() {
+  public reloadProfile(): void {
     this.spinner = true;
     this.startPage = 1;
     this.posts = [];
@@ -64,33 +64,16 @@ export class ProfileComponent implements OnInit {
     this.getUserPosts();
   }
 
-  public getAuthorizedUser() {
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
     if (userInfo) {
       this.authorizedUser = userInfo.user.username;
     }
   }
 
-  public getUserPosts() {
+  public getUserPosts(): void {
     this.profileService.getUserPostsByUsername(this.router.url.slice(9), this.startPage).subscribe(post => {
       this.posts = post.posts;
-      const fakePost = {
-        body: null,
-        comments: null,
-        create_at: null,
-        id: null,
-        image: null,
-        liked: null,
-        likes_count: null,
-        user: null,
-      };
-      const checkMissingPosts = this.posts.length % 3;
-      if (checkMissingPosts === 1) {
-        this.posts.push(fakePost, fakePost);
-      }
-      if (checkMissingPosts === 2) {
-        this.posts.push(fakePost);
-      }
       this.totalPages = post.total_pages;
       this.spinner = false;
     }, err => {
@@ -100,18 +83,18 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public getUserProfile() {
-    this.profileService.getUserProfileByUsername(this.router.url.slice(9)).subscribe((info: PostInterface) => {
-      this.userId = info.user.id;
+  public getUserProfile(): void {
+    this.profileService.getUserProfileByUsername(this.router.url.slice(9)).subscribe(response => {
+      this.userId = response.id;
       this.getSubscribe(this.userId);
       this.getFollowingCount(this.userId);
-      this.username = info.user.username;
-      this.bio = info.user.bio;
-      this.userAvatar = info.user.image || 'assets/images/default-avatar.png';
+      this.username = response.username;
+      this.bio = response.bio;
+      this.userAvatar = response.image || 'assets/images/default-avatar.png';
     });
   }
 
-  public getSubscribe(userId) {
+  public getSubscribe(userId): void {
     this.profileService.getFollowers(userId).subscribe(response => {
       this.followersCount = response.length;
       const follower = response.find(element => element.username === this.authorizedUser);
@@ -123,13 +106,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public getFollowingCount(userId) {
+  public getFollowingCount(userId): void {
     this.profileService.getFollowing(userId).subscribe(response => {
       this.followingCount = response.length;
     });
   }
 
-  public subscribe(userId) {
+  public subscribe(userId): void {
     this.profileService.sendSubscribe(userId).subscribe(() => {
       this.subscribeStatus = false;
       this.followersCount++;
@@ -140,14 +123,14 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  public unsubscribe(userId) {
+  public unsubscribe(userId): void {
     this.profileService.sendUnSubscribe(userId).subscribe(() => {
       this.subscribeStatus = true;
       this.followersCount--;
     });
   }
 
-  onScroll() {
+  public onScroll(): void {
     if (this.startPage === this.totalPages) {
       this.infiniteScroll = true;
     } else {
@@ -166,14 +149,14 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  public openFollowing() {
+  public openFollowing(): void {
     this.dialog.open(FollowingComponent, {
       data: { userId: this.userId },
       width: '400px'
     });
   }
 
-  public openFollowers() {
+  public openFollowers(): void {
     this.dialog.open(FollowersComponent, {
       data: { userId: this.userId },
       width: '400px'
