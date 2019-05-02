@@ -14,11 +14,12 @@
     <mat-card-actions class="likes-container">
       <div>
         <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!postLiked"
-             (click)="likePost(likeResourceType, postId)" alt="like-false">
+             (click)="likePost(likeResourceTypePost, postId)" alt="like-false">
         <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="postLiked"
-             (click)="dislike(likeResourceType, postId)" alt="like-true">
+             (click)="dislike(likeResourceTypePost, postId)" alt="like-true">
         <p class="post-likes">{{postLikedCount}} likes</p>
       </div>
+
       <div>
         <button mat-raised-button (click)="deletePost()">Delete post</button>
       </div>
@@ -66,11 +67,19 @@
         </div>
       </div>
 
-      <div>
+      <div style="display: flex">
         <button class="update-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
                 (click)="openEditComment(comment.id)">
           <mat-icon>edit</mat-icon>
         </button>
+
+        <div class="comment-likes-container">
+          <img class="like-comment-icon" src='../../../../assets/images/like-false.png' *ngIf="!comment.liked"
+               (click)="likeComment(likeResourceTypeComment, comment.id)" alt="like-false">
+          <img class="like-comment-icon" src='../../../../assets/images/like-true.png' *ngIf="comment.liked"
+               (click)="dislikeComment(likeResourceTypeComment, comment.id)" alt="like-true">
+          <span class="post-likes">{{comment.likes_count}} likes</span>
+        </div>
 
         <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
                 (click)="deleteComment(postId, comment.id, comment)">

@@ -13,9 +13,9 @@
 
     <mat-card-actions class="likes-container">
       <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!post.liked"
-           (click)="likePost(likeResourceType, post.id)" alt="like-false">
+           (click)="likePost(likeResourceTypePost, post.id)" alt="like-false">
       <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="post.liked"
-           (click)="dislike(likeResourceType, post.id)" alt="like-true">
+           (click)="dislike(likeResourceTypePost, post.id)" alt="like-true">
       <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment"
            [routerLink]="[authorizedUser == post.user.username ? '/edit-post/' : '/post-review/', post.id ]">
       <p class="post-likes">{{post.likes_count}} likes</p>
@@ -29,9 +29,19 @@
     <mat-divider style="position: initial"></mat-divider>
 
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <p class="comment-owner"
-         [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
-      <p class="comment-body">{{comment.body}}</p>
+      <div style="display: flex">
+        <p class="comment-owner"
+           [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+        <p class="comment-body">{{comment.body}}</p>
+      </div>
+
+      <div class="comment-likes-container">
+        <img class="like-comment-icon" src='../../../../assets/images/like-false.png' *ngIf="!comment.liked"
+             (click)="likeComment(likeResourceTypeComment, comment.id, post)" alt="like-false">
+        <img class="like-comment-icon" src='../../../../assets/images/like-true.png' *ngIf="comment.liked"
+             (click)="dislikeComment(likeResourceTypeComment, comment.id, post)" alt="like-true">
+        <span class="post-likes">{{comment.likes_count}} likes</span>
+      </div>
     </div>
 
     <form (ngSubmit)="addComment(post.id)">
