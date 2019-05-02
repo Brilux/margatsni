@@ -54,12 +54,29 @@
       <div class="post-comments-info-container">
         <p class="comment-owner"
            [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
-        <p class="comment-body">{{comment.body}}</p>
+        <p class="comment-body" *ngIf="!comment.toggleForEdit">{{comment.body}}</p>
+
+        <div *ngIf="comment.toggleForEdit">
+          <mat-form-field class="edit-comment" >
+            <label>
+              <input matInput type="text" [formControl]="inputCommentEdit" value="{{comment.body}}">
+            </label>
+          </mat-form-field>
+          <button mat-stroked-button (click)="editComment(postId, comment.id, comment)">Edit</button>
+        </div>
       </div>
-      <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
-              (click)="deleteComment(postId, comment.id, comment)">
-        <mat-icon>clear</mat-icon>
-      </button>
+
+      <div>
+        <button class="update-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
+                (click)="openEditComment(comment.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
+                (click)="deleteComment(postId, comment.id, comment)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
     </div>
 
     <form (ngSubmit)="addComment(postId)">

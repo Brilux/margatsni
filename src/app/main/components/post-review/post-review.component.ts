@@ -33,6 +33,7 @@ export class PostReviewComponent implements OnInit {
   public postLikedCount: number;
   public postUserImage: string;
 
+  public inputCommentEdit = new FormControl('');
   public addCommentForm = new FormControl('');
 
   constructor(private feedService: FeedService,
@@ -57,6 +58,7 @@ export class PostReviewComponent implements OnInit {
   }
 
   public getPost(postId: number): void {
+    this.spinner = true;
     this.feedService.getPostsById(postId).subscribe(post => {
       this.post = post;
       this.postImage = post.image;
@@ -120,6 +122,22 @@ export class PostReviewComponent implements OnInit {
       }
     });
     this.addCommentForm.reset();
+  }
+
+  public editComment(postId: number, commentId: number, comment: CommentModel) {
+    this.commentService.editCommentById(this.inputCommentEdit.value, postId, commentId).subscribe( response => {
+      comment.body = response.body;
+      comment.toggleForEdit = false;
+    });
+  }
+
+  public openEditComment(commentId: number): void {
+    const comment: CommentModel = this.comments.find(element => element.id === commentId);
+    if (comment.toggleForEdit === true) {
+      comment.toggleForEdit = false;
+    } else {
+      comment.toggleForEdit = true;
+    }
   }
 
   public deleteComment(postId: number, commentId: number, comment): void {

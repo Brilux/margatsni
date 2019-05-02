@@ -10,6 +10,8 @@ export class CommentModel {
   likes_count: number;
   user: UserModel;
 
+  toggleForEdit?: boolean;
+
   constructor(response: CommentModel) {
     if (response) {
       this.comment = response.comment;

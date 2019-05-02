@@ -98,11 +98,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.getFollowers(userId).subscribe(response => {
       this.followersCount = response.length;
       const follower = response.find(element => element.username === this.authorizedUser);
-      if (follower === undefined) {
-        this.subscribeStatus = true;
-      } else {
-        this.subscribeStatus = false;
-      }
+      this.subscribeStatus = follower === undefined;
     });
   }
 
