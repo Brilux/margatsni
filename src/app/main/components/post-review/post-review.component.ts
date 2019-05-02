@@ -8,6 +8,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { LikeService } from '../../../rest/posts/like.service';
 import { CommentModel } from '../../../models/comment.model';
+import { PostModel } from '../../../models/post.model';
 
 @Component({
   selector: 'app-post-review',
@@ -16,7 +17,7 @@ import { CommentModel } from '../../../models/comment.model';
 })
 export class PostReviewComponent implements OnInit {
 
-  public post;
+  public post: PostModel;
   public postId: number;
   public postImage;
   public postOwner: string;

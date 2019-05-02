@@ -9,6 +9,7 @@ import { FollowersComponent } from '../followers/followers.component';
 import { MatDialog } from '@angular/material';
 import { ProfileService } from '../../../rest/profile/profile.service';
 import { PostModel } from '../../../models/post.model';
+import { FollowService } from '../../services/follow.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,7 @@ export class UserProfileComponent implements OnInit {
 
   public username: string;
   public bio: string;
-  public userAvatar;
+  public userAvatar: string;
   public spinner = true;
   public posts: PostModel[] = [];
   public startPage = 1;
@@ -31,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   public totalPages: number;
 
   constructor(private userProfileService: UserProfileService,
+              private followService: FollowService,
               private postService: PostService,
               private authService: AuthService,
               private shareService: ShareService,
@@ -42,6 +44,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.getUserInfo();
     this.getUserPosts();
+    this.updateFollowingCount();
   }
 
   public getUserInfo(): void {
@@ -75,6 +78,12 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  public updateFollowingCount(): void {
+    this.followService.getFollowingCountSubscription().subscribe(info => {
+      this.followingCount = info;
+    });
+  }
+
   public onScroll(): void {
     if (this.startPage === this.totalPages) {
       this.infiniteScroll = true;
@@ -105,14 +114,22 @@ export class UserProfileComponent implements OnInit {
 
   public openFollowing(): void {
     this.dialog.open(FollowingComponent, {
-      data: { userId: this.userId },
+      data:
+        {
+          userId: this.userId,
+          followingCount: this.followingCount
+        },
       width: '400px'
     });
   }
 
   public openFollowers(): void {
     this.dialog.open(FollowersComponent, {
-      data: { userId: this.userId },
+      data:
+        {
+          userId: this.userId,
+          followingCount: this.followingCount
+        },
       width: '400px'
     });
   }

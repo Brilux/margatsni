@@ -13,7 +13,7 @@
 
     <div *ngIf="!errorMessage">
       <div class="subscribe-buttons-container">
-        <button mat-stroked-button *ngIf="subscribeStatus" (click)="subscribe(userId)">Subscribe</button>
+        <button mat-raised-button color="primary" *ngIf="subscribeStatus" (click)="subscribe(userId)">Subscribe</button>
         <button mat-stroked-button *ngIf="!subscribeStatus" (click)="unsubscribe(userId)">UnSubscribe</button>
       </div>
 

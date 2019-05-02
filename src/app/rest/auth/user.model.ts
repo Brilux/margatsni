@@ -3,6 +3,7 @@ export class UserModel {
 
   bio: string;
   email: string;
+  followed: boolean;
   id: number;
   image: string;
   username: string;
@@ -13,6 +14,7 @@ export class UserModel {
 
       this.bio = response.bio;
       this.email = response.email;
+      this.followed = response.followed;
       this.id = response.id;
       this.image = response.image;
       this.username = response.username;
