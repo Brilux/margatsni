@@ -6,15 +6,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class FollowService {
 
-  constructor() { }
+  private followingCount = new BehaviorSubject(NaN);
 
-  private followingCount = new BehaviorSubject(true);
-
-  public changeFollowingCount(project: any) {
+  public changeFollowingCount(project: number) {
     this.followingCount.next(project);
   }
 
-  public getFollowingCountSubscription(): Observable<any> {
+  public getFollowingCountSubscription(): Observable<number> {
     return this.followingCount.asObservable();
   }
 }

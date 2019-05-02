@@ -4,6 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { CommentsModel } from '../../models/comments.model';
 import { StatusModel } from '../../models/status.model';
+import { CommentModel } from '../../models/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,13 @@ export class CommentService {
   public deleteCommentById(postId: number, commentId: number): Observable<StatusModel> {
     return this.http.delete<StatusModel>(`/posts/${postId}/comments/${commentId}`).pipe(
       map(response => new StatusModel(response)),
+      catchError(err => throwError(err)));
+  }
+
+  public editCommentById(comment: string, postId: number, commentId: number): Observable<CommentModel> {
+    const body = { body: comment };
+    return this.http.put<CommentModel>(`/posts/${postId}/comments/${commentId}`, body).pipe(
+      map(response => new CommentModel(response.comment)),
       catchError(err => throwError(err)));
   }
 }

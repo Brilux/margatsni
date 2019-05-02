@@ -34,6 +34,7 @@ export class UserPostEditComponent implements OnInit {
 
   public inputPostDescription = new FormControl('');
   public addCommentForm = new FormControl('');
+  public inputCommentEdit = new FormControl('');
 
   constructor(private postService: PostService,
               private shareService: ShareService,
@@ -54,6 +55,7 @@ export class UserPostEditComponent implements OnInit {
   }
 
   public getPost(): void {
+    this.spinner = true;
     this.postService.getPostById(this.postId).subscribe(post => {
       this.post = post;
       this.postOwner = post.user.username;
@@ -118,6 +120,22 @@ export class UserPostEditComponent implements OnInit {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);
     });
+  }
+
+  public editComment(postId: number, commentId: number, comment: CommentModel) {
+    this.commentService.editCommentById(this.inputCommentEdit.value, postId, commentId).subscribe( response => {
+      comment.body = response.body;
+      comment.toggleForEdit = false;
+    });
+  }
+
+  public openEditComment(commentId: number): void {
+    const comment: CommentModel = this.comments.find(element => element.id === commentId);
+    if (comment.toggleForEdit === true) {
+      comment.toggleForEdit = false;
+    } else {
+      comment.toggleForEdit = true;
+    }
   }
 
   public getComments(postId: number, page: number): void {

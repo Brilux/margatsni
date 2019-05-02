@@ -4,7 +4,7 @@
       <input matInput type="text" [formControl]="searchForm" placeholder="Search" [matAutocomplete]="auto">
     </label>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-spinner class="spinner" *ngIf="spinner" [diameter]="40"></mat-spinner>
+    <mat-spinner class="spinner" *ngIf="spinner" [diameter]="40"></mat-spinner>
       <mat-option class="user-info-container" *ngFor="let user of filteredArray | async" [value]="user.username || tagsArray[0]"
                   [routerLink]="!tagForSearch ? ([authorizedUser == user.username ? '/user-profile/' : '/profile/' , user.username]) : tagsArray ? ['/tag/' , tagForSearch] : null"
       (click)="searchForm.setValue('')">

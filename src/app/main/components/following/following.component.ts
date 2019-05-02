@@ -19,7 +19,6 @@ export class FollowingComponent implements OnInit {
   public spinner = true;
   public followingCount: number;
 
-
   constructor(private profileService: ProfileService,
               public followService: FollowService,
               private router: Router,

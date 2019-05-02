@@ -88,6 +88,15 @@
   text-align: center;
 }
 
+.edit-comment {
+  margin-left: 10px;
+  margin-top: -5px;
+}
+
+.update-comment-icon {
+  margin-top: 5px;
+}
+
 .delete-comment-icon {
   margin-top: 5px;
 }

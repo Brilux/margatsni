@@ -26,8 +26,7 @@ export class ProfileService {
   }
 
   public sendSubscribe(userId): Observable<StatusModel> {
-    const body = null;
-    return this.http.post<StatusModel>(`/users/${userId}/following`, body).pipe(
+    return this.http.post<StatusModel>(`/users/${userId}/following`, {}).pipe(
       map(response => new StatusModel(response)),
       catchError(err => throwError(err)));
   }
@@ -38,15 +37,15 @@ export class ProfileService {
       catchError(err => throwError(err)));
   }
 
-  public getFollowers(userId): Observable<any> {
-    return this.http.get<any>(`/users/${userId}/followers`).pipe(
-      map(response => response),
+  public getFollowers(userId): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`/users/${userId}/followers`).pipe(
+      map(response => response.map(user => new UserModel(user))),
       catchError(err => throwError(err)));
   }
 
-  public getFollowing(userId): Observable<any> {
-    return this.http.get<any>(`/users/${userId}/following`).pipe(
-      map(response => response),
+  public getFollowing(userId): Observable<UserModel[]> {
+    return this.http.get<UserModel[]>(`/users/${userId}/following`).pipe(
+      map(response => response.map(user => new UserModel(user))),
       catchError(err => throwError(err)));
   }
 }
