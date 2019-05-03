@@ -11,18 +11,11 @@
   display: flex;
   margin: 20px auto;
   justify-content: center;
+  max-width: 970px;
 }
 
-.user-info {
-  display: flex;
-}
-
-.info-container {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px;
-  margin-left: 20px;
-  width: 150px;
+.user-avatar-container {
+  margin-right: 40px;
 }
 
 .user-username {
@@ -36,16 +29,18 @@
 }
 
 .user-bio {
-  font-size: 16px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
+  margin-top: 25px;
+  margin-bottom: initial;
 }
 
 .user-avatar {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+}
+
+.control-container {
+  max-width: 500px;
 }
 
 .settings-container {
@@ -53,12 +48,13 @@
 }
 
 .settings-button {
-  margin-left: 5px;
+  margin-left: 10px;
 }
 
 .subscribe-container {
   display: flex;
-  margin-top: 20px;
+  margin-top: 12px;
+  margin-left: -8px;
 }
 
 .subscribe-count {
