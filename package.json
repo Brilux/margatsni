@@ -30,7 +30,8 @@
     "zone.js": "~0.8.26",
     "express": "^4.16.4",
     "typescript": "~3.2.2",
-    "ngx-infinite-scroll": "^7.1.0"
+    "ngx-infinite-scroll": "^7.1.0",
+    "tar": "^4.4.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.8",
