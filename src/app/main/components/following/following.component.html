@@ -1,0 +1,14 @@
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div *ngIf="!spinner">
+  <p>Following:</p>
+  <div class="follow-container" *ngFor="let profile of following">
+    <div class="following-container" (click)="closeDialog()" [routerLink]="[ '/profile/', profile.username ]">
+      <img class="user-avatar" [src]="profile.image || 'assets/images/default-avatar.png'" alt="userAvatar">
+      <p>{{profile.username}}</p>
+    </div>
+    <button class="subscribe-button" mat-raised-button color="primary" *ngIf="!profile.followed && profile.username !== authorizedUser" (click)="subscribe(profile.id)">Subscribe</button>
+    <button class="subscribe-button" mat-stroked-button *ngIf="profile.followed && profile.username !== authorizedUser" (click)="unsubscribe(profile.id)">UnSubscribe</button>
+  </div>
+  <p *ngIf="!following.length">No following</p>
+</div>

@@ -1,0 +1,39 @@
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="profile-edit-container" *ngIf="!spinner">
+  <p class="profile-edit-username">{{username}}</p>
+  <form class="profile-edit-form-container" [formGroup]="profileEditForm">
+    <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
+    <input #file type="file" formControlName="userAvatar" accept='image/*'
+           (change)="onImageSelected($event, file.files)">
+    <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    <div class="image-preview-container">
+      <img class="image-preview" [src]="imgURL" height="200" *ngIf="imgURL" alt="previewImage">
+    </div>
+    <p>username:</p>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="username" value="{{username}}">
+      </label>
+    </mat-form-field>
+    <p>email:</p>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="email" value="{{email}}">
+      </label>
+    </mat-form-field>
+    <p>password:</p>
+    <mat-form-field>
+      <label>
+        <input matInput type="password" formControlName="password">
+      </label>
+    </mat-form-field>
+    <p>bio:</p>
+    <mat-form-field>
+      <label>
+        <input matInput formControlName="bio" value="{{bio}}">
+      </label>
+    </mat-form-field>
+    <button mat-raised-button (click)="updateProfileInfo()">Submit</button>
+  </form>
+</div>

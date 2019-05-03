@@ -1,0 +1,34 @@
+.spinner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.post-container {
+  display: flex;
+  max-width: 970px;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.post {
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #808080;
+}
+
+.post:hover {
+  opacity: 0.5;
+}

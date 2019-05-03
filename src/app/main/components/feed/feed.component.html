@@ -1,17 +1,65 @@
-<div class="post-container">
-  <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
-  <div class="post" *ngFor="let post of posts">
-    <p class="post-owner">{{post.user.username}}</p>
-    <img class="post-image" src="{{post.image}}" alt="postImage">
-    <div class="post-info-container">
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="feed-container" *ngIf="!spinner">
+  <mat-card class="post-container" *ngFor="let post of posts">
+    <mat-card-header class="post-owner-container">
+      <img mat-card-avatar class="post-owner-avatar" [src]="post.user.image || 'assets/images/default-avatar.png'"
+           alt="userAvatar">
+      <p class="post-owner-title" mat-card-title
+         [routerLink]="[authorizedUser == post.user.username ? '/user-profile/' : '/profile/' , post.user.username ]">{{post.user.username}}</p>
+    </mat-card-header>
+
+    <img mat-card-image src="{{post.image}}" alt="postImage" (click)="postReview(post.id)">
+
+    <mat-card-actions class="likes-container">
+      <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!post.liked"
+           (click)="likePost(likeResourceTypePost, post.id)" alt="like-false">
+      <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="post.liked"
+           (click)="dislike(likeResourceTypePost, post.id)" alt="like-true">
+      <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment"
+           [routerLink]="[authorizedUser == post.user.username ? '/edit-post/' : '/post-review/', post.id ]">
+      <p class="post-likes">{{post.likes_count}} likes</p>
+    </mat-card-actions>
+
+    <mat-card-content class="post-info-container" *ngIf="post.body">
       <p class="post-owner">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
+    </mat-card-content>
+
+    <mat-divider style="position: initial"></mat-divider>
+
+    <div class="post-comments" *ngFor="let comment of post.comments">
+      <div style="display: flex">
+        <p class="comment-owner"
+           [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
+        <p class="comment-body">{{comment.body}}</p>
+      </div>
+
+      <div class="comment-likes-container">
+        <img class="like-comment-icon" src='../../../../assets/images/like-false.png' *ngIf="!comment.liked"
+             (click)="likeComment(likeResourceTypeComment, comment.id, post)" alt="like-false">
+        <img class="like-comment-icon" src='../../../../assets/images/like-true.png' *ngIf="comment.liked"
+             (click)="dislikeComment(likeResourceTypeComment, comment.id, post)" alt="like-true">
+        <span class="post-likes">{{comment.likes_count}} likes</span>
+      </div>
     </div>
-  </div>
+
+    <form (ngSubmit)="addComment(post.id)">
+      <mat-form-field style="display: block">
+        <label>
+          <input matInput type="text" [formControl]="addCommentForm" placeholder="Add a comment">
+        </label>
+      </mat-form-field>
+    </form>
+  </mat-card>
+
+  <mat-spinner class="infinite-spinner" *ngIf="infiniteSpinner" [diameter]="40"></mat-spinner>
+
   <div
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="1000"
+    [infiniteScrollDisabled]="infiniteScroll"
     (scrolled)="onScroll()">
   </div>
 </div>

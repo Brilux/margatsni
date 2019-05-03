@@ -1,3 +1,12 @@
+.spinner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
 .profile-edit-container {
   background-color: #ffff;
   margin: 20px auto;
@@ -9,6 +18,13 @@
 }
 
 .profile-edit-form-container {
+  margin: 10px;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
 @media screen and (min-width: 576px) {

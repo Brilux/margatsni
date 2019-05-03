@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="welcome-message">
-    <h1>Margatsni</h1>
-    <p>Log in to see photos and videos from your friends.</p>
+    <img class="logo" src="../../../assets/images/margatsni-logo.png" alt="margatsniLogo">
+    <p class="description">Log in to see photos and videos from your friends.</p>
   </div>
   <div>
     <form class="form-container" [formGroup]="loginForm">
@@ -17,10 +17,13 @@
         </label>
         <mat-error *ngIf="loginForm.invalid && loginForm.touched">Password can't be empty!</mat-error>
       </mat-form-field>
-      <mat-error *ngIf="loginError">{{loginError.error}}</mat-error>
+      <mat-error *ngIf="loginError">{{loginError}}</mat-error>
     </form>
     <div class="buttons-container">
-      <button class="login-button" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="login()">Log in</button>
+      <button class="login-button" mat-raised-button color="primary" [disabled]="!loginForm.valid || loading" (click)="login()">
+        <span *ngIf="!loading">Log in</span>
+        <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
+      </button>
     </div>
   </div>
 </div>
@@ -28,7 +31,7 @@
   <div class="question-container">
     <p class="question-message">Don't have an account?</p>
     <div class="buttons-container">
-      <button class="login-button" mat-raised-button color="primary" [routerLink]="[ '/registration' ]">Sign in</button>
+      <button class="login-button" mat-raised-button color="primary" [routerLink]="[ '/registration' ]">Sign up</button>
     </div>
   </div>
 

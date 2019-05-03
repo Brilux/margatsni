@@ -1,0 +1,58 @@
+<mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
+
+<div class="user-profile-container" *ngIf="!spinner">
+  <div class="user-profile-info-container">
+
+    <div class="user-info">
+      <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
+      <div class="info-container">
+        <p class="user-username">{{username}}</p>
+        <p class="user-bio">{{bio}}</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="settings-container">
+        <button class="settings-button" mat-raised-button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
+        <button class="settings-button" mat-raised-button (click)="logout()">logout</button>
+      </div>
+
+      <div class="subscribe-container">
+        <div class="subscribe-container">
+          <button mat-button (click)="openFollowers()">
+            <a style="vertical-align: initial" class="subscribe-count">{{followersCount}}</a>
+            Followers
+          </button>
+        </div>
+
+        <div class="subscribe-container">
+          <button mat-button (click)="openFollowing()">
+            <a style="vertical-align: initial" class="subscribe-count">{{followingCount}}</a>
+            Following
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="post-container">
+    <div class="post"
+         [ngStyle]="{'background-image': 'url(' + post.image + ')'}"
+         (click)="editPost(post.id)"
+         [routerLink]="[ '/edit-post', post.id ]"
+         *ngFor="let post of posts">
+    </div>
+  </div>
+
+  <mat-spinner class="infinite-spinner" *ngIf="infiniteSpinner" [diameter]="40"></mat-spinner>
+
+  <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="1000"
+    [infiniteScrollDisabled]="infiniteScroll"
+    (scrolled)="onScroll()">
+  </div>
+</div>
+

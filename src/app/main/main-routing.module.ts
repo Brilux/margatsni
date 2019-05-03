@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
-import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { UserProfileEditComponent } from './components/user-profile-edit/user-profile-edit.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
+import { PostReviewComponent } from './components/post-review/post-review.component';
+import { MainGuard } from './main.guard';
+import { TagComponent } from './components/tag/tag.component';
 
 
 const mainRoutes: Routes = [
@@ -14,19 +19,41 @@ const mainRoutes: Routes = [
     children: [
       {
         path: '',
-        component: FeedComponent
+        component: FeedComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'post-create',
-        component: CreatePostComponent
+        component: CreatePostComponent,
+        canActivate: [MainGuard]
+      },
+      {
+        path: 'post-review/:id',
+        component: PostReviewComponent
+      },
+      {
+        path: 'edit-profile',
+        component: UserProfileEditComponent,
+        canActivate: [MainGuard]
+      },
+      {
+        path: 'edit-post/:id',
+        component: UserPostEditComponent,
+        canActivate: [MainGuard]
+      },
+      {
+        path: 'user-profile/:id',
+        component: UserProfileComponent,
+        canActivate: [MainGuard]
       },
       {
         path: 'profile/:id',
         component: ProfileComponent
       },
       {
-        path: 'edit-profile',
-        component: ProfileEditComponent
+        path: 'tag/:name',
+        component: TagComponent,
+        canActivate: [MainGuard]
       },
     ]
   },

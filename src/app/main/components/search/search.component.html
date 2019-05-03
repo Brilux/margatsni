@@ -1,0 +1,26 @@
+<form>
+  <mat-form-field>
+    <label>
+      <input matInput type="text" [formControl]="searchForm" placeholder="Search" [matAutocomplete]="auto">
+    </label>
+    <mat-autocomplete #auto="matAutocomplete">
+    <mat-spinner class="spinner" *ngIf="spinner" [diameter]="40"></mat-spinner>
+      <mat-option class="user-info-container" *ngFor="let user of filteredArray | async" [value]="user.username || tagsArray[0]"
+                  [routerLink]="!tagForSearch ? ([authorizedUser == user.username ? '/user-profile/' : '/profile/' , user.username]) : tagsArray ? ['/tag/' , tagForSearch] : null"
+      (click)="searchForm.setValue('')">
+        <div *ngIf="!spinner">
+          <img *ngIf="!avatarDisable" class="user-avatar" [src]="user.image || 'assets/images/default-avatar.png'" alt="userAvatar">
+          <span>
+            {{user.username || tagsArray[0]}}
+          </span>
+        </div>
+      </mat-option>
+      <mat-spinner class="spinner" *ngIf="loadMoreSpinner" [diameter]="40"></mat-spinner>
+      <div class="load-more-users-icon-container">
+        <button *ngIf="loadButton" [ngStyle]="loadMoreSpinner ? {'display': 'none'} : {'display': 'inline-block'}" mat-icon-button (click)="loadMoreUsers(userForSearch)">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </div>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

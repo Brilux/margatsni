@@ -2,10 +2,24 @@
   background-color: #ffff;
   margin: 20px auto;
   border: 1px #C0C0C0 solid;
+  border-radius: 1%;
 }
 
 .welcome-message {
   text-align: center;
+}
+
+.logo {
+  margin: 10px auto;
+  width: 200px;
+}
+
+.description {
+  color: #696969;
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 20px;
+  margin: 0 40px 20px;
 }
 
 .form-container {
@@ -32,6 +46,10 @@
   height: 50px;
 }
 
+.spinner {
+  margin: 0 auto;
+}
+
 .question-container {
   background-color: #ffff;
   margin: 20px auto;
@@ -39,7 +57,12 @@
 }
 
 .question-message {
+  color: #696969;
   text-align: center;
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 20px;
+  margin: 10px auto;
 }
 
 @media screen and (min-width: 576px) {

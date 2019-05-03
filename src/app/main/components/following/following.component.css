@@ -1,0 +1,31 @@
+.spinner {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.follow-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.following-container {
+  display: flex;
+  outline: none;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.subscribe-button {
+  margin-top: 8px;
+  height: 35px;
+}

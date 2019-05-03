@@ -1,7 +1,7 @@
 <div class="registration-container">
   <div class="welcome-message">
-    <h1>Margatsni</h1>
-    <p>Sign up to see photos and videos from your friends.</p>
+    <img class="logo" src="../../../assets/images/margatsni-logo.png" alt="margatsniLogo">
+    <p class="description">Sign up to see photos and videos from your friends.</p>
   </div>
   <div>
     <form class="form-container" [formGroup]="registrationForm">
@@ -19,14 +19,23 @@
       </mat-form-field>
       <mat-form-field class="input">
         <label>
-          <input matInput formControlName="password" placeholder="Enter password">
+          <input type="password" matInput formControlName="password" placeholder="Enter password">
         </label>
-        <mat-error *ngIf="registrationForm.invalid && registrationForm.touched">Password can't be empty!</mat-error>
       </mat-form-field>
-      <p *ngIf="registrationError">{{registrationError.error}}</p>
+      <mat-error *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched">Password can't be empty!</mat-error>
+        <mat-form-field class="input">
+          <label>
+            <input type="password" matInput formControlName="passwordConfirm" placeholder="Confirm password">
+          </label>
+      </mat-form-field>
+      <mat-error *ngIf="registrationForm.hasError('passwordError') && registrationForm.get('passwordConfirm').touched">Passwords do not match</mat-error>
+      <mat-error *ngIf="registrationError">{{registrationError}}</mat-error>
     </form>
     <div class="buttons-container">
-      <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid">Sign up</button>
+      <button class="registration-button" mat-raised-button color="primary" (click)="registration()" [disabled]="!registrationForm.valid || loading">
+        <span *ngIf="!loading">Sign up</span>
+        <mat-spinner class="spinner" *ngIf="loading" [diameter]="40"></mat-spinner>
+      </button>
     </div>
   </div>
 </div>

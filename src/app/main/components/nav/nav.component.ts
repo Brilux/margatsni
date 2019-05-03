@@ -10,15 +10,21 @@ import { LocalStorageService } from '../../services/local-storage.service';
 })
 export class NavComponent implements OnInit {
 
-  public userUrl: string;
+  public authorizedUser: string;
 
   constructor(private authService: AuthService,
               private router: Router,
               private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
+    this.getAuthorizedUser();
+  }
+
+  public getAuthorizedUser(): void {
     const userInfo = this.localStorageService.getUserInfo();
-    this.userUrl = userInfo.user.username;
+    if (userInfo) {
+      this.authorizedUser = userInfo.user.username;
+    }
   }
 
 }

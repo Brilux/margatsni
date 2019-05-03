@@ -10,24 +10,40 @@ import { Router } from '@angular/router';
 })
 export class CreatePostComponent implements OnInit {
 
-  postImage: File = null;
+  public postImage: File = null;
+  public loading: boolean;
+
+  public imgURL: string | ArrayBuffer;
+  public errorMessage: string;
 
   public postForm: FormGroup = new FormGroup({
-    createPostDescription: new FormControl(),
-    createPostImage: new FormControl()
+    createPostDescription: new FormControl(''),
   });
 
   constructor(private postService: PostService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  public onImageSelected(event) {
-    this.postImage = <File>event.target.files[0];
+  public onImageSelected(event, files): void {
+    if (files[0].type.match(/image\/*/) == null) {
+      this.errorMessage = 'Only images are supported.';
+      return;
+    } else {
+      this.errorMessage = '';
+      this.postImage = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload = () => {
+        this.imgURL = reader.result;
+      };
+    }
   }
 
-  public createPost() {
+  public createPost(): void {
+    this.loading = true;
     this.postService.sendPost(this.postForm.value.createPostDescription, this.postImage).subscribe(
       () => this.router.navigate(['']),
       err => err);
