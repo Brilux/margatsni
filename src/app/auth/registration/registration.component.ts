@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { TokenModel } from '../../rest/auth/token.model';
 
+const loginValidateRegex = '^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
 const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
 @Component({
@@ -22,7 +23,7 @@ export class RegistrationComponent implements OnInit {
               private router: Router) {}
 
   public registrationForm: FormGroup = new FormGroup({
-    username: new FormControl('', Validators.required),
+    username: new FormControl('', [Validators.required, Validators.pattern(loginValidateRegex)]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailValidateRegex)]),
     password: new FormControl('', Validators.required),
     passwordConfirm: new FormControl('', Validators.required)
