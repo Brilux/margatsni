@@ -28,7 +28,8 @@ export class PostReviewComponent implements OnInit {
   public authorizedUser: string;
   public loadButton: boolean;
   public spinner = true;
-  public likeResourceType = 'posts';
+  public likeResourceTypePost = 'posts';
+  public likeResourceTypeComment = 'comments';
   public postLiked: boolean;
   public postLikedCount: number;
   public postUserImage: string;
@@ -144,6 +145,22 @@ export class PostReviewComponent implements OnInit {
     this.commentService.deleteCommentById(postId, commentId).subscribe(() => {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);
+    });
+  }
+
+  public likeComment(likeResource: string, commentId: number): void {
+    this.likeService.putLike(likeResource, commentId).subscribe(() => {
+      const comment: CommentModel = this.comments.find(element => element.id === commentId);
+      comment.likes_count++;
+      comment.liked = true;
+    });
+  }
+
+  public dislikeComment(likeResource: string, commentId: number): void {
+    this.likeService.removeLike(likeResource, commentId).subscribe(() => {
+      const comment: CommentModel = this.comments.find(element => element.id === commentId);
+      comment.likes_count--;
+      comment.liked = false;
     });
   }
 }

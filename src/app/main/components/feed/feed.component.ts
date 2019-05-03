@@ -6,6 +6,7 @@ import { ShareService } from '../../services/share.service';
 import { LikeService } from '../../../rest/posts/like.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { PostModel } from '../../../models/post.model';
+import { CommentModel } from '../../../models/comment.model';
 
 @Component({
   selector: 'app-feed',
@@ -18,7 +19,8 @@ export class FeedComponent implements OnInit {
   public authorizedUser: string;
   public spinner = true;
   public startPage = 1;
-  public likeResourceType = 'posts';
+  public likeResourceTypePost = 'posts';
+  public likeResourceTypeComment = 'comments';
   public infiniteScroll: boolean;
   public infiniteSpinner: boolean;
   public totalPages: number;
@@ -92,6 +94,22 @@ export class FeedComponent implements OnInit {
       const post: PostModel = this.posts.find(element => element.id === postId);
       post.likes_count--;
       post.liked = false;
+    });
+  }
+
+  public likeComment(likeResource: string, commentId: number, post: PostModel): void {
+    this.likeService.putLike(likeResource, commentId).subscribe(() => {
+      const comment: CommentModel = post.comments.find(element => element.id === commentId);
+      comment.likes_count++;
+      comment.liked = true;
+    });
+  }
+
+  public dislikeComment(likeResource: string, commentId: number, post: PostModel): void {
+    this.likeService.removeLike(likeResource, commentId).subscribe(() => {
+      const comment: CommentModel = post.comments.find(element => element.id === commentId);
+      comment.likes_count--;
+      comment.liked = false;
     });
   }
 
