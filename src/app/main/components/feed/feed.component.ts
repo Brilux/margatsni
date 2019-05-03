@@ -16,7 +16,6 @@ import { CommentModel } from '../../../models/comment.model';
 export class FeedComponent implements OnInit {
 
   public posts: PostModel[];
-  // public comments: CommentModel[];
   public authorizedUser: string;
   public spinner = true;
   public startPage = 1;
