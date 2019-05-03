@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+const loginValidateRegex = '^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
+const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
 @Component({
   selector: 'app-profile-edit',
@@ -21,10 +24,10 @@ export class UserProfileEditComponent implements OnInit {
   public spinner = true;
 
   public profileEditForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    email: new FormControl(''),
+    username: new FormControl('', [Validators.pattern(loginValidateRegex)]),
+    email: new FormControl('', [Validators.email, Validators.pattern(emailValidateRegex)]),
     password: new FormControl(''),
-    bio: new FormControl(''),
+    bio: new FormControl('', Validators.maxLength(300)),
     userAvatar: new FormControl(null)
   });
 

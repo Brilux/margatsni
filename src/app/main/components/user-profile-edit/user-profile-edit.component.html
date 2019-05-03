@@ -3,25 +3,25 @@
 <div class="profile-edit-container" *ngIf="!spinner">
   <p class="profile-edit-username">{{username}}</p>
   <form class="profile-edit-form-container" [formGroup]="profileEditForm">
-    <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
-    <input #file type="file" formControlName="userAvatar" accept='image/*'
-           (change)="onImageSelected($event, file.files)">
+    <img class="user-avatar" [src]="imgURL || userAvatar" alt="userAvatar">
+    <button mat-raised-button onclick="document.getElementById('fileToUpload').click()">Choose your image</button>
+    <input #file id="fileToUpload" type="file" formControlName="userAvatar" accept='image/*'
+           (change)="onImageSelected($event, file.files)" style="display:none;">
     <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
-    <div class="image-preview-container">
-      <img class="image-preview" [src]="imgURL" height="200" *ngIf="imgURL" alt="previewImage">
-    </div>
     <p>username:</p>
     <mat-form-field>
       <label>
         <input matInput formControlName="username" value="{{username}}">
       </label>
     </mat-form-field>
+    <mat-error *ngIf="profileEditForm.get('username').invalid && profileEditForm.get('username').touched">Enter please correct username!</mat-error>
     <p>email:</p>
     <mat-form-field>
       <label>
         <input matInput formControlName="email" value="{{email}}">
       </label>
     </mat-form-field>
+    <mat-error *ngIf="profileEditForm.get('email').invalid && profileEditForm.get('email').touched">Enter please correct email!</mat-error>
     <p>password:</p>
     <mat-form-field>
       <label>
@@ -31,9 +31,10 @@
     <p>bio:</p>
     <mat-form-field>
       <label>
-        <input matInput formControlName="bio" value="{{bio}}">
+        <textarea matInput formControlName="bio" value="{{bio}}"></textarea>
       </label>
     </mat-form-field>
+    <mat-error *ngIf="profileEditForm.get('bio').invalid && profileEditForm.get('bio').touched">Your bio must be 300 characters or fewer.</mat-error>
     <button mat-raised-button (click)="updateProfileInfo()">Submit</button>
   </form>
 </div>
