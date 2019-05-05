@@ -17,6 +17,10 @@
 
 @media screen and (max-width: 600px) {
   .search-input {
-    width: 55px;
+    width: 60px;
+  }
+
+  .user-avatar {
+    display: none;
   }
 }

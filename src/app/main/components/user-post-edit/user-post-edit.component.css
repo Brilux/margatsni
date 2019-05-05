@@ -58,9 +58,10 @@
 }
 
 .post-owner-title {
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 7px;
+  margin-top: 10px;
 }
 
 .post-owner {
@@ -98,7 +99,10 @@
 
 .comment-body {
   margin-left: 10px;
-  text-align: center;
+  text-align: left;
+  max-width: 245px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .edit-comment {
@@ -113,3 +117,16 @@
 .delete-comment-icon {
   margin-top: 5px;
 }
+
+@media screen and (max-width: 600px) {
+  .post-container {
+    width: 310px;
+  }
+
+  .edit-comment {
+    max-width: 75px;
+    margin-left: 5px;
+    margin-top: -5px;
+  }
+}
+

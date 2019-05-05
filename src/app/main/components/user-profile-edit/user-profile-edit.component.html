@@ -3,38 +3,59 @@
 <div class="profile-edit-container" *ngIf="!spinner">
   <p class="profile-edit-username">{{username}}</p>
   <form class="profile-edit-form-container" [formGroup]="profileEditForm">
-    <img class="user-avatar" [src]="imgURL || userAvatar" alt="userAvatar">
-    <button mat-raised-button onclick="document.getElementById('fileToUpload').click()">Choose your image</button>
-    <input #file id="fileToUpload" type="file" formControlName="userAvatar" accept='image/*'
-           (change)="onImageSelected($event, file.files)" style="display:none;">
-    <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
-    <p>username:</p>
-    <mat-form-field>
-      <label>
-        <input matInput formControlName="username" value="{{username}}">
-      </label>
-    </mat-form-field>
-    <mat-error *ngIf="profileEditForm.get('username').invalid && profileEditForm.get('username').touched">Enter please correct username!</mat-error>
-    <p>email:</p>
-    <mat-form-field>
-      <label>
-        <input matInput formControlName="email" value="{{email}}">
-      </label>
-    </mat-form-field>
-    <mat-error *ngIf="profileEditForm.get('email').invalid && profileEditForm.get('email').touched">Enter please correct email!</mat-error>
-    <p>password:</p>
-    <mat-form-field>
-      <label>
-        <input matInput type="password" formControlName="password">
-      </label>
-    </mat-form-field>
-    <p>bio:</p>
-    <mat-form-field>
-      <label>
-        <textarea matInput formControlName="bio" value="{{bio}}"></textarea>
-      </label>
-    </mat-form-field>
-    <mat-error *ngIf="profileEditForm.get('bio').invalid && profileEditForm.get('bio').touched">Your bio must be 300 characters or fewer.</mat-error>
-    <button mat-raised-button (click)="updateProfileInfo()">Submit</button>
+    <div class="user-avatar-container">
+      <img class="user-avatar" [src]="imgURL || userAvatar" alt="userAvatar">
+      <button class="input-image-button" mat-raised-button onclick="document.getElementById('fileToUpload').click()">Choose your image</button>
+      <input #file id="fileToUpload" type="file" formControlName="userAvatar" accept='image/*'
+             (change)="onImageSelected($event, file.files)" style="display:none;">
+      <mat-error class="error-message" *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    </div>
+    <div class="input-container">
+      <div class="field-container">
+        <p>username:</p>
+      </div>
+      <mat-form-field class="input">
+        <label>
+          <input matInput formControlName="username" value="{{username}}">
+        </label>
+      </mat-form-field>
+    </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.get('username').invalid && profileEditForm.get('username').touched">Enter please correct username!</mat-error>
+    <div class="input-container">
+      <div class="field-container">
+        <p>email:</p>
+      </div>
+      <mat-form-field class="input">
+        <label>
+          <input matInput formControlName="email" value="{{email}}">
+        </label>
+      </mat-form-field>
+    </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.get('email').invalid && profileEditForm.get('email').touched">Enter please correct email!</mat-error>
+    <div class="input-container">
+      <div class="field-container">
+        <p>password:</p>
+      </div>
+      <mat-form-field class="input">
+        <label>
+          <input matInput type="password" formControlName="password">
+        </label>
+      </mat-form-field>
+    </div>
+    <div class="input-container">
+      <div class="field-container">
+        <p>bio:</p>
+      </div>
+        <mat-form-field class="input">
+        <label>
+          <textarea matInput formControlName="bio" value="{{bio}}"></textarea>
+        </label>
+      </mat-form-field>
+    </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.get('bio').invalid && profileEditForm.get('bio').touched">Your bio must be 300 characters or fewer.</mat-error>
+    <mat-error class="error-message" *ngIf="responseError">{{responseError}}</mat-error>
+    <div class="submit-button-container">
+      <button class="submit-button" mat-raised-button (click)="updateProfileInfo()">Submit</button>
+    </div>
   </form>
 </div>

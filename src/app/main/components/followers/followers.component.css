@@ -6,6 +6,10 @@
   margin: auto;
 }
 
+.title {
+  text-align: center;
+}
+
 .follow-container {
   display: flex;
   justify-content: space-between;

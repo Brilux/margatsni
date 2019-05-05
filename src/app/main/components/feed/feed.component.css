@@ -20,9 +20,10 @@
 }
 
 .post-owner-title {
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 7px;
+  margin-top: 10px;
 }
 
 
@@ -94,7 +95,10 @@
 
 .comment-body {
   margin-left: 10px;
-  text-align: center;
+  text-align: left;
+  max-width: 360px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .infinite-spinner {
@@ -103,6 +107,10 @@
 
 @media screen and (max-width: 576px) {
   .post-container {
-    width: 320px;
+    width: 275px;
+  }
+
+  .comment-body {
+    max-width: 135px;
   }
 }
