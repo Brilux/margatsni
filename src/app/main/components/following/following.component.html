@@ -1,7 +1,7 @@
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
 
 <div *ngIf="!spinner">
-  <p>Following:</p>
+  <p class="title">Following:</p>
   <div class="follow-container" *ngFor="let profile of following">
     <div class="following-container" (click)="closeDialog()" [routerLink]="[ '/profile/', profile.username ]">
       <img class="user-avatar" [src]="profile.image || 'assets/images/default-avatar.png'" alt="userAvatar">

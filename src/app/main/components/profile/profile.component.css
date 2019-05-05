@@ -31,6 +31,8 @@
 .user-bio {
   margin-top: 25px;
   margin-bottom: initial;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .user-avatar {
@@ -100,4 +102,40 @@
 
 .infinite-spinner {
   margin: 50px auto;
+}
+
+@media screen and (max-width: 600px) {
+  .control-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
+  }
+
+  .user-username {
+    margin: 5px auto;
+  }
+
+  .user-avatar-container {
+    margin-right: 5px;
+  }
+
+  .subscribe-buttons-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .subscribe-button {
+    margin-top: 5px;
+  }
+
+  .subscribe-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 966px) {
+  .post-container {
+    justify-content: center;
+  }
 }

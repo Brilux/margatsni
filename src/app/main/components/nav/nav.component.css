@@ -11,6 +11,7 @@
   width: 970px;
   display: flex;
   justify-content: space-around;
+  list-style: none;
 }
 
 .nav-main-icon {

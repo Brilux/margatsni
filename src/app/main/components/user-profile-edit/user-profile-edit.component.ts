@@ -22,6 +22,7 @@ export class UserProfileEditComponent implements OnInit {
   public imgURL: string | ArrayBuffer;
   public errorMessage: string;
   public spinner = true;
+  public responseError: string;
 
   public profileEditForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.pattern(loginValidateRegex)]),
@@ -73,6 +74,9 @@ export class UserProfileEditComponent implements OnInit {
       this.newUserAvatar || this.userAvatar
     ).subscribe(() => {
       this.router.navigate(['/user-profile/', this.userUrl]);
-    }, err => err);
+    }, err => {
+      const errorMessage = Object.keys(err.error.errors);
+      this.responseError = `${errorMessage[0]} ${err.error.errors[errorMessage[0]]}`;
+    });
   }
 }

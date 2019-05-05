@@ -16,8 +16,9 @@
            (click)="likePost(likeResourceTypePost, post.id)" alt="like-false">
       <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="post.liked"
            (click)="dislike(likeResourceTypePost, post.id)" alt="like-true">
-      <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment"
-           [routerLink]="[authorizedUser == post.user.username ? '/edit-post/' : '/post-review/', post.id ]">
+      <a [routerLink]="[authorizedUser == post.user.username ? '/edit-post/' : '/post-review/', post.id ]">
+        <img class="comment-icon" src='../../../../assets/images/comment.png' alt="comment">
+      </a>
       <p class="post-likes">{{post.likes_count}} likes</p>
     </mat-card-actions>
 
