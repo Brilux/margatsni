@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class FollowService {
 
-  private followingCount = new BehaviorSubject(NaN);
+  private followingCount = new BehaviorSubject(0);
 
   public changeFollowingCount(project: number) {
     this.followingCount.next(project);
