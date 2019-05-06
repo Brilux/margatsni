@@ -19,9 +19,8 @@ export class UserProfileService {
   }
 
   // tslint:disable-next-line:max-line-length
-  public updateUserProfileInfo(username: string, email: string, password: string, bio: string, userAvatar: File | string): Observable<UserModel> {
+  public updateUserProfileInfo(email: string, password: string, bio: string, userAvatar: File | string): Observable<UserModel> {
     const formData = new FormData();
-    formData.set('username', username);
     formData.set('email', email);
     if (password !== null) {
       formData.set('password', password);
