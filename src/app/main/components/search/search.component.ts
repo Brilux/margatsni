@@ -6,6 +6,7 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserModel } from '../../../rest/auth/user.model';
+import { TagModel } from '../../../models/tag.model';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,7 @@ export class SearchComponent implements OnInit {
 
   public usersArray = [];
   public tagsArray = [];
-  public filteredArray: Observable<UserModel[]>;
+  public filteredArray: Observable<UserModel[]> | Observable<TagModel[]>;
   public userForSearch: string;
   public startPage = 1;
   public spinner: boolean;
@@ -36,16 +37,16 @@ export class SearchComponent implements OnInit {
               private localStorageService: LocalStorageService) {
     this.searchForm.valueChanges.subscribe(searchItem => {
       this.tagForSearch = null;
-        if (searchItem.indexOf('#') === 0) {
-          this.tagForSearch = searchItem;
-          this.searchTag(searchItem || null);
-          this.avatarDisable = true;
-        } else {
-          this.spinner = true;
-          this.avatarDisable = false;
-          this.startPage = 1;
-          this.getUsers(searchItem.toLowerCase() || null);
-        }
+      if (searchItem.indexOf('#') === 0) {
+        this.tagForSearch = searchItem;
+        this.searchTag(searchItem || null);
+        this.avatarDisable = true;
+      } else {
+        this.spinner = true;
+        this.avatarDisable = false;
+        this.startPage = 1;
+        this.getUsers(searchItem.toLowerCase() || null);
+      }
     });
   }
 
@@ -108,9 +109,9 @@ export class SearchComponent implements OnInit {
 
   public searchTag(searchItem): void {
     if (searchItem.length > 1) {
-      this.searchService.getTagByName(searchItem.slice(1)).subscribe(() => {
+      this.searchService.getTagByName(searchItem.slice(1)).subscribe(response => {
         this.tagsArray = [];
-        this.tagsArray.push(searchItem);
+        this.tagsArray = response.tags;
         this.autoCompleteTagFilter();
       });
     }
@@ -120,6 +121,11 @@ export class SearchComponent implements OnInit {
     this.filteredArray = this.searchForm.valueChanges
       .pipe(
         startWith(''),
-        map(() => this.tagsArray.filter(filteredTags => filteredTags.indexOf(this.tagForSearch) === 0)));
+        map(tag => {
+          const filterTag = tag.toLowerCase();
+          return this.tagsArray.filter(filteredTags => filteredTags.name.toLowerCase().indexOf(filterTag) === 0);
+        })
+      );
   }
+
 }

@@ -5,13 +5,13 @@
     </label>
     <mat-autocomplete #auto="matAutocomplete">
     <mat-spinner class="spinner" *ngIf="spinner" [diameter]="40"></mat-spinner>
-      <mat-option class="user-info-container" *ngFor="let user of filteredArray | async" [value]="user.username || tagsArray[0]"
-                  [routerLink]="!tagForSearch ? ([authorizedUser == user.username ? '/user-profile/' : '/profile/' , user.username]) : tagsArray ? ['/tag/' , tagForSearch] : null"
+      <mat-option class="user-info-container" *ngFor="let item of filteredArray | async" [value]="item.username || item.name"
+                  [routerLink]="!tagForSearch ? ([authorizedUser == item.username ? '/user-profile/' : '/profile/' , item.username]) : ['/tag/' , item.name]"
       (click)="searchForm.setValue('')">
         <div *ngIf="!spinner">
-          <img *ngIf="!avatarDisable" class="user-avatar" [src]="user.image || 'assets/images/default-avatar.png'" alt="userAvatar">
+          <img *ngIf="!avatarDisable" class="user-avatar" [src]="item.image || 'assets/images/default-avatar.png'" alt="userAvatar">
           <span>
-            {{user.username || tagsArray[0]}}
+            {{item.username || '#' + item.name}}
           </span>
         </div>
       </mat-option>

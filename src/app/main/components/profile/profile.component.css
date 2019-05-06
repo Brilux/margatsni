@@ -39,6 +39,7 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .control-container {
@@ -125,7 +126,7 @@
   }
 
   .subscribe-button {
-    margin-top: 5px;
+    margin: 5px auto;
   }
 
   .subscribe-container {
