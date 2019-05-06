@@ -57,7 +57,7 @@ export class UserPostEditComponent implements OnInit {
 
   public getPost(): void {
     this.spinner = true;
-    this.postService.getPostById(this.postId).subscribe(post => {
+      this.postService.getPostById(this.postId).subscribe(post => {
       this.post = post;
       this.postOwner = post.user.username;
       this.postUserImage = post.user.image;

@@ -28,7 +28,7 @@
     <mat-card-content class="post-info-container" *ngIf="postDescription">
       <div style="display: flex">
         <p class="post-owner"
-          [routerLink]=" [ '/user-profile/', postOwner ]">{{postOwner}}</p>
+           [routerLink]=" [ '/user-profile/', postOwner ]">{{postOwner}}</p>
         <mat-form-field class="post-description" style="display: block">
           <label>
             <input matInput [formControl]="inputPostDescription" value="{{postDescription}}">
@@ -58,7 +58,7 @@
         <p class="comment-body" *ngIf="!comment.toggleForEdit">{{comment.body}}</p>
 
         <div *ngIf="comment.toggleForEdit">
-          <mat-form-field class="edit-comment" >
+          <mat-form-field class="edit-comment">
             <label>
               <input matInput type="text" [formControl]="inputCommentEdit" value="{{comment.body}}">
             </label>

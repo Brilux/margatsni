@@ -20,7 +20,8 @@
     </mat-card-actions>
 
     <mat-card-content class="post-info-container" *ngIf="postDescription">
-      <p class="post-owner">{{postOwner}}</p>
+      <p class="post-owner"
+         [routerLink]="[authorizedUser == postOwner ? '/user-profile/' : '/profile/' , postOwner ]">{{postOwner}}</p>
       <p class="post-description">{{postDescription}}</p>
     </mat-card-content>
 

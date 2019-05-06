@@ -42,9 +42,9 @@ export class TagComponent implements OnInit {
   }
 
   public getPostsWithTag(): void {
-    // this.searchService.getTagByName(this.tag).subscribe(response => {
-    //   this.posts = response.posts;
-    //   this.spinner = false;
-    // });
+    this.searchService.getTagByName(this.tag).subscribe(response => {
+      this.posts = response.posts;
+      this.spinner = false;
+    });
   }
 }

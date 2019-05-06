@@ -23,7 +23,8 @@
     </mat-card-actions>
 
     <mat-card-content class="post-info-container" *ngIf="post.body">
-      <p class="post-owner">{{post.user.username}}</p>
+      <p class="post-owner"
+         [routerLink]="[authorizedUser == post.user.username ? '/user-profile/' : '/profile/', post.user.username ]">{{post.user.username}}</p>
       <p class="post-description">{{post.body}}</p>
     </mat-card-content>
 

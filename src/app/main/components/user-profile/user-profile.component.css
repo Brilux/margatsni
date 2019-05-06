@@ -26,6 +26,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
+  margin-right: 10px;
 }
 
 .user-bio {
@@ -47,15 +48,15 @@
 
 .settings-container {
   margin-top: 20px;
+  margin-bottom: 12px;
 }
 
 .settings-button {
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .subscribe-container {
   display: flex;
-  margin-top: 12px;
   margin-left: -8px;
 }
 
