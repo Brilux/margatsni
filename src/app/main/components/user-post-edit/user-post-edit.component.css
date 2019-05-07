@@ -128,5 +128,9 @@
     margin-left: 5px;
     margin-top: -5px;
   }
+
+  .post-description {
+    width: 125px;
+  }
 }
 
