@@ -37,6 +37,7 @@
   height: 150px;
   border-radius: 50%;
   margin: 0 auto;
+  object-fit: cover;
 }
 
 .input-image-button {
