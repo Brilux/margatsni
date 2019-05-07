@@ -97,15 +97,15 @@ export class UserPostEditComponent implements OnInit {
 
   public likePost(likeResource: string, postId: number): void {
     this.likeService.putLike(likeResource, postId).subscribe(() => {
-      this.post.likes_count++;
-      this.post.liked = true;
+      this.postLikedCount++;
+      this.postLiked = true;
     });
   }
 
   public dislike(likeResource: string, postId: number): void {
     this.likeService.removeLike(likeResource, postId).subscribe(() => {
-      this.post.likes_count--;
-      this.post.liked = false;
+      this.postLikedCount--;
+      this.postLiked = false;
     });
   }
 

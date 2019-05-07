@@ -13,8 +13,7 @@ export class LikeService {
   constructor(private http: HttpClient) { }
 
   public putLike(likeResource: string, postId: number): Observable<PostModel>  {
-    const body = null;
-    return this.http.post<PostModel>(`/${likeResource}/${postId}/likes`, body).pipe(
+    return this.http.post<PostModel>(`/${likeResource}/${postId}/likes`, {}).pipe(
       map(response => new PostModel(response)),
       catchError(err => throwError(err)));
   }
