@@ -67,7 +67,7 @@ export class UserProfileEditComponent implements OnInit {
     this.userProfileService.updateUserProfileInfo(
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.password || null,
-      this.profileEditForm.value.bio || this.bio,
+      this.profileEditForm.value.bio || this.bio || '',
       this.newUserAvatar || this.userAvatar
     ).subscribe(() => {
       this.router.navigate(['/user-profile/', this.userUrl]);
