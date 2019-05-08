@@ -9,7 +9,7 @@
          [routerLink]=" [ '/user-profile/', postOwner ]">{{postOwner}}</p>
     </mat-card-header>
 
-    <img mat-card-image src="{{postImage}}" alt="postImage">
+    <img mat-card-image src="{{postImage}}" alt="postImage" (dblclick)="!postLiked ? likePost(likeResourceTypePost, post.id) : dislike(likeResourceTypePost, post.id)">
 
     <mat-card-actions class="likes-container">
       <div>

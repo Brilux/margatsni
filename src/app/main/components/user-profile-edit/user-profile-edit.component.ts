@@ -3,7 +3,7 @@ import { UserProfileService } from '../../../rest/user-profile/user-profile.serv
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+const emailValidateRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$';
 
 @Component({
   selector: 'app-profile-edit',

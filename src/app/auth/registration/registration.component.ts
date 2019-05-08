@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { TokenModel } from '../../rest/auth/token.model';
 
 const loginValidateRegex = '^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$';
-const emailValidateRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+const emailValidateRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$';
 
 @Component({
   selector: 'app-registration',
