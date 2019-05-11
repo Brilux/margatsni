@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.margatsni.ml/api/v1'
-  // api: 'https://margatsnimoc.herokuapp.com/api/v1'
+  api: 'https://margatsnimoc.herokuapp.com/api/v1'
 };
 /*
  * For easier debugging in development mode, you can import the following file
