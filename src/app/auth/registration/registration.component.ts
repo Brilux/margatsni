@@ -41,7 +41,7 @@ export class RegistrationComponent implements OnInit {
   public registration(): void {
     this.loading = true;
     this.registrationService.sendRegistration(this.registrationForm.value.username,
-    this.registrationForm.value.email,
+    this.registrationForm.value.email.toLowerCase(),
     this.registrationForm.value.password).subscribe(response => {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
