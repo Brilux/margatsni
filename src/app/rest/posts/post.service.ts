@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { PostModel } from '../../models/post.model';
 import { CommentModel } from '../../models/comment.model';
 import { StatusModel } from '../../models/status.model';
+import { PostsModel } from '../../models/posts.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,12 @@ export class PostService {
   public getPostById(postId: number): Observable<PostModel> {
     return this.http.get<PostModel>(`/posts/${postId}`).pipe(
       map(response => new PostModel(response.post)),
+      catchError(err => throwError(err)));
+  }
+
+  public getPosts(page: number): Observable<PostsModel> {
+    return this.http.get<PostsModel>(`/posts?page=${page}`).pipe(
+      map(response => new PostsModel(response)),
       catchError(err => throwError(err)));
   }
 

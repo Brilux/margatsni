@@ -3,7 +3,7 @@
 <div class="post-container">
   <div class="post"
        [ngStyle]="{'background-image': 'url(' + post.image + ')'}"
-       [routerLink]="[authorizedUser == post.user.username ? '/edit-post/' : '/post-review/' , post.id ]"
+       [routerLink]="['/post-review/' , post.id ]"
        *ngFor="let post of posts">
   </div>
 </div>

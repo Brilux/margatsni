@@ -32,6 +32,8 @@
 }
 
 .likes-container {
+  display: flex;
+  justify-content: space-between;
   padding: initial;
   margin-bottom: initial;
 }
@@ -63,13 +65,19 @@
 
 .post-info-container {
   display: flex;
+  justify-content: space-between;
   font-size: initial;
   margin: initial;
 }
 
 .post-description {
+  display: block;
   margin-left: 10px;
-  margin-block-start: 0;
+}
+
+.post-edit-description {
+  margin-left: 10px;
+  margin-top: -5px;
 }
 
 .load-more-comments-container {
@@ -119,6 +127,10 @@
 @media screen and (max-width: 600px) {
   .post-container {
     width: 310px;
+  }
+
+  .post-edit-description {
+    width: 85px;
   }
 
   .edit-comment {
