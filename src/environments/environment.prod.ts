@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://margatsnimoc.herokuapp.com/api/v1'
+  api: 'https://api.margatsni.ml/api/v1'
 };

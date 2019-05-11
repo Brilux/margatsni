@@ -19,9 +19,10 @@
 }
 
 .post-owner-title {
+  font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 7px;
+  margin-top: 10px;
 }
 
 
@@ -31,6 +32,8 @@
 }
 
 .likes-container {
+  display: flex;
+  justify-content: space-between;
   padding: initial;
   margin-bottom: initial;
 }
@@ -41,8 +44,8 @@
 }
 
 .like-icon {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   margin-left: 10px;
   cursor: pointer;
 }
@@ -62,13 +65,19 @@
 
 .post-info-container {
   display: flex;
+  justify-content: space-between;
   font-size: initial;
   margin: initial;
 }
 
 .post-description {
+  display: block;
   margin-left: 10px;
-  margin-block-start: 0;
+}
+
+.post-edit-description {
+  margin-left: 10px;
+  margin-top: -5px;
 }
 
 .load-more-comments-container {
@@ -96,7 +105,10 @@
 
 .comment-body {
   margin-left: 10px;
-  text-align: center;
+  text-align: left;
+  max-width: 245px;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 }
 
 .edit-comment {
@@ -110,4 +122,20 @@
 
 .delete-comment-icon {
   margin-top: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .post-container {
+    width: 310px;
+  }
+
+  .post-edit-description {
+    width: 85px;
+  }
+
+  .edit-comment {
+    max-width: 75px;
+    margin-left: 5px;
+    margin-top: -5px;
+  }
 }

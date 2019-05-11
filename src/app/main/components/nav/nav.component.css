@@ -7,18 +7,35 @@
   z-index: 1;
 }
 
-.nav-item {
-  margin: 20px;
+.icons-container {
+  width: 970px;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
 }
 
-.nav-profile-icon {
-  width: 70px;
-  height: 70px;
+.nav-main-icon {
+  width: 29px;
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.icon-container {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.nav-icon {
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   outline: none;
 }
 
 .search-input {
   align-self: center;
+  margin-bottom: -10px;
 }
-

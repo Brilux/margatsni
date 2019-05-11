@@ -4,6 +4,7 @@
   vertical-align: middle;
   margin-right: 8px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .spinner {
@@ -13,4 +14,14 @@
 .load-more-users-icon-container {
   display: flex;
   justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .search-input {
+    width: 60px;
+  }
+
+  .user-avatar {
+    display: none;
+  }
 }

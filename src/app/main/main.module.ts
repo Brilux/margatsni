@@ -20,7 +20,6 @@ import { UserProfileEditComponent } from './components/user-profile-edit/user-pr
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './components/search/search.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { UserPostEditComponent } from './components/user-post-edit/user-post-edit.component';
 import { PostReviewComponent } from './components/post-review/post-review.component';
 import { FollowersComponent } from './components/followers/followers.component';
 import { FollowingComponent } from './components/following/following.component';
@@ -36,7 +35,6 @@ import { TagComponent } from './components/tag/tag.component';
     UserProfileEditComponent,
     SearchComponent,
     ProfileComponent,
-    UserPostEditComponent,
     PostReviewComponent,
     FollowersComponent,
     FollowingComponent,

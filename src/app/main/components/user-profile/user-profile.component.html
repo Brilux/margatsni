@@ -1,18 +1,15 @@
 <mat-spinner class="spinner" *ngIf="spinner"></mat-spinner>
 
 <div class="user-profile-container" *ngIf="!spinner">
-  <div class="user-profile-info-container">
 
-    <div class="user-info">
+  <div class="user-profile-info-container">
+    <div class="user-avatar-container">
       <img class="user-avatar" src="{{userAvatar}}" alt="userAvatar">
-      <div class="info-container">
-        <p class="user-username">{{username}}</p>
-        <p class="user-bio">{{bio}}</p>
-      </div>
     </div>
 
-    <div>
+    <div class="control-container">
       <div class="settings-container">
+        <span class="user-username">{{username}}</span>
         <button class="settings-button" mat-raised-button [routerLink]="[ '/edit-profile' ]">Edit profile</button>
         <button class="settings-button" mat-raised-button (click)="logout()">logout</button>
       </div>
@@ -33,14 +30,14 @@
         </div>
       </div>
 
+      <p class="user-bio">{{bio}}</p>
     </div>
   </div>
 
   <div class="post-container">
     <div class="post"
          [ngStyle]="{'background-image': 'url(' + post.image + ')'}"
-         (click)="editPost(post.id)"
-         [routerLink]="[ '/edit-post', post.id ]"
+         [routerLink]="[ '/post-review', post.id ]"
          *ngFor="let post of posts">
     </div>
   </div>

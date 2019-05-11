@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../../../rest/feed/feed.service';
-import { ShareService } from '../../services/share.service';
 import { CommentService } from '../../../rest/posts/comment.service';
 import { PostService } from '../../../rest/posts/post.service';
 import { FormControl } from '@angular/forms';
@@ -22,31 +20,31 @@ export class PostReviewComponent implements OnInit {
   public postImage;
   public postOwner: string;
   public postDescription: string;
+  public postEdit: boolean;
   public comments: CommentModel[] = [];
   public startPage = 1;
   public pageToLoad = 2;
   public authorizedUser: string;
   public loadButton: boolean;
-  public spinner = true;
+  public spinner: boolean;
   public likeResourceTypePost = 'posts';
   public likeResourceTypeComment = 'comments';
   public postLiked: boolean;
   public postLikedCount: number;
   public postUserImage: string;
 
+  public inputPostDescription = new FormControl('');
   public inputCommentEdit = new FormControl('');
   public addCommentForm = new FormControl('');
 
-  constructor(private feedService: FeedService,
-              private shareService: ShareService,
-              private commentService: CommentService,
+  constructor(private commentService: CommentService,
               private postService: PostService,
               private localStorageService: LocalStorageService,
               private likeService: LikeService,
               private router: Router) { }
 
   ngOnInit() {
-    this.postId = this.shareService.postIdForReview || parseInt(this.router.url.slice(13) , 10);
+    this.postId = parseInt(this.router.url.slice(13) , 10);
     this.getPost(this.postId);
     this.getAuthorizedUser();
   }
@@ -60,7 +58,7 @@ export class PostReviewComponent implements OnInit {
 
   public getPost(postId: number): void {
     this.spinner = true;
-    this.feedService.getPostsById(postId).subscribe(post => {
+    this.postService.getPostById(postId).subscribe(post => {
       this.post = post;
       this.postImage = post.image;
       this.postOwner = post.user.username;
@@ -89,11 +87,19 @@ export class PostReviewComponent implements OnInit {
   }
 
   public checkPages(currentPage: number, totalPage: number): void {
-    if (currentPage >= totalPage) {
-      this.loadButton = false;
-    } else {
-      this.loadButton = true;
-    }
+    this.loadButton = currentPage < totalPage;
+  }
+
+  public updatePost(): void {
+    this.postService.updatePost(this.postId, this.inputPostDescription.value || this.post.body).subscribe(
+      response => response,
+      err => err);
+  }
+
+  public deletePost(): void {
+    this.postService.deletePost(this.postId).subscribe(() => {
+      this.router.navigate([ '/user-profile/' , this.post.user.username]);
+    }, err => err);
   }
 
   public likePost(likeResource, postId): void {
@@ -134,11 +140,7 @@ export class PostReviewComponent implements OnInit {
 
   public openEditComment(commentId: number): void {
     const comment: CommentModel = this.comments.find(element => element.id === commentId);
-    if (comment.toggleForEdit === true) {
-      comment.toggleForEdit = false;
-    } else {
-      comment.toggleForEdit = true;
-    }
+    comment.toggleForEdit = comment.toggleForEdit !== true;
   }
 
   public deleteComment(postId: number, commentId: number, comment): void {

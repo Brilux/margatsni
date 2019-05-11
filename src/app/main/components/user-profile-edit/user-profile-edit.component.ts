@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from '../../../rest/user-profile/user-profile.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+const emailValidateRegex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$';
 
 @Component({
   selector: 'app-profile-edit',
@@ -19,12 +21,12 @@ export class UserProfileEditComponent implements OnInit {
   public imgURL: string | ArrayBuffer;
   public errorMessage: string;
   public spinner = true;
+  public responseError: string;
 
   public profileEditForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    email: new FormControl(''),
+    email: new FormControl('', [Validators.email, Validators.pattern(emailValidateRegex)]),
     password: new FormControl(''),
-    bio: new FormControl(''),
+    bio: new FormControl('', Validators.maxLength(300)),
     userAvatar: new FormControl(null)
   });
 
@@ -63,13 +65,15 @@ export class UserProfileEditComponent implements OnInit {
 
   public updateProfileInfo(): void {
     this.userProfileService.updateUserProfileInfo(
-      this.profileEditForm.value.username || this.username,
       this.profileEditForm.value.email || this.email,
       this.profileEditForm.value.password || null,
-      this.profileEditForm.value.bio || this.bio,
+      this.profileEditForm.value.bio || this.bio || '',
       this.newUserAvatar || this.userAvatar
     ).subscribe(() => {
       this.router.navigate(['/user-profile/', this.userUrl]);
-    }, err => err);
+    }, err => {
+      const errorMessage = Object.keys(err.error.errors);
+      this.responseError = `${errorMessage[0]} ${err.error.errors[errorMessage[0]]}`;
+    });
   }
 }

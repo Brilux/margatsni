@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../../../rest/feed/feed.service';
 import { FormControl } from '@angular/forms';
 import { PostService } from '../../../rest/posts/post.service';
-import { ShareService } from '../../services/share.service';
 import { LikeService } from '../../../rest/posts/like.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { PostModel } from '../../../models/post.model';
@@ -27,9 +25,7 @@ export class FeedComponent implements OnInit {
 
   public addCommentForm = new FormControl('');
 
-  constructor(private feedService: FeedService,
-              private postService: PostService,
-              private shareService: ShareService,
+  constructor(private postService: PostService,
               private localStorageService: LocalStorageService,
               private likeService: LikeService) {
   }
@@ -47,7 +43,7 @@ export class FeedComponent implements OnInit {
   }
 
   public getPosts(pageNumber): void {
-    this.feedService.getPosts(pageNumber).subscribe(response => {
+    this.postService.getPosts(pageNumber).subscribe(response => {
       this.posts = response.posts;
       this.totalPages = response.total_pages;
       this.spinner = false;
@@ -61,7 +57,7 @@ export class FeedComponent implements OnInit {
       this.infiniteSpinner = true;
       this.infiniteScroll = true;
       this.startPage++;
-      this.feedService.getPosts(this.startPage).subscribe(post => {
+      this.postService.getPosts(this.startPage).subscribe(post => {
         const posts = post.posts;
         this.totalPages = post.total_pages;
         posts.forEach(item => {
@@ -111,9 +107,5 @@ export class FeedComponent implements OnInit {
       comment.likes_count--;
       comment.liked = false;
     });
-  }
-
-  public postReview(postId): void {
-    this.shareService.postReview(postId);
   }
 }

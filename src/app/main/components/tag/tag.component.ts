@@ -13,7 +13,7 @@ export class TagComponent implements OnInit {
 
   public tag: string;
   public posts: PostModel[] = [];
-  public spinner = true;
+  public spinner: boolean;
   public authorizedUser: string;
 
   constructor(private searchService: SearchService,
@@ -24,6 +24,7 @@ export class TagComponent implements OnInit {
   ngOnInit() {
     this.getAuthorizedUser();
     this.activeRoute.params.subscribe(() => {
+      this.spinner = true;
       this.posts = [];
       this.getTagName();
       this.getPostsWithTag();
@@ -38,11 +39,11 @@ export class TagComponent implements OnInit {
   }
 
   public getTagName(): void {
-    this.tag = this.router.url.slice(8);
+    this.tag = this.router.url.slice(5);
   }
 
   public getPostsWithTag(): void {
-    this.searchService.getTagByName(this.tag).subscribe(response => {
+    this.searchService.getPostsWithTag(this.tag).subscribe(response => {
       this.posts = response.posts;
       this.spinner = false;
     });

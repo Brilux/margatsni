@@ -11,54 +11,53 @@
   display: flex;
   margin: 20px auto;
   justify-content: center;
+  max-width: 970px;
 }
 
-.user-info {
-  display: flex;
-}
-
-.info-container {
-  display: flex;
-  flex-direction: column;
-  margin-right: 20px;
-  margin-left: 20px;
-  width: 150px;
+.user-avatar-container {
+  margin-right: 40px;
 }
 
 .user-username {
   font-weight: bold;
   font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-family: arial, sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
+  margin-right: 10px;
 }
 
 .user-bio {
-  font-size: 16px;
-  overflow: hidden;
+  margin-top: 25px;
+  margin-bottom: initial;
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
 
 .user-avatar {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.control-container {
+  max-width: 500px;
 }
 
 .settings-container {
   margin-top: 20px;
+  margin-bottom: 12px;
 }
 
 .settings-button {
-  margin-left: 5px;
+  margin-right: 10px;
 }
 
 .subscribe-container {
   display: flex;
-  margin-top: 20px;
+  margin-left: -8px;
 }
 
 .subscribe-count {
@@ -100,4 +99,41 @@
 
 .infinite-spinner {
   margin: 50px auto;
+}
+
+@media screen and (max-width: 600px) {
+
+  .control-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
+  }
+
+  .user-username {
+    margin: 5px auto;
+  }
+
+  .user-avatar-container {
+    margin-right: 5px;
+  }
+
+  .settings-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-button {
+    margin-top: 5px;
+  }
+
+  .subscribe-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 966px) {
+  .post-container {
+    justify-content: center;
+  }
 }

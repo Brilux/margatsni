@@ -3,7 +3,6 @@ import { UserProfileService } from '../../../rest/user-profile/user-profile.serv
 import { AuthService } from '../../../auth/auth.service';
 import { Router } from '@angular/router';
 import { PostService } from '../../../rest/posts/post.service';
-import { ShareService } from '../../services/share.service';
 import { FollowingComponent } from '../following/following.component';
 import { FollowersComponent } from '../followers/followers.component';
 import { MatDialog } from '@angular/material';
@@ -35,7 +34,6 @@ export class UserProfileComponent implements OnInit {
               private followService: FollowService,
               private postService: PostService,
               private authService: AuthService,
-              private shareService: ShareService,
               private router: Router,
               private dialog: MatDialog,
               private profileService: ProfileService) {
@@ -106,10 +104,6 @@ export class UserProfileComponent implements OnInit {
   public logout(): void {
     this.authService.logout();
     this.router.navigate(['login']);
-  }
-
-  public editPost(postId): void {
-    this.shareService.editPost(postId);
   }
 
   public openFollowing(): void {

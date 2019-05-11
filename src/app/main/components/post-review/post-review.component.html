@@ -9,19 +9,43 @@
          [routerLink]="[authorizedUser == postOwner ? '/user-profile/' : '/profile/' , postOwner ]">{{postOwner}}</p>
     </mat-card-header>
 
-    <img mat-card-image src="{{postImage}}" alt="postImage">
+    <img mat-card-image src="{{postImage}}" alt="postImage" (dblclick)="!postLiked ? likePost(likeResourceTypePost, post.id) : dislike(likeResourceTypePost, post.id)">
 
     <mat-card-actions class="likes-container">
-      <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!postLiked"
-           (click)="likePost(likeResourceTypePost, postId)" alt="like-false">
-      <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="postLiked"
-           (click)="dislike(likeResourceTypePost, postId)" alt="like-true">
-      <p class="post-likes">{{postLikedCount}} likes</p>
+      <div>
+        <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!postLiked"
+             (click)="likePost(likeResourceTypePost, postId)" alt="like-false">
+        <img class="like-icon" src='../../../../assets/images/like-true.png' *ngIf="postLiked"
+             (click)="dislike(likeResourceTypePost, postId)" alt="like-true">
+        <p class="post-likes">{{postLikedCount}} likes</p>
+      </div>
+
+      <div *ngIf="authorizedUser == postOwner">
+        <button mat-raised-button (click)="deletePost()">Delete post</button>
+      </div>
     </mat-card-actions>
 
     <mat-card-content class="post-info-container" *ngIf="postDescription">
-      <p class="post-owner">{{postOwner}}</p>
-      <p class="post-description">{{postDescription}}</p>
+      <div style="display: flex">
+        <p class="post-owner"
+           [routerLink]="[authorizedUser == postOwner ? '/user-profile/' : '/profile/' , postOwner ]">{{postOwner}}</p>
+        <p class="post-description" *ngIf="!postEdit">{{postDescription}}</p>
+        <div *ngIf="authorizedUser == postOwner">
+          <mat-form-field class="post-edit-description" *ngIf="postEdit">
+            <label>
+              <input matInput [formControl]="inputPostDescription" value="{{postDescription}}">
+            </label>
+          </mat-form-field>
+          <button mat-icon-button (click)="postEdit = !postEdit">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div style="margin-right: -10px" *ngIf="authorizedUser == postOwner">
+        <button mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , postOwner ]">Update post
+        </button>
+      </div>
     </mat-card-content>
 
     <mat-divider style="position: initial"></mat-divider>
