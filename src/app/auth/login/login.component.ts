@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.loading = true;
     this.loginService.sendAuthorization(
-      this.loginForm.value.email,
+      this.loginForm.value.email.toLowerCase(),
       this.loginForm.value.password).subscribe(response => {
       this.authService.LocalStorageSaveToken(new TokenModel(response));
       this.router.navigate(['']);
