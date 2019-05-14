@@ -26,8 +26,18 @@ export class UserProfileEditComponent implements OnInit {
   public profileEditForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.pattern(emailValidateRegex)]),
     password: new FormControl(''),
+    passwordConfirm: new FormControl('', Validators.required),
     bio: new FormControl('', Validators.maxLength(300)),
     userAvatar: new FormControl(null)
+  }, {
+    validators: (validator) => {
+      if (validator.value.password !== validator.value.passwordConfirm) {
+        return {
+          'passwordError': true
+        };
+      }
+      return null;
+    }
   });
 
   constructor(private userProfileService: UserProfileService,
