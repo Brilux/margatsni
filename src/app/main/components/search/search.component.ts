@@ -109,7 +109,7 @@ export class SearchComponent implements OnInit {
 
   public searchTag(searchItem): void {
     if (searchItem.length > 1) {
-      this.searchService.getTagByName(searchItem.slice(1)).subscribe(response => {
+      this.searchService.getTagByName(searchItem.slice(1).toLowerCase()).subscribe(response => {
         this.tagsArray = [];
         this.tagsArray = response.tags;
         this.autoCompleteTagFilter();

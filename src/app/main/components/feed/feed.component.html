@@ -9,7 +9,7 @@
          [routerLink]="[authorizedUser == post.user.username ? '/user-profile/' : '/profile/' , post.user.username ]">{{post.user.username}}</p>
     </mat-card-header>
 
-    <img mat-card-image src="{{post.image}}" alt="postImage" (dblclick)="!post.liked ? likePost(likeResourceTypePost, post.id) : dislike(likeResourceTypePost, post.id)">
+    <img class="post-image" mat-card-image src="{{post.image}}" alt="postImage" (dblclick)="!post.liked ? likePost(likeResourceTypePost, post.id) : dislike(likeResourceTypePost, post.id)">
 
     <mat-card-actions class="likes-container">
       <img class="like-icon" src='../../../../assets/images/like-false.png' *ngIf="!post.liked"

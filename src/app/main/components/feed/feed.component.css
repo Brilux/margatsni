@@ -26,6 +26,10 @@
   margin-top: 10px;
 }
 
+.post-image {
+  object-fit: cover;
+  cursor: pointer;
+}
 
 .likes-container {
   padding: initial;
