@@ -7,8 +7,8 @@
       <img class="user-avatar" [src]="follower.image || 'assets/images/default-avatar.png'" alt="userAvatar">
       <p>{{follower.username}}</p>
     </div>
-    <button class="subscribe-button" mat-raised-button color="primary" *ngIf="!follower.followed && follower.username !== authorizedUser" (click)="subscribe(follower.id)">Subscribe</button>
-    <button class="subscribe-button" mat-stroked-button *ngIf="follower.followed && follower.username !== authorizedUser" (click)="unsubscribe(follower.id)">UnSubscribe</button>
+    <button class="subscribe-button" mat-raised-button color="primary" *ngIf="!follower.followed && follower.username !== authorizedUser" (click)="subscribe(follower.id)">Follow</button>
+    <button class="subscribe-button" mat-stroked-button *ngIf="follower.followed && follower.username !== authorizedUser" (click)="unsubscribe(follower.id)">Unfollow</button>
   </div>
   <p *ngIf="!followers.length">No followers</p>
 </div>
