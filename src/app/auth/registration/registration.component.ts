@@ -25,8 +25,8 @@ export class RegistrationComponent implements OnInit {
   public registrationForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.pattern(loginValidateRegex)]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(emailValidateRegex)]),
-    password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', Validators.required)
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)])
   }, {
     validators: (validator) => {
       if (validator.value.password !== validator.value.passwordConfirm) {

@@ -31,6 +31,7 @@
         </label>
       </mat-form-field>
     </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.get('password').invalid && profileEditForm.get('password').touched">Create a password at least 6 characters long.</mat-error>
     <div class="input-container">
       <div class="field-container">
         <p>confirm password:</p>
