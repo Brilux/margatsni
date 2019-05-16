@@ -84,11 +84,11 @@
       <div class="comments-buttons">
         <div class="comments-buttons-container">
           <div class="comments-edit-buttons">
-            <button class="comment-action-icon" *ngIf="comment.toggleForEdit" mat-icon-button (click)="openEditComment(comment.id)">
-              <mat-icon>clear</mat-icon>
-            </button>
             <button class="comment-action-icon" *ngIf="comment.toggleForEdit" mat-icon-button (click)="editComment(postId, comment.id, comment)">
               <mat-icon>check</mat-icon>
+            </button>
+            <button class="comment-action-icon" *ngIf="comment.toggleForEdit" mat-icon-button (click)="openEditComment(comment.id)">
+              <mat-icon>clear</mat-icon>
             </button>
             <button class="comment-action-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username && !comment.toggleForEdit"
                     (click)="openEditComment(comment.id)">
