@@ -143,7 +143,7 @@ export class PostReviewComponent implements OnInit {
     comment.toggleForEdit = comment.toggleForEdit !== true;
   }
 
-  public deleteComment(postId: number, commentId: number, comment): void {
+  public deleteComment(postId: number, commentId: number, comment: CommentModel): void {
     this.commentService.deleteCommentById(postId, commentId).subscribe(() => {
       const commentIndex = this.comments.indexOf(comment);
       this.comments.splice(commentIndex, 1);
