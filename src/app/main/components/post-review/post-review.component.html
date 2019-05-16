@@ -21,7 +21,9 @@
       </div>
 
       <div *ngIf="authorizedUser == postOwner">
-        <button mat-raised-button (click)="deletePost()">Delete post</button>
+        <button mat-icon-button (click)="deletePost()">
+          <mat-icon class="delete-icon">delete</mat-icon>
+        </button>
       </div>
     </mat-card-actions>
 
@@ -30,22 +32,29 @@
         <p class="post-owner"
            [routerLink]="[authorizedUser == postOwner ? '/user-profile/' : '/profile/' , postOwner ]">{{postOwner}}</p>
         <p class="post-description" *ngIf="!postEdit">{{postDescription}}</p>
-        <div *ngIf="authorizedUser == postOwner">
+        <div style="position: relative" *ngIf="authorizedUser == postOwner">
           <mat-form-field class="post-edit-description" *ngIf="postEdit">
             <label>
               <input matInput [formControl]="inputPostDescription" value="{{postDescription}}">
             </label>
           </mat-form-field>
-          <button mat-icon-button (click)="postEdit = !postEdit">
+          <button *ngIf="!postEdit" mat-icon-button (click)="postEdit = !postEdit">
             <mat-icon>edit</mat-icon>
+          </button>
+          <button *ngIf="postEdit" mat-icon-button (click)="postEdit = !postEdit">
+            <mat-icon>clear</mat-icon>
+          </button>
+
+          <button class="update-button"
+                  *ngIf="authorizedUser == postOwner && postEdit"
+                  mat-icon-button
+                  (click)="updatePost()"
+                  [routerLink]="[ '/user-profile/' , postOwner ]">
+            <mat-icon>check</mat-icon>
           </button>
         </div>
       </div>
 
-      <div style="margin-right: -10px" *ngIf="authorizedUser == postOwner">
-        <button *ngIf="inputPostDescription.dirty" mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , postOwner ]">Update post
-        </button>
-      </div>
     </mat-card-content>
 
     <mat-divider style="position: initial"></mat-divider>
@@ -89,7 +98,7 @@
 
         <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
                 (click)="deleteComment(postId, comment.id, comment)">
-          <mat-icon>clear</mat-icon>
+          <mat-icon>delete</mat-icon>
         </button>
       </div>
     </div>

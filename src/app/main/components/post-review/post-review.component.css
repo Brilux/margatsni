@@ -43,6 +43,10 @@
   margin-left: 8px;
 }
 
+.delete-icon {
+  font-size: 30px
+}
+
 .like-icon {
   width: 24px;
   height: 24px;
@@ -98,6 +102,11 @@
   display: flex;
 }
 
+.update-button {
+  position: absolute;
+  margin-top: 3px;
+}
+
 .comment-owner {
   font-weight: bold;
   cursor: pointer;
@@ -130,12 +139,13 @@
   }
 
   .post-edit-description {
-    width: 80px;
+    width: 50px;
+    margin-left: 5px;
   }
 
   .edit-comment {
     max-width: 75px;
-    margin-left: 5px;
+    margin-left: 10px;
     margin-top: -5px;
   }
 }
