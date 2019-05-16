@@ -78,15 +78,28 @@
               <input matInput type="text" [formControl]="inputCommentEdit" value="{{comment.body}}">
             </label>
           </mat-form-field>
-          <button mat-stroked-button (click)="editComment(postId, comment.id, comment)">Edit</button>
         </div>
       </div>
 
-      <div style="display: flex">
-        <button class="update-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
-                (click)="openEditComment(comment.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
+      <div class="comments-buttons">
+        <div class="comments-buttons-container">
+          <div class="comments-edit-buttons">
+            <button class="comment-action-icon" *ngIf="comment.toggleForEdit" mat-icon-button (click)="openEditComment(comment.id)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <button class="comment-action-icon" *ngIf="comment.toggleForEdit" mat-icon-button (click)="editComment(postId, comment.id, comment)">
+              <mat-icon>check</mat-icon>
+            </button>
+            <button class="comment-action-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username && !comment.toggleForEdit"
+                    (click)="openEditComment(comment.id)">
+              <mat-icon>edit</mat-icon>
+          </button>
+          </div>
+          <button class="comment-action-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
+                  (click)="deleteComment(postId, comment.id, comment)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
 
         <div class="comment-likes-container">
           <img class="like-comment-icon" src='../../../../assets/images/like-false.png' *ngIf="!comment.liked"
@@ -95,11 +108,6 @@
                (click)="dislikeComment(likeResourceTypeComment, comment.id)" alt="like-true">
           <span class="post-likes">{{comment.likes_count}} likes</span>
         </div>
-
-        <button class="delete-comment-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
-                (click)="deleteComment(postId, comment.id, comment)">
-          <mat-icon>delete</mat-icon>
-        </button>
       </div>
     </div>
 

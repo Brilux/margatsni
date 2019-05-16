@@ -121,15 +121,28 @@
 }
 
 .edit-comment {
+  width: 120px;
   margin-left: 10px;
   margin-top: -5px;
+}
+
+.comments-buttons {
+  display: flex;
+}
+
+.comments-buttons-container {
+  display: flex;
+}
+
+.comments-edit-buttons {
+  display: flex;
 }
 
 .update-comment-icon {
   margin-top: 5px;
 }
 
-.delete-comment-icon {
+.comment-action-icon {
   margin-top: 5px;
 }
 
@@ -145,7 +158,25 @@
 
   .edit-comment {
     max-width: 75px;
-    margin-left: 10px;
+    margin-left: initial;
     margin-top: -5px;
+  }
+
+  .comments-buttons {
+    display: flex;
+    flex-direction: column-reverse;
+    align-self: flex-start;
+  }
+
+  .comments-buttons-container {
+    flex-direction: column;
+  }
+
+  .comment-body {
+    margin-left: initial;
+  }
+
+  .post-comments-info-container {
+    flex-direction: column;
   }
 }
