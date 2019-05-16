@@ -43,7 +43,7 @@
       </div>
 
       <div style="margin-right: -10px" *ngIf="authorizedUser == postOwner">
-        <button mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , postOwner ]">Update post
+        <button *ngIf="inputPostDescription.dirty" mat-raised-button (click)="updatePost()" [routerLink]="[ '/user-profile/' , postOwner ]">Update post
         </button>
       </div>
     </mat-card-content>
