@@ -95,12 +95,14 @@
 .comment-owner {
   font-weight: bold;
   cursor: pointer;
+  max-width: 100px;
+  word-wrap: break-word;
 }
 
 .comment-body {
   margin-left: 10px;
   text-align: left;
-  max-width: 360px;
+  max-width: 325px;
   text-overflow: ellipsis;
   word-wrap: break-word;
 }

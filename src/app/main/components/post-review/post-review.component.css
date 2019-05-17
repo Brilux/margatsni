@@ -110,12 +110,14 @@
 .comment-owner {
   font-weight: bold;
   cursor: pointer;
+  max-width: 100px;
+  word-wrap: break-word;
 }
 
 .comment-body {
   margin-left: 10px;
   text-align: left;
-  max-width: 245px;
+  max-width: 225px;
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
@@ -174,6 +176,7 @@
 
   .comment-body {
     margin-left: initial;
+    max-width: 215px;
   }
 
   .post-comments-info-container {
