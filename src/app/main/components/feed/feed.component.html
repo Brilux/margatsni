@@ -31,7 +31,7 @@
     <mat-divider style="position: initial"></mat-divider>
 
     <div class="post-comments" *ngFor="let comment of post.comments">
-      <div style="display: flex">
+      <div class="post-comments-info-container">
         <p class="comment-owner"
            [routerLink]="[authorizedUser == comment.user.username ? '/user-profile/' : '/profile/', comment.user.username ]">{{comment.user.username}}</p>
         <p class="comment-body">{{comment.body}}</p>

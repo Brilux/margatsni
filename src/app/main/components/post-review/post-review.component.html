@@ -95,10 +95,12 @@
               <mat-icon>edit</mat-icon>
           </button>
           </div>
-          <button class="comment-action-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
-                  (click)="deleteComment(postId, comment.id, comment)">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <div class="comments-edit-buttons">
+            <button class="comment-action-icon" mat-icon-button *ngIf="authorizedUser === comment.user.username"
+                    (click)="deleteComment(postId, comment.id, comment)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
 
         <div class="comment-likes-container">
