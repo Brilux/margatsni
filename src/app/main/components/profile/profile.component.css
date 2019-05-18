@@ -114,10 +114,11 @@
   }
 
   .user-username {
-    margin: 5px auto;
+    text-align: center;
   }
 
   .user-avatar-container {
+    margin-left: 5px;
     margin-right: 5px;
   }
 
@@ -127,7 +128,7 @@
   }
 
   .subscribe-button {
-    margin: 5px auto;
+    margin-top: 5px;
   }
 
   .subscribe-container {
