@@ -22,6 +22,7 @@
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
+  outline: none;
   margin-top: 10px;
 }
 
@@ -29,6 +30,7 @@
 .post-owner {
   font-weight: bold;
   cursor: pointer;
+  outline: none;
 }
 
 .likes-container {
@@ -43,11 +45,16 @@
   margin-left: 8px;
 }
 
+.delete-icon {
+  font-size: 30px
+}
+
 .like-icon {
   width: 24px;
   height: 24px;
   margin-left: 10px;
   cursor: pointer;
+  outline: none;
 }
 
 .comment-likes-container {
@@ -61,6 +68,7 @@
   margin-left: 10px;
   vertical-align: middle;
   cursor: pointer;
+  outline: none;
 }
 
 .post-info-container {
@@ -98,29 +106,51 @@
   display: flex;
 }
 
+.update-button {
+  position: absolute;
+  margin-top: 3px;
+}
+
 .comment-owner {
   font-weight: bold;
   cursor: pointer;
+  outline: none;
 }
 
 .comment-body {
   margin-left: 10px;
   text-align: left;
-  max-width: 245px;
+  width: 130px;
   text-overflow: ellipsis;
   word-wrap: break-word;
 }
 
 .edit-comment {
+  width: 120px;
   margin-left: 10px;
+  margin-right: 10px;
   margin-top: -5px;
+}
+
+.comments-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 185px;
+}
+
+.comments-buttons-container {
+  display: flex;
+}
+
+.comments-edit-buttons {
+  display: flex;
 }
 
 .update-comment-icon {
   margin-top: 5px;
 }
 
-.delete-comment-icon {
+.comment-action-icon {
   margin-top: 5px;
 }
 
@@ -130,12 +160,44 @@
   }
 
   .post-edit-description {
-    width: 85px;
+    width: 50px;
+    margin-left: 5px;
   }
 
   .edit-comment {
-    max-width: 75px;
-    margin-left: 5px;
+    margin-left: initial;
     margin-top: -5px;
+    width: 150px;
+  }
+
+  .comments-buttons {
+    display: flex;
+    flex-direction: column-reverse;
+    align-self: flex-start;
+  }
+
+  .comments-buttons-container {
+    flex-direction: column;
+  }
+
+  .comment-body {
+    margin-left: initial;
+    max-width: 215px;
+  }
+
+  .post-comments-info-container {
+    flex-direction: column;
+  }
+
+  .comment-likes-container {
+    justify-content: flex-end;
+  }
+
+  .comments-edit-buttons {
+    justify-content: flex-end;
+  }
+
+  .comment-action-icon {
+    justify-content: flex-end;
   }
 }

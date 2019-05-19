@@ -83,6 +83,7 @@
   background-repeat: no-repeat;
   background-position: 50% 50%;
   cursor: pointer;
+  outline: none;
   background-color: #fff;
   border: 1px solid #808080;
 }
@@ -101,6 +102,17 @@
   margin: 50px auto;
 }
 
+@media screen and (max-width: 350px) {
+  /*.user-profile-info-container {*/
+  /*  justify-content: initial;*/
+  /*}*/
+  /**/
+  /*.user-avatar-container {*/
+  /*  margin-left: 20px;*/
+  /*  margin-right: 5px;*/
+  /*}*/
+}
+
 @media screen and (max-width: 600px) {
 
   .control-container {
@@ -110,10 +122,11 @@
   }
 
   .user-username {
-    margin: 5px auto;
+    text-align: center;
   }
 
   .user-avatar-container {
+    margin-left: 5px;
     margin-right: 5px;
   }
 

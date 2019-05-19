@@ -31,20 +31,32 @@
         </label>
       </mat-form-field>
     </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.get('password').invalid && profileEditForm.get('password').touched">Create a password at least 6 characters long.</mat-error>
+    <div class="input-container">
+      <div class="field-container">
+        <p>confirm password:</p>
+      </div>
+      <mat-form-field class="input">
+        <label>
+          <input matInput type="password" formControlName="passwordConfirm">
+        </label>
+      </mat-form-field>
+    </div>
+    <mat-error class="error-message" *ngIf="profileEditForm.hasError('passwordError') && profileEditForm.get('passwordConfirm').touched">Passwords do not match</mat-error>
     <div class="input-container">
       <div class="field-container">
         <p>bio:</p>
       </div>
         <mat-form-field class="input">
         <label>
-          <textarea matInput formControlName="bio" value="{{bio}}"></textarea>
+          <textarea rows="1" matInput formControlName="bio" value="{{bio}}"></textarea>
         </label>
       </mat-form-field>
     </div>
     <mat-error class="error-message" *ngIf="profileEditForm.get('bio').invalid && profileEditForm.get('bio').touched">Your bio must be 300 characters or fewer.</mat-error>
     <mat-error class="error-message" *ngIf="responseError">{{responseError}}</mat-error>
     <div class="submit-button-container">
-      <button class="submit-button" mat-raised-button (click)="updateProfileInfo()">Submit</button>
+      <button class="submit-button" mat-raised-button (click)="updateProfileInfo()" [disabled]="profileEditForm.hasError('passwordError')">Submit</button>
     </div>
   </form>
 </div>

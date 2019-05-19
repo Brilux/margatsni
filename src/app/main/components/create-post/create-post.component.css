@@ -24,3 +24,9 @@
   margin: 10px;
   min-width: 300px;
 }
+
+@media screen and (max-width: 576px) {
+  .image-preview-container {
+    width: 280px;
+  }
+}

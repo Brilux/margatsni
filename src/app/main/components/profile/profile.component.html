@@ -10,8 +10,8 @@
     <div class="control-container" *ngIf="!errorMessage">
       <div class="subscribe-buttons-container">
         <span class="user-username">{{username}}</span>
-        <button class="subscribe-button" mat-raised-button color="primary" *ngIf="subscribeStatus" (click)="subscribe(userId)">Subscribe</button>
-        <button class="subscribe-button" mat-stroked-button *ngIf="!subscribeStatus" (click)="unsubscribe(userId)">UnSubscribe</button>
+        <button class="subscribe-button" mat-raised-button color="primary" *ngIf="subscribeStatus" (click)="subscribe(userId)">Follow</button>
+        <button class="subscribe-button" mat-stroked-button *ngIf="!subscribeStatus" (click)="unsubscribe(userId)">Unfollow</button>
       </div>
 
       <div class="subscribe-container">
